@@ -21,10 +21,14 @@
 
         .group-header {
             padding: 3vw var(--page-pad);
-            border-right: 1px solid var(--border);
+            /* Sticky positioning with border moved to list to ensure continuity */
             position: sticky;
-            top: 80px;
-            height: fit-content;
+            top: 0;
+            align-self: start;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
         }
 
         .group-id {
@@ -44,6 +48,7 @@
         .group-list {
             display: flex;
             flex-direction: column;
+            border-left: 1px solid var(--border);
         }
 
         .work-row {
@@ -53,16 +58,86 @@
             padding: 2.5vw 3vw;
             border-bottom: 1px solid var(--border-light);
             text-decoration: none;
-            transition: background 0.2s ease;
+            position: relative;
             gap: 2vw;
+            overflow: hidden;
         }
 
         .work-row:last-child {
             border-bottom: none;
         }
 
-        .work-row:hover {
-            background: rgba(0,0,0,0.015);
+        /* ── Hover Effect: Digital Signal ── */
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .work-row .row-title {
+            position: relative;
+            padding-left: 0;
+            transition: padding-left 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .work-row:hover .row-title {
+            padding-left: 1.2vw;
+            color: var(--fg);
+        }
+
+        /* The Blinking Cursor */
+        .work-row .row-title::before {
+            content: '_';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--fg);
+            opacity: 0;
+            font-family: var(--font-mono);
+            font-weight: 400;
+        }
+
+        .work-row:hover .row-title::before {
+            opacity: 1;
+            animation: blink 1s step-end infinite;
+        }
+
+        /* Meta Tag Transformation */
+        .work-row .row-meta {
+            position: relative;
+            overflow: hidden;
+            color: var(--fg-dim);
+            transition: color 0.3s ease;
+        }
+
+        .work-row:hover .row-meta {
+            color: var(--fg);
+        }
+
+        .work-row .row-meta span {
+            display: inline-block;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+        }
+
+        .work-row:hover .row-meta span {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+
+        .work-row .row-meta::after {
+            content: '[ VIEW ]';
+            position: absolute;
+            left: 0;
+            top: 100%; /* Start below */
+            width: 100%;
+            text-align: right;
+            font-family: var(--font-mono);
+            font-size: 0.75vw;
+            color: var(--fg);
+            transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .work-row:hover .row-meta::after {
+            top: 0; /* Slide up */
         }
 
         .row-title {
@@ -120,7 +195,8 @@
 
         @media (max-width: 768px) {
             .work-group { grid-template-columns: 1fr; }
-            .group-header { border-right: none; border-bottom: 1px solid var(--border-light); position: static; padding: 6vw var(--page-pad); }
+            .group-header { border-bottom: 1px solid var(--border-light); position: static; padding: 6vw var(--page-pad); }
+            .group-list { border-left: none; }
             .group-id { font-size: 2.5vw; }
             .group-title { font-size: 4.5vw; }
             
@@ -239,31 +315,19 @@
                 <h2 class="group-title" style="margin-top: 1vh;">团队管理</h2>
             </div>
             <div class="group-list">
-                <a href="#" class="work-row">
-                    <div class="row-title">团队作品</div>
-                    <div class="row-desc">团队年度产出汇编与质量基准设定</div>
-                    <div class="row-meta">DIR</div>
+                <a href="#" class="work-row" data-preview="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=500&fit=crop">
+                    <div class="row-title">影响力</div>
+                    <div class="row-desc">方法论沉淀 / 技术研究 / 内外影响</div>
+                    <div class="row-meta"><span>DIR</span></div>
                 </a>
-                <a href="#" class="work-row">
-                    <div class="row-title">方法论建设</div>
-                    <div class="row-desc">设计流程标准化与协同机制</div>
-                    <div class="row-meta">DOCS</div>
+                <a href="#" class="work-row" data-preview="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&h=500&fit=crop">
+                    <div class="row-title">人才赋能</div>
+                    <div class="row-desc">人才培养 / 专业课程分享</div>
+                    <div class="row-meta"><span>DOCS</span></div>
                 </a>
-                <a href="#" class="work-row">
-                    <div class="row-title">新人落地</div>
-                    <div class="row-desc">入职指引、导师机制与试用期培养计划</div>
-                    <div class="row-meta">HR</div>
-                </a>
-                <a href="#" class="work-row">
-                    <div class="row-title">绩效管理</div>
-                    <div class="row-desc">量化评估模型与晋升通道设计</div>
-                    <div class="row-meta">MGT</div>
-                </a>
-                <a href="#" class="work-row">
-                    <div class="row-title">人员成长</div>
-                    <div class="row-desc">技能雷达图与个人发展规划 (IDP)</div>
-                    <div class="row-meta">GROWTH</div>
-                </a>
+
+
+
             </div>
         </div>
 
@@ -274,15 +338,15 @@
                 <h2 class="group-title" style="margin-top: 1vh;">AI</h2>
             </div>
             <div class="group-list">
-                <a href="#" class="work-row">
+                <a href="#" class="work-row" data-preview="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&h=500&fit=crop">
                     <div class="row-title">系统 X Netease</div>
                     <div class="row-desc">提升设计转化 / 提升设计效率 / 提升设计质量</div>
-                    <div class="row-meta">SYS</div>
+                    <div class="row-meta"><span>SYS</span></div>
                 </a>
-                <a href="#" class="work-row">
+                <a href="#" class="work-row" data-preview="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=500&fit=crop">
                     <div class="row-title">品牌 X BIGO</div>
                     <div class="row-desc">IP动画 / IP延展</div>
-                    <div class="row-meta">AIGC</div>
+                    <div class="row-meta"><span>AIGC</span></div>
                 </a>
             </div>
         </div>
@@ -294,10 +358,10 @@
                 <h2 class="group-title" style="margin-top: 1vh;">品牌</h2>
             </div>
             <div class="group-list">
-                <a href="#" class="work-row">
+                <a href="#" class="work-row" data-preview="https://images.unsplash.com/photo-1545235617-9465d2a55698?w=800&h=500&fit=crop">
                     <div class="row-title">大神APP品牌升级</div>
                     <div class="row-desc">全站视觉语言重塑与品牌资产沉淀</div>
-                    <div class="row-meta">2025</div>
+                    <div class="row-meta"><span>2025</span></div>
                 </a>
             </div>
         </div>
@@ -309,10 +373,10 @@
                 <h2 class="group-title" style="margin-top: 1vh;">电商</h2>
             </div>
             <div class="group-list">
-                <a href="#" class="work-row">
+                <a href="#" class="work-row" data-preview="https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?w=800&h=500&fit=crop">
                     <div class="row-title">大型电商互动项目</div>
                     <div class="row-desc">好玩节 / 汽车赛事 — 游戏化营销互动</div>
-                    <div class="row-meta">2022-23</div>
+                    <div class="row-meta"><span>2022-23</span></div>
                 </a>
             </div>
         </div>
@@ -324,10 +388,10 @@
                 <h2 class="group-title" style="margin-top: 1vh;">国际化/增长</h2>
             </div>
             <div class="group-list">
-                <a href="#" class="work-row">
+                <a href="#" class="work-row" data-preview="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop">
                     <div class="row-title">ASO投放策略</div>
                     <div class="row-desc">全球应用商店素材优化与转化率提升</div>
-                    <div class="row-meta">GLOBAL</div>
+                    <div class="row-meta"><span>GLOBAL</span></div>
                 </a>
             </div>
         </div>
