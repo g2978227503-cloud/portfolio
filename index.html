@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goofy — 产品设计师</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ── Home-specific: lock scroll ── */
+        body.home-page { overflow: hidden; }
+
+        .layout-grid {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+            z-index: 10;
+        }
+
+        .canvas-zone {
+            flex: 0 0 70vh;
+            position: relative;
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #ascii-canvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+            pointer-events: auto;
+        }
+
+        .hero-headline {
+            font-size: 5vw;
+            font-weight: 500;
+            letter-spacing: -0.04em;
+            line-height: 1.05;
+            margin-bottom: 1vw;
+        }
+
+        .hero-subline {
+            font-size: 1.15vw;
+            font-weight: 400;
+            color: var(--fg-mut);
+            letter-spacing: 0.01em;
+        }
+
+        .panel-zone {
+            flex: 0 0 30vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            padding: 2vw 4vw;
+            gap: 4vw;
+            background-color: var(--bg);
+            position: relative;
+            z-index: 20;
+        }
+
+        .panel-col {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            font-size: 0.9vw;
+            line-height: 1.5;
+            padding-bottom: 1vw;
+        }
+
+        .panel-col.col-left { align-items: flex-start; }
+        .panel-col.col-mid { align-items: flex-start; }
+        .panel-col.col-right { align-items: flex-end; text-align: right; }
+
+        .telemetry-line {
+            font-family: var(--font-mono);
+            font-size: 0.75vw;
+            color: var(--fg-mut);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .editorial-text {
+            color: var(--fg);
+            max-width: 80%;
+            font-weight: 400;
+        }
+
+        .link-list, .colophon-list {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .link-list a {
+            color: var(--fg);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s ease;
+        }
+
+        .link-list a:hover { border-bottom-color: var(--fg); }
+
+        .colophon-list {
+            color: var(--fg-mut);
+            gap: 0.5rem;
+        }
+
+        .colophon-list li:not(:last-child)::after { content: ','; }
+
+        .home-label {
+            font-family: var(--font-mono);
+            font-size: 0.7vw;
+            color: var(--fg-mut);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+
+        /* ── Home nav override: corners ── */
+        .corner {
+            position: fixed;
+            font-size: 2vw;
+            font-weight: 500;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            z-index: 50;
+            cursor: pointer;
+            padding: 2vw;
+            color: var(--fg);
+            transition: opacity 0.3s ease;
+            user-select: none;
+        }
+
+        .corner:hover { opacity: 0.5; }
+        .corner-tl { top: 0; left: 0; }
+        .corner-tr { top: 0; right: 0; }
+        .corner-bl { bottom: 0; left: 0; }
+        .corner-br { bottom: 0; right: 0; }
+
+        /* ── Full-screen Nav Overlay ── */
+        .nav-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background-color: var(--bg);
+            z-index: 100;
+            display: flex;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .nav-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .nav-close {
+            position: absolute;
+            top: 2vw; right: 2vw;
+            font-size: 1.5vw;
+            cursor: pointer;
+            z-index: 110;
+            transition: opacity 0.2s ease;
+        }
+
+        .nav-close:hover { opacity: 0.5; }
+
+        .nav-content {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding: 8vw;
+            gap: 4vw;
+        }
+
+        .nav-section { margin-bottom: 4vw; }
+
+        .nav-title {
+            font-family: var(--font-mono);
+            font-size: 0.8vw;
+            color: var(--fg-mut);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 2vw;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5vw;
+        }
+
+        .nav-list { list-style: none; }
+
+        .nav-item {
+            font-size: 2.5vw;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5vw;
+            cursor: pointer;
+            display: flex;
+            align-items: baseline;
+            position: relative;
+            transition: opacity 0.2s ease;
+        }
+
+        .nav-item:hover { opacity: 0.6; }
+
+        .nav-item a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .nav-item-meta {
+            font-family: var(--font-mono);
+            font-size: 0.8vw;
+            color: var(--fg-mut);
+            margin-left: 2vw;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover .nav-item-meta {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .cap-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1vw;
+        }
+
+        .cap-item { font-size: 1.5vw; color: var(--fg); }
+    </style>
+</head>
+<body class="home-page">
+
+    <!-- Corner Navigation -->
+    <div class="corner corner-tl" onclick="toggleNav()">G</div>
+    <div class="corner corner-tr" onclick="toggleNav()">F</div>
+    <div class="corner corner-bl" onclick="toggleNav()">0</div>
+    <div class="corner corner-br" onclick="toggleNav()">1</div>
+
+    <div class="layout-grid">
+        <!-- Canvas Zone -->
+        <div class="canvas-zone" id="canvas-container">
+            <canvas id="ascii-canvas"></canvas>
+            <div class="hero-content">
+                <h1 class="hero-headline scramble-target" data-original="Goofy’s Portfolio">Goofy’s Portfolio</h1>
+                <p class="hero-subline scramble-target-body" data-original="用设计构建直觉化的数字体验">用设计构建直觉化的数字体验</p>
+            </div>
+        </div>
+
+        <!-- Panel Zone -->
+        <div class="panel-zone">
+            <div class="panel-col col-left">
+                <div class="telemetry-line" id="clock">00:00:00 UTC</div>
+                <p class="editorial-text scramble-target-body" data-original="专注于界面、系统与以人为本的设计解决方案">
+                    专注于界面、系统与以人为本的设计解决方案
+                </p>
+            </div>
+            <div class="panel-col col-mid">
+                <span class="home-label">社交链接</span>
+                <ul class="link-list">
+                    <li><a href="mailto:hello@goofy.design">邮箱</a></li>
+                    <li><a href="#">Dribbble</a></li>
+                    <li><a href="#">GitHub</a></li>
+                    <li><a href="#">Twitter</a></li>
+                </ul>
+                <span class="home-label" style="margin-top: 1vw;">技术栈</span>
+                <ul class="colophon-list">
+                    <li>HTML</li>
+                    <li>Canvas</li>
+                    <li>Vanilla JS</li>
+                </ul>
+            </div>
+            <div class="panel-col col-right">
+                <div class="telemetry-line" id="ping">PING 14MS</div>
+                <p class="editorial-text">© 2026</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Full-screen Nav Overlay -->
+    <div class="nav-overlay" id="nav">
+        <div class="nav-close" onclick="toggleNav()">✕</div>
+        <div class="nav-content">
+            <div>
+                <div class="nav-section">
+                    <div class="nav-title">导航</div>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="index.html">首页</a></li>
+                        <li class="nav-item"><a href="about.html">关于</a></li>
+                        <li class="nav-item"><a href="work.html">作品</a></li>
+                        <li class="nav-item"><a href="blog.html">博客</a></li>
+                        <li class="nav-item"><a href="contact.html">联系</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <div class="nav-section">
+                    <div class="nav-title">精选作品</div>
+                    <ul class="nav-list">
+                        <li class="nav-item">大神设计系统 <span class="nav-item-meta">2025 — 设计系统</span></li>
+                        <li class="nav-item">H5 框架生成器 <span class="nav-item-meta">2025 — AI 自动化</span></li>
+                        <li class="nav-item">品牌视觉套件 <span class="nav-item-meta">2024 — 视觉识别</span></li>
+                    </ul>
+                </div>
+                <div class="nav-section" style="margin-top: 4vw;">
+                    <div class="nav-title">能力</div>
+                    <div class="cap-list">
+                        <div class="cap-item">产品设计</div>
+                        <div class="cap-item">设计系统</div>
+                        <div class="cap-item">交互设计</div>
+                        <div class="cap-item">原型与动效</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        // ── Home-specific: Nav toggle & Ping ──
+        function toggleNav() {
+            document.getElementById('nav').classList.toggle('active');
+        }
+
+        setInterval(() => {
+            if (Math.random() > 0.9) {
+                document.getElementById('ping').innerText = `PING ${Math.floor(Math.random() * 10 + 12)}MS`;
+            }
+        }, 1000);
+
+        // ── ASCII Canvas ──
+        const canvas = document.getElementById('ascii-canvas');
+        const ctx = canvas.getContext('2d');
+        let cols, rows;
+        const fontSize = 14;
+        const charSetLight = ['.', '-', '~', ':', ',', ' '];
+        const charSetDense = ['W', 'M', '#', '%', '&', '@'];
+        const charSetDither = ['+', '=', 'x', 'o'];
+        let mouseX = -1000, mouseY = -1000, pMouseX = -1000, pMouseY = -1000;
+        let mouseVelocity = 0, time = 0;
+        const cfg = { landscapeHeight: 0.7, amp: 15, freq: 0.05, lensRadius: 150 };
+
+        function resizeCanvas() {
+            const rect = canvas.parentElement.getBoundingClientRect();
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            ctx.scale(dpr, dpr);
+            cols = Math.floor(rect.width / (fontSize * 0.6));
+            rows = Math.floor(rect.height / fontSize);
+            ctx.font = `${fontSize}px "JetBrains Mono", monospace`;
+            ctx.textBaseline = 'top';
+        }
+        window.addEventListener('resize', resizeCanvas);
+        canvas.parentElement.addEventListener('mousemove', (e) => {
+            const rect = canvas.parentElement.getBoundingClientRect();
+            mouseX = e.clientX - rect.left; mouseY = e.clientY - rect.top;
+        });
+        canvas.parentElement.addEventListener('mouseleave', () => { mouseX = -1000; mouseY = -1000; });
+
+        function noise(x, t) {
+            return Math.sin(x * cfg.freq + t) * cfg.amp + Math.sin(x * cfg.freq * 2.5 - t * 1.5) * (cfg.amp * 0.4);
+        }
+
+        function drawASCII() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            let dx = mouseX - pMouseX, dy = mouseY - pMouseY;
+            mouseVelocity = Math.min(Math.sqrt(dx * dx + dy * dy), 50);
+            let isPatternMode = mouseVelocity > 20;
+            const charWidth = fontSize * 0.6;
+            const logicalHeight = canvas.height / (window.devicePixelRatio || 1);
+
+            for (let i = 0; i < cols; i++) {
+                for (let j = 0; j < rows; j++) {
+                    let cx = i * charWidth, cy = j * fontSize;
+                    let cellX = cx + charWidth / 2, cellY = cy + fontSize / 2;
+                    let dist = Math.sqrt((cellX - mouseX) ** 2 + (cellY - mouseY) ** 2);
+                    let charToDraw = '', opacity = 0.2;
+
+                    if (isPatternMode) {
+                        if (dist < cfg.lensRadius * 1.5) {
+                            opacity = 0.15;
+                            charToDraw = charSetDense[Math.floor((i + j + time * 10) % charSetDense.length)];
+                        } else if (j % 2 === 0) { opacity = 0.05; charToDraw = 'W'; }
+                    } else {
+                        let sampleX = i;
+                        if (dist < cfg.lensRadius) {
+                            let force = (cfg.lensRadius - dist) / cfg.lensRadius;
+                            sampleX += (mouseX > cellX ? 1 : -1) * force * 10;
+                        }
+                        let terrainY = logicalHeight * cfg.landscapeHeight + noise(sampleX, time);
+                        if (cy > terrainY) {
+                            if (dist < cfg.lensRadius) {
+                                let force = (cfg.lensRadius - dist) / cfg.lensRadius;
+                                if (Math.random() < force) {
+                                    charToDraw = charSetDither[Math.floor(Math.random() * charSetDither.length)];
+                                    opacity = 0.4 * force;
+                                } else { charToDraw = charSetLight[Math.floor(Math.random() * (charSetLight.length - 1))]; opacity = 0.1; }
+                            } else {
+                                let depth = cy - terrainY;
+                                charToDraw = charSetLight[Math.min(Math.floor(depth / 20), charSetLight.length - 1)];
+                                opacity = Math.max(0.15 - depth * 0.001, 0);
+                            }
+                        }
+                    }
+
+                    if (charToDraw && charToDraw !== ' ') {
+                        ctx.fillStyle = `rgba(0,0,0,${opacity})`;
+                        let drawX = cx, drawY = cy;
+                        if (isPatternMode && dist < cfg.lensRadius) drawX += (Math.random() - 0.5) * 2;
+                        ctx.fillText(charToDraw, drawX, drawY);
+                    }
+                }
+            }
+            pMouseX = mouseX; pMouseY = mouseY; time += 0.02;
+            requestAnimationFrame(drawASCII);
+        }
+        resizeCanvas();
+        drawASCII();
+    </script>
+</body>
+</html>

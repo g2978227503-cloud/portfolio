@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>联系 — Goofy</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ── Contact Page ── */
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 70vh;
+        }
+
+        .contact-left {
+            padding: 6vh var(--page-pad);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-right: 1px solid var(--border);
+        }
+
+        .contact-headline {
+            font-size: 3.5vw;
+            font-weight: 500;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 3vh;
+        }
+
+        .contact-subline {
+            font-size: 1vw;
+            color: var(--fg-mut);
+            line-height: 1.6;
+            max-width: 80%;
+            margin-bottom: 5vh;
+        }
+
+        .contact-channels {
+            display: flex;
+            flex-direction: column;
+            gap: 2vh;
+        }
+
+        .channel-item {
+            display: flex;
+            align-items: baseline;
+            gap: 2vw;
+            padding: 1.5vh 0;
+            border-bottom: 1px solid var(--border-light);
+            transition: padding-left 0.3s var(--transition);
+        }
+
+        .channel-item:hover {
+            padding-left: 0.5vw;
+        }
+
+        .channel-label {
+            font-family: var(--font-mono);
+            font-size: 0.7vw;
+            color: var(--fg-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            min-width: 80px;
+        }
+
+        .channel-value {
+            font-size: 1.1vw;
+            font-weight: 400;
+        }
+
+        .channel-value a {
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s ease;
+        }
+
+        .channel-value a:hover {
+            border-bottom-color: var(--fg);
+        }
+
+        /* ── Contact Form ── */
+        .contact-right {
+            padding: 6vh var(--page-pad);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-label-top {
+            font-family: var(--font-mono);
+            font-size: 0.7vw;
+            color: var(--fg-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 4vh;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 3vh;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8vh;
+        }
+
+        .form-group label {
+            font-family: var(--font-mono);
+            font-size: 0.7vw;
+            color: var(--fg-mut);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            font-family: var(--font-main);
+            font-size: 1vw;
+            padding: 1.2vh 0;
+            border: none;
+            border-bottom: 1px solid var(--border);
+            background: transparent;
+            color: var(--fg);
+            outline: none;
+            transition: border-color 0.2s ease;
+            resize: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-bottom-color: var(--fg);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--fg-dim);
+        }
+
+        .form-group textarea {
+            min-height: 12vh;
+            line-height: 1.6;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2vw;
+        }
+
+        .submit-btn {
+            font-family: var(--font-main);
+            font-size: 0.9vw;
+            font-weight: 500;
+            padding: 1.5vh 3vw;
+            background: var(--fg);
+            color: var(--bg);
+            border: 1px solid var(--fg);
+            cursor: pointer;
+            letter-spacing: 0.02em;
+            transition: all 0.3s var(--transition);
+            align-self: flex-start;
+            margin-top: 1vh;
+        }
+
+        .submit-btn:hover {
+            background: transparent;
+            color: var(--fg);
+        }
+
+        /* ── Availability ── */
+        .availability {
+            padding: 4vh var(--page-pad);
+            border-top: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4vw;
+        }
+
+        .avail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 1vh;
+        }
+
+        .avail-label {
+            font-family: var(--font-mono);
+            font-size: 0.7vw;
+            color: var(--fg-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .avail-value {
+            font-size: 1.2vw;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+            margin-right: 0.5vw;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* ── FAQ ── */
+        .faq-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3vw;
+        }
+
+        .faq-item {
+            padding: 2vh 0;
+        }
+
+        .faq-question {
+            font-size: 1vw;
+            font-weight: 500;
+            margin-bottom: 1vh;
+            letter-spacing: -0.01em;
+        }
+
+        .faq-answer {
+            font-size: 0.85vw;
+            color: var(--fg-mut);
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .contact-layout { grid-template-columns: 1fr; }
+            .contact-left { border-right: none; border-bottom: 1px solid var(--border); }
+            .contact-headline { font-size: 8vw; }
+            .contact-subline { font-size: 3.5vw; max-width: 100%; }
+            .channel-label { font-size: 2.5vw; }
+            .channel-value { font-size: 3.5vw; }
+            .form-label-top { font-size: 2.5vw; }
+            .form-group label { font-size: 2.5vw; }
+            .form-group input, .form-group textarea, .form-group select { font-size: 3.5vw; }
+            .form-row { grid-template-columns: 1fr; }
+            .submit-btn { font-size: 3vw; padding: 2vh 6vw; }
+            .availability { grid-template-columns: 1fr; }
+            .avail-label { font-size: 2.5vw; }
+            .avail-value { font-size: 4vw; }
+            .faq-grid { grid-template-columns: 1fr; }
+            .faq-question { font-size: 3.5vw; }
+            .faq-answer { font-size: 3vw; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="site-nav">
+        <a href="index.html" class="nav-logo scramble-target" data-original="Goofy">Goofy</a>
+        <ul class="nav-links">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="about.html">关于</a></li>
+            <li><a href="work.html">作品</a></li>
+            <li><a href="blog.html">博客</a></li>
+            <li><a href="contact.html" class="active">联系</a></li>
+        </ul>
+        <div class="nav-hamburger" onclick="document.querySelector('.mobile-nav').classList.toggle('active')">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+    <div class="mobile-nav">
+        <a href="index.html">首页</a>
+        <a href="about.html">关于</a>
+        <a href="work.html">作品</a>
+        <a href="blog.html">博客</a>
+        <a href="contact.html">联系</a>
+    </div>
+
+    <!-- Header -->
+    <header class="page-header">
+        <div class="page-header-inner">
+            <h1 class="page-title scramble-target" data-original="联系我">联系我</h1>
+            <div class="page-meta">
+                <div id="clock">00:00:00 UTC</div>
+                <div style="margin-top: 0.5vh;">开放合作机会</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contact Layout -->
+    <div class="contact-layout">
+        <div class="contact-left fade-in">
+            <h2 class="contact-headline">有项目想法？</h2>
+            <p class="contact-subline">无论是新产品、设计系统重构，还是关于设计的交流 — 我都很乐意与你沟通。</p>
+
+            <div class="contact-channels">
+                <div class="channel-item">
+                    <span class="channel-label">邮箱</span>
+                    <span class="channel-value"><a href="mailto:hello@goofy.design">hello@goofy.design</a></span>
+                </div>
+                <div class="channel-item">
+                    <span class="channel-label">Dribbble</span>
+                    <span class="channel-value"><a href="#">@goofy</a></span>
+                </div>
+                <div class="channel-item">
+                    <span class="channel-label">GitHub</span>
+                    <span class="channel-value"><a href="#">github.com/goofy</a></span>
+                </div>
+                <div class="channel-item">
+                    <span class="channel-label">Twitter</span>
+                    <span class="channel-value"><a href="#">@goofy_design</a></span>
+                </div>
+                <div class="channel-item">
+                    <span class="channel-label">微信</span>
+                    <span class="channel-value">goofy-design</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-right fade-in">
+            <div class="form-label-top">发送消息</div>
+            <form class="contact-form" onsubmit="handleSubmit(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">姓名</label>
+                        <input type="text" id="name" placeholder="你的名字" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">邮箱</label>
+                        <input type="email" id="email" placeholder="your@email.com" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="type">项目类型</label>
+                    <select id="type">
+                        <option value="">选择类别...</option>
+                        <option value="product">产品设计</option>
+                        <option value="system">设计系统</option>
+                        <option value="brand">品牌与视觉识别</option>
+                        <option value="consult">咨询</option>
+                        <option value="other">其他</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">留言</label>
+                    <textarea id="message" placeholder="请描述你的项目、时间线和预算..." rows="5" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">发送消息 →</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Availability -->
+    <div class="availability fade-in">
+        <div class="avail-item">
+            <span class="avail-label">状态</span>
+            <span class="avail-value"><span class="status-dot"></span>可接受合作</span>
+        </div>
+        <div class="avail-item">
+            <span class="avail-label">响应时间</span>
+            <span class="avail-value">24 小时内</span>
+        </div>
+        <div class="avail-item">
+            <span class="avail-label">时区</span>
+            <span class="avail-value">UTC+8（中国）</span>
+        </div>
+    </div>
+
+    <!-- FAQ -->
+    <section class="section fade-in">
+        <span class="section-label">常见问题</span>
+        <div class="faq-grid">
+            <div class="faq-item">
+                <h3 class="faq-question">项目周期一般多长？</h3>
+                <p class="faq-answer">取决于项目范围，但大多数项目从启动到交付需要 4-8 周。设计系统和大型项目可能更长。</p>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">是否接受海外客户？</h3>
+                <p class="faq-answer">当然。我曾与不同时区的团队合作，熟悉异步沟通工作流。</p>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">你使用什么工具？</h3>
+                <p class="faq-answer">主要用 Figma 做设计，Framer 或代码做原型。同时使用 n8n 做自动化和 AI 工具来加速工作流。</p>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">能基于现有设计系统工作吗？</h3>
+                <p class="faq-answer">可以 — 我能审查、扩展或重建你现有的系统。在你的约束条件下工作，同时在关键处推动改进。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-left">© 2026 Goofy</div>
+        <ul class="footer-links">
+            <li><a href="mailto:hello@goofy.design">邮箱</a></li>
+            <li><a href="#">Dribbble</a></li>
+            <li><a href="#">GitHub</a></li>
+            <li><a href="#">Twitter</a></li>
+        </ul>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        function handleSubmit(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('.submit-btn');
+            const originalText = btn.innerText;
+            btn.innerText = '✓ 消息已发送';
+            btn.style.background = '#22c55e';
+            btn.style.borderColor = '#22c55e';
+            btn.style.color = '#fff';
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.style.background = '';
+                btn.style.borderColor = '';
+                btn.style.color = '';
+                e.target.reset();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
