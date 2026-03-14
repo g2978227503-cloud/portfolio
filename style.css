@@ -19,10 +19,16 @@
     --transition: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* ── Reset & Base Styles ── */
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    cursor: default; /* Terminal cursor style */
+}
+
+img, video {
+    border-radius: 0; /* Force square corners */
 }
 
 html {

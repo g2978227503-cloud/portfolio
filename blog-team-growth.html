@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>团队管理：人员成长体系构建 — Goofy</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ── Blog Post Specific Styles ── */
+        .post-header {
+            padding: 12vh var(--page-pad) 6vh;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .post-meta {
+            font-family: var(--font-mono);
+            font-size: 0.8vw;
+            color: var(--fg-dim);
+            margin-bottom: 2vh;
+            display: flex;
+            gap: 2vw;
+        }
+
+        .post-content {
+            padding: 8vh var(--page-pad);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .post-content p {
+            font-size: 1.1vw;
+            line-height: 1.6;
+            margin-bottom: 4vh;
+            color: var(--fg);
+        }
+
+        .post-content img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 4vh;
+            border: 1px solid var(--border-light);
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .post-content p { font-size: 4vw; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="site-nav">
+        <a href="index.html" class="nav-logo scramble-target" data-original="Goofy">Goofy</a>
+        <ul class="nav-links">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="about.html">简历</a></li>
+            <li><a href="work.html">作品</a></li>
+            <li><a href="blog.html" class="active">博客</a></li>
+            <li><a href="contact.html">联系</a></li>
+        </ul>
+        <div class="nav-hamburger" onclick="document.querySelector('.mobile-nav').classList.toggle('active')">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+    <div class="mobile-nav">
+        <a href="index.html">首页</a>
+        <a href="about.html">简历</a>
+        <a href="work.html">作品</a>
+        <a href="blog.html">博客</a>
+        <a href="contact.html">联系</a>
+    </div>
+
+    <!-- Post Header -->
+    <header class="post-header fade-in">
+        <div style="margin-bottom: 2vh;">
+            <a href="blog.html" style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut); display: inline-flex; align-items: center; gap: 0.5vw;">
+                ← BACK TO BLOG
+            </a>
+        </div>
+        <div class="post-meta">
+            <span>2026.03.14</span>
+            <span>TEAM MANAGEMENT</span>
+        </div>
+        <h1 class="page-title scramble-target" data-original="团队管理：人员成长体系构建">团队管理：人员成长体系构建</h1>
+        <div style="margin-top: 2vh; font-size: 1.5vw; color: var(--fg-mut);">如何搭建有效的设计师成长与评估模型</div>
+    </header>
+
+    <!-- Post Content -->
+    <article class="post-content fade-in">
+        <p>在多年的设计团队管理中，我沉淀了一套关于人员成长的体系化方法。通过量化的能力模型、清晰的晋升通道以及针对性的培养计划，帮助团队成员实现个人价值与业务目标的双赢。</p>
+        
+        <p>以下是关于该体系的核心架构与实践案例：</p>
+
+        <img src="images/blog/team-growth/截屏2026-02-04 10.25.54.png" alt="Growth Framework 1">
+        <img src="images/blog/team-growth/截屏2026-02-04 10.26.18.png" alt="Growth Framework 2">
+        <img src="images/blog/team-growth/截屏2026-02-04 10.26.47.png" alt="Growth Framework 3">
+        <img src="images/blog/team-growth/截屏2026-02-04 10.28.38.png" alt="Growth Framework 4">
+        <img src="images/blog/team-growth/截屏2026-02-04 10.28.55.png" alt="Growth Framework 5">
+
+    </article>
+
+    <!-- Footer -->
+    <footer class="site-footer" style="margin-top: 0; padding-top: 4vh; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-end;">
+        <div class="footer-left">
+            <div style="font-family: var(--font-mono); font-size: 0.8vw; margin-bottom: 0.5vh; color: var(--fg-mut);">UPDATED</div>
+            <div style="font-size: 0.9vw;">2026.03.14</div>
+        </div>
+        <ul class="footer-links" style="display: flex; gap: 2vw;">
+            <li><a href="mailto:2978227503@qq.com" style="font-size: 1.5vw; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s;">Email</a></li>
+            <li><a href="#" style="font-size: 1.5vw; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s;">WeChat</a></li>
+        </ul>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>京东小程序动效语言 — Goofy</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ── Project Detail Specific Styles ── */
+        .project-header {
+            padding: 12vh var(--page-pad) 6vh;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .project-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .meta-item {
+            padding: 2.5vw;
+            border-right: 1px solid var(--border-light);
+        }
+
+        .meta-item:last-child { border-right: none; }
+
+        .meta-label {
+            font-family: var(--font-mono);
+            font-size: 0.7vw;
+            color: var(--fg-dim);
+            margin-bottom: 1vh;
+            display: block;
+        }
+
+        .meta-value {
+            font-size: 1vw;
+            font-weight: 500;
+        }
+
+        .project-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4vw;
+            padding: 8vh var(--page-pad);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .content-sidebar {
+            position: sticky;
+            top: 12vh;
+            align-self: start;
+        }
+
+        .sidebar-title {
+            font-family: var(--font-mono);
+            font-size: 0.8vw;
+            color: var(--fg-mut);
+            margin-bottom: 2vh;
+            display: block;
+        }
+
+        .content-body p {
+            font-size: 1.1vw;
+            line-height: 1.6;
+            margin-bottom: 3vh;
+            color: var(--fg);
+            max-width: 60ch;
+        }
+
+        .content-body h3 {
+            font-size: 1.5vw;
+            font-weight: 600;
+            margin-top: 6vh;
+            margin-bottom: 2vh;
+        }
+
+        .content-body ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 3vh;
+        }
+
+        .content-body li {
+            position: relative;
+            padding-left: 1.5vw;
+            margin-bottom: 1vh;
+            font-size: 1.1vw;
+            line-height: 1.6;
+            color: var(--fg);
+        }
+
+        .content-body li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--fg-dim);
+        }
+
+        .gallery-item {
+            width: 100%;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .next-project {
+            padding: 8vh var(--page-pad);
+            border-top: 1px solid var(--border);
+            text-align: right;
+            display: block;
+            transition: background 0.2s ease;
+        }
+
+        .next-project:hover {
+            background: var(--fg);
+        }
+
+        .next-project:hover .next-label,
+        .next-project:hover .next-title {
+            color: var(--bg);
+        }
+
+        .next-label {
+            font-family: var(--font-mono);
+            font-size: 0.8vw;
+            color: var(--fg-dim);
+            margin-bottom: 1vh;
+            display: block;
+        }
+
+        .next-title {
+            font-size: 3vw;
+            font-weight: 500;
+            color: var(--fg);
+        }
+
+        @media (max-width: 768px) {
+            .project-meta-grid { grid-template-columns: 1fr 1fr; }
+            .meta-item { border-bottom: 1px solid var(--border-light); }
+            .meta-label { font-size: 2.5vw; }
+            .meta-value { font-size: 3.5vw; }
+
+            .project-content { grid-template-columns: 1fr; }
+            .content-sidebar { position: static; margin-bottom: 4vh; }
+            .sidebar-title { font-size: 3vw; }
+            .content-body p, .content-body li { font-size: 4vw; }
+            .content-body h3 { font-size: 5vw; }
+
+            .next-title { font-size: 8vw; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="site-nav">
+        <a href="index.html" class="nav-logo scramble-target" data-original="Goofy">Goofy</a>
+        <ul class="nav-links">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="about.html">简历</a></li>
+            <li><a href="work.html" class="active">作品</a></li>
+            <li><a href="blog.html">博客</a></li>
+            <li><a href="contact.html">联系</a></li>
+        </ul>
+        <div class="nav-hamburger" onclick="document.querySelector('.mobile-nav').classList.toggle('active')">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+    <div class="mobile-nav">
+        <a href="index.html">首页</a>
+        <a href="about.html">简历</a>
+        <a href="work.html">作品</a>
+        <a href="blog.html">博客</a>
+        <a href="contact.html">联系</a>
+    </div>
+
+    <!-- Project Header -->
+    <header class="project-header fade-in">
+        <div style="margin-bottom: 2vh;">
+            <a href="work.html" style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut); display: inline-flex; align-items: center; gap: 0.5vw;">
+                ← BACK TO WORK
+            </a>
+        </div>
+        <h1 class="page-title scramble-target" data-original="京东小程序动效语言">京东小程序动效语言</h1>
+        <div style="margin-top: 2vh; font-size: 1.5vw; color: var(--fg-mut);">微信域动效规范体系搭建与用户体验提升</div>
+    </header>
+
+    <!-- Project Meta -->
+    <section class="project-meta-grid fade-in">
+        <div class="meta-item">
+            <span class="meta-label">CLIENT</span>
+            <div class="meta-value">京东 (JD.com)</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">ROLE</span>
+            <div class="meta-value">动效设计</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">YEAR</span>
+            <div class="meta-value">2022</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">OUTPUT</span>
+            <div class="meta-value">动效规范</div>
+        </div>
+    </section>
+
+
+
+    <!-- Content: Brand & Emotion -->
+    <section class="project-content fade-in">
+        <div class="content-sidebar">
+            <span class="sidebar-title">01 — BRAND & EMOTION</span>
+        </div>
+        <div class="content-body">
+            <h3>背景与调性</h3>
+            <p><strong>01. 京购核心调性：省钱与省心</strong></p>
+            <p>我们将“省钱与省心”的产品理念转化为具体的设计语言：</p>
+            <ul>
+                <li><strong>实惠</strong>：价格更友好、优惠更清晰、利益点更直给。</li>
+                <li><strong>放心</strong>：流程更可靠、信息更透明、关键节点更有确认感。</li>
+            </ul>
+
+            <p style="margin-top: 3vh;"><strong>02. 情感感知：传递购物的喜悦</strong></p>
+            <p>京购的情感核心源于“购物体验”本身。我们致力于打造一条从“平台省心”到“低价惊喜”的情绪路径，让用户在买到划算的同时，获得“被照顾到”的愉悦体验，在关键节点感受超出预期的惊喜。</p>
+        </div>
+    </section>
+
+    <!-- Content: Experience Goals -->
+    <section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">02 — EXPERIENCE GOALS</span>
+        </div>
+        <div class="content-body">
+            <h3>体验目标</h3>
+            <p>针对京购用户“看得懂、点得快、买得稳”的特征，确立了三大核心体验感知维度：</p>
+            <ul>
+                <li><strong>简单直接</strong>：信息表达直给，减少解释成本，所见即所得。</li>
+                <li><strong>快速响应</strong>：操作即反馈，状态可感知，降低等待焦虑。</li>
+                <li><strong>有序</strong>：层级清晰、路径明确、节奏统一，减少迷失感。</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Content: Motion DNA -->
+    <section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">03 — MOTION DNA</span>
+        </div>
+        <div class="content-body">
+            <h3>动效基因与策略</h3>
+            <p>为匹配“效率与秩序”的体验目标，我们提炼了三条核心运动趋势，使动效更快、更稳、更不打扰：</p>
+            <ul>
+                <li><strong>提升加速度</strong>：启动更利落，减少“拖沓感”，提升效率体感。</li>
+                <li><strong>增强速率对比</strong>：主次更分明，重要信息更突出，视线引导更强。</li>
+                <li><strong>减少衰减过程</strong>：收尾更干净，避免冗长尾巴，降低干扰与等待。</li>
+            </ul>
+
+            <p style="margin-top: 4vh;"><strong>品牌化曲线 (Easing Signature)</strong></p>
+            <p>通过定制 Cubic-bezier 曲线库，赋予产品独特的动态性格。在核心交互中适度引入弹性（Spring）与过冲（Overshoot），打破机械感，传递出更具灵动与活力的品牌气质。</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2vw; margin-top: 4vh;">
+                <div class="principle-item">
+                    <video src="images/project-jd-motion/spring-curve.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light); margin-bottom: 1vh; display: block;"></video>
+                    <span style="font-family: var(--font-mono); font-size: 0.7vw; color: var(--fg-dim);">弹性曲线 (Spring)</span>
+                </div>
+                <div class="principle-item">
+                    <video src="images/project-jd-motion/easing-curve.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light); margin-bottom: 1vh; display: block;"></video>
+                    <span style="font-family: var(--font-mono); font-size: 0.7vw; color: var(--fg-dim);">京购缓动 (Standard Easing)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content: Implementation -->
+    <section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">04 — IMPLEMENTATION</span>
+        </div>
+        <div class="content-body">
+            <h3>动效落地</h3>
+            <p>基于时长、尺寸与复杂度三要素的平衡，制定了场景化的落地策略：</p>
+            <ul>
+                <li><strong>高保真还原 (Lottie)</strong>：适用于 UI Icon、微交互。矢量高清，体积可控，适配全端。</li>
+                <li><strong>通用兼容 (GIF/序列帧)</strong>：适用于强运营、引导页。兼容性强，确保跨平台视觉一致。</li>
+            </ul>
+            <p>同时，沉淀技术文档，赋能团队提升交付质量。</p>
+            
+            <div style="margin-top: 4vh;">
+                <!-- First Line: Export Process -->
+                <img src="images/project-jd-motion/impl-export.png" alt="Animation Export Process" style="width: 100%; border: 1px solid var(--border-light); margin-bottom: 2vh; display: block;">
+                
+                <!-- Thumbnails Grid -->
+                 <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 1vw;">
+                      <div class="principle-item">
+                          <img src="images/project-jd-motion/impl-overview.png" alt="Implementation Overview" style="width: 100%; border: 1px solid var(--border-light);">
+                      </div>
+                     <div class="principle-item">
+                         <img src="images/project-jd-motion/impl-mp4.png" alt="MP4 Format" style="width: 100%; border: 1px solid var(--border-light);">
+                     </div>
+                     <div class="principle-item">
+                         <img src="images/project-jd-motion/impl-apng.png" alt="APNG Format" style="width: 100%; border: 1px solid var(--border-light);">
+                     </div>
+                     <div class="principle-item">
+                         <img src="images/project-jd-motion/impl-seq.png" alt="Sequence Format" style="width: 100%; border: 1px solid var(--border-light);">
+                     </div>
+                     <div class="principle-item">
+                         <img src="images/project-jd-motion/impl-lottie.png" alt="Lottie Format" style="width: 100%; border: 1px solid var(--border-light);">
+                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content: Disney Principles Gallery -->
+    <section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">05 — ANIMATION PRINCIPLES</span>
+        </div>
+        <div class="content-body">
+            <h3>细节拉开差距：迪士尼十二动画法则</h3>
+            <p>将经典的动画法则映射到 UI 交互中，让界面动效不仅流畅，更具生命力。</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr; gap: 2vw; margin-top: 4vh;">
+                <!-- Row 1: Full Width -->
+                <div class="principle-item">
+                    <img src="images/project-jd-motion/squash-stretch.gif" alt="Combination Application" style="width: 100%; border: 1px solid var(--border-light); margin-bottom: 1vh;">
+                    <span style="font-family: var(--font-mono); font-size: 0.7vw; color: var(--fg-dim);">组合应用 (Combination)</span>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2vw; margin-top: 2vw;">
+                <!-- Row 2: Three Columns -->
+                <div class="principle-item">
+                    <img src="images/project-jd-motion/follow-overlap.gif" alt="Follow Through & Overlapping Action" style="width: 100%; border: 1px solid var(--border-light); margin-bottom: 1vh;">
+                    <span style="font-family: var(--font-mono); font-size: 0.7vw; color: var(--fg-dim);">次级动作</span>
+                </div>
+                <div class="principle-item">
+                    <img src="images/project-jd-motion/anticipation.gif" alt="Anticipation" style="width: 100%; border: 1px solid var(--border-light); margin-bottom: 1vh;">
+                    <span style="font-family: var(--font-mono); font-size: 0.7vw; color: var(--fg-dim);">挤压与拉伸</span>
+                </div>
+                <div class="principle-item">
+                    <img src="images/project-jd-motion/secondary-action.gif" alt="Secondary Action" style="width: 100%; border: 1px solid var(--border-light); margin-bottom: 1vh;">
+                    <span style="font-family: var(--font-mono); font-size: 0.7vw; color: var(--fg-dim);">预期动作</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content: Real-world Application -->
+    <section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">06 — APPLICATION</span>
+        </div>
+        <div class="content-body">
+            <h3>实际需求中的应用</h3>
+            <p>在实际业务场景中，将动效语言灵活应用于各种营销活动和功能模块，提升了用户的互动意愿和转化率。</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2vw; margin-top: 4vh;">
+                <div class="principle-item">
+                    <img src="images/project-jd-motion/template-4.gif" alt="Red Packet Interaction" style="width: 100%; border: 1px solid var(--border-light); margin-bottom: 1vh;">
+                    <span style="font-family: var(--font-mono); font-size: 0.7vw; color: var(--fg-dim);">红包互动 (Red Packet)</span>
+                </div>
+                <div class="principle-item">
+                    <img src="images/project-jd-motion/flip-template-3.gif" alt="Card Flip Interaction" style="width: 100%; border: 1px solid var(--border-light); margin-bottom: 1vh;">
+                    <span style="font-family: var(--font-mono); font-size: 0.7vw; color: var(--fg-dim);">卡片翻转 (Card Flip)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Next Project -->
+    <a href="work.html" class="next-project">
+        <span class="next-label">NEXT PROJECT</span>
+        <div class="next-title">大型电商互动项目 →</div>
+    </a>
+
+    <!-- Footer -->
+    <footer class="site-footer" style="margin-top: 0; padding-top: 4vh; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-end;">
+        <div class="footer-left">
+            <div style="font-family: var(--font-mono); font-size: 0.8vw; margin-bottom: 0.5vh; color: var(--fg-mut);">UPDATED</div>
+            <div style="font-size: 0.9vw;">2026.03.14</div>
+        </div>
+        <ul class="footer-links" style="display: flex; gap: 2vw;">
+            <li><a href="mailto:2978227503@qq.com" style="font-size: 1.5vw; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s;">Email</a></li>
+            <li><a href="#" style="font-size: 1.5vw; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s;">WeChat</a></li>
+        </ul>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

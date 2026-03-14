@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大型电商互动项目 — Goofy</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ── Project Detail Specific Styles ── */
+        .project-header {
+            padding: 12vh var(--page-pad) 6vh;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .project-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .meta-item {
+            padding: 2.5vw;
+            border-right: 1px solid var(--border-light);
+        }
+
+        .meta-item:last-child { border-right: none; }
+
+        .meta-label {
+            font-family: var(--font-mono);
+            font-size: 0.7vw;
+            color: var(--fg-dim);
+            margin-bottom: 1vh;
+            display: block;
+        }
+
+        .meta-value {
+            font-size: 1vw;
+            font-weight: 500;
+        }
+
+        .project-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4vw;
+            padding: 8vh var(--page-pad);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .content-sidebar {
+            position: sticky;
+            top: 12vh;
+            align-self: start;
+        }
+
+        .sidebar-title {
+            font-family: var(--font-mono);
+            font-size: 0.8vw;
+            color: var(--fg-mut);
+            margin-bottom: 2vh;
+            display: block;
+        }
+
+        .content-body p {
+            font-size: 1.1vw;
+            line-height: 1.6;
+            margin-bottom: 3vh;
+            color: var(--fg);
+            max-width: 60ch;
+        }
+
+        .content-body h3 {
+            font-size: 1.5vw;
+            font-weight: 600;
+            margin-top: 6vh;
+            margin-bottom: 2vh;
+        }
+
+        .content-body ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 3vh;
+        }
+
+        .content-body li {
+            position: relative;
+            padding-left: 1.5vw;
+            margin-bottom: 1vh;
+            font-size: 1.1vw;
+            line-height: 1.6;
+            color: var(--fg);
+        }
+
+        .content-body li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--fg-dim);
+        }
+
+        .gallery-item {
+            width: 100%;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .next-project {
+            padding: 8vh var(--page-pad);
+            border-top: 1px solid var(--border);
+            text-align: right;
+            display: block;
+            transition: background 0.2s ease;
+        }
+
+        .next-project:hover {
+            background: var(--fg);
+        }
+
+        .next-project:hover .next-label,
+        .next-project:hover .next-title {
+            color: var(--bg);
+        }
+
+        .next-label {
+            font-family: var(--font-mono);
+            font-size: 0.8vw;
+            color: var(--fg-dim);
+            margin-bottom: 1vh;
+            display: block;
+        }
+
+        .next-title {
+            font-size: 3vw;
+            font-weight: 500;
+            color: var(--fg);
+        }
+
+        @media (max-width: 768px) {
+            .project-meta-grid { grid-template-columns: 1fr 1fr; }
+            .meta-item { border-bottom: 1px solid var(--border-light); }
+            .meta-label { font-size: 2.5vw; }
+            .meta-value { font-size: 3.5vw; }
+
+            .project-content { grid-template-columns: 1fr; }
+            .content-sidebar { position: static; margin-bottom: 4vh; }
+            .sidebar-title { font-size: 3vw; }
+            .content-body p, .content-body li { font-size: 4vw; }
+            .content-body h3 { font-size: 5vw; }
+
+            .next-title { font-size: 8vw; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="site-nav">
+        <a href="index.html" class="nav-logo scramble-target" data-original="Goofy">Goofy</a>
+        <ul class="nav-links">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="about.html">简历</a></li>
+            <li><a href="work.html" class="active">作品</a></li>
+            <li><a href="blog.html">博客</a></li>
+            <li><a href="contact.html">联系</a></li>
+        </ul>
+        <div class="nav-hamburger" onclick="document.querySelector('.mobile-nav').classList.toggle('active')">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+    <div class="mobile-nav">
+        <a href="index.html">首页</a>
+        <a href="about.html">简历</a>
+        <a href="work.html">作品</a>
+        <a href="blog.html">博客</a>
+        <a href="contact.html">联系</a>
+    </div>
+
+    <!-- Project Header -->
+    <header class="project-header fade-in">
+        <div style="margin-bottom: 2vh;">
+            <a href="work.html" style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut); display: inline-flex; align-items: center; gap: 0.5vw;">
+                ← BACK TO WORK
+            </a>
+        </div>
+        <h1 class="page-title scramble-target" data-original="汽车赛事视觉升级">汽车赛事视觉升级</h1>
+        <div style="margin-top: 2vh; font-size: 1.5vw; color: var(--fg-mut);">游戏化营销互动</div>
+    </header>
+
+    <!-- Project Meta -->
+    <section class="project-meta-grid fade-in">
+        <div class="meta-item">
+            <span class="meta-label">CLIENT</span>
+            <div class="meta-value">京东 (JD.com)</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">ROLE</span>
+            <div class="meta-value">互动视觉设计</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">YEAR</span>
+            <div class="meta-value">2021</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">OUTPUT</span>
+            <div class="meta-value">活动主视觉 / 互动界面</div>
+        </div>
+    </section>
+
+
+
+    <!-- Content: Background -->
+    <section class="project-content fade-in">
+        <div class="content-sidebar">
+            <span class="sidebar-title">01 — PROJECT BACKGROUND</span>
+        </div>
+        <div class="content-body">
+            <h3>项目背景：视觉换肤与氛围营造</h3>
+            <p>京东汽车赛事视觉升级，是在原京东汽车频道互动游戏玩法不变的基础上，进行的全面换肤设计。</p>
+            <p><strong>核心目标：</strong>通过视觉包装升级，营造“速度、激情、酷炫、对抗”的视觉氛围。利用强烈的视觉语言渗透活跃用户，感染玩家，从而强化沉浸感并增加用户停留时长。</p>
+            <ul style="margin-top: 2vh; list-style: none; padding: 0;">
+                <li style="margin-bottom: 1vh;"><strong style="color: var(--fg);">目标用户：</strong> 以 Z 世代为主的年轻用户群体</li>
+                <li style="margin-bottom: 1vh;"><strong style="color: var(--fg);">产品气质：</strong> 速度与激情 / 赛博朋克 / 豪车</li>
+            </ul>
+            <img src="images/project-ecommerce-interactive/visual-moodboard.png" alt="Visual Moodboard" style="width: 100%; margin-top: 3vh; border: 1px solid var(--border-light);">
+            <img src="images/project-ecommerce-interactive/background-2.png" alt="Project Comparison" style="width: 100%; margin-top: 2vh; border: 1px solid var(--border-light);">
+        </div>
+    </section>
+
+    <!-- Content: Scene Production -->
+    <section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">02 — SCENE PRODUCTION</span>
+        </div>
+        <div class="content-body">
+            <h3>场景制作：动线规划</h3>
+            <p>作为互动场景，“够酷”不是唯一标准。我们系统规划了车辆前进的动线：</p>
+            <ul>
+                <li><strong>视觉引导</strong>：通过赛道延伸方向引导视线。</li>
+                <li><strong>节奏分段</strong>：合理设置直线冲刺与弯道减速区。</li>
+                <li><strong>交互配合</strong>：关键节点聚焦注意力，确保用户“看得懂、玩得顺”。</li>
+            </ul>
+            <img src="images/project-ecommerce-interactive/scene-production.png" alt="Scene Production Workflow" style="width: 100%; margin-top: 3vh; border: 1px solid var(--border-light);">
+        </div>
+    </section>
+
+    <!-- Content: Visual System -->
+    <section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">03 — VISUAL SYSTEM</span>
+        </div>
+        <div class="content-body">
+            <h3>视觉体系：品牌与赛博都市的融合</h3>
+            <p>除了确立核心的“科幻机械”调性，我们将合作品牌（如米其林、特斯拉、ABT Sportsline）以霓虹广告牌的形式自然植入赛道场景中。</p>
+            <p>通过“夜景 HDR + 局部自发光”的渲染技术，配合复杂的机械结构与城市地标重构，打造了一个既具沉浸感又兼具商业价值的虚拟赛车都市。</p>
+            <img src="images/project-ecommerce-interactive/visual-system-1.png" alt="Visual System Exploration" style="width: 100%; margin-top: 3vh; border: 1px solid var(--border-light);">
+        </div>
+    </section>
+
+    <!-- Content: Icon System -->
+    <section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">04 — ICON SYSTEM</span>
+        </div>
+        <div class="content-body">
+            <h3>元素补全：3D 化的互动隐喻</h3>
+            <p>将抽象的功能入口具象化为高精度的赛车元素，增强用户的代入感与成长的即时反馈：</p>
+            <ul>
+                <li><strong>个人中心 (ICON—赛车头盔)：</strong> 以定制化的京东赛车头盔作为用户身份的象征。</li>
+                <li><strong>奖励机制 (ICON—燃料电池)：</strong> 将积分获取包装为“收集燃料”，通过“燃料等级”等细节强化游戏化体验。</li>
+            </ul>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2vw; margin-top: 3vh;">
+                <img src="images/project-ecommerce-interactive/icon-helmet.png" alt="Icon System - Helmet" style="width: 100%; border: 1px solid var(--border-light);">
+                <img src="images/project-ecommerce-interactive/icon-fuel.png" alt="Icon System - Fuel Cell" style="width: 100%; border: 1px solid var(--border-light);">
+            </div>
+        </div>
+    </section>
+
+    <!-- Content: Impact -->
+    <section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">05 — IMPACT</span>
+        </div>
+        <div class="content-body">
+            <h3>上线效果：显著的数据增长</h3>
+            <p>改版上线后（环比 2020/4-5 — 2021/4-5），核心业务指标均有大幅提升，验证了沉浸式视觉体验在吸引用户注意力和延长停留时间上的正向价值：</p>
+            <div class="impact-stats" style="font-family: var(--font-mono); font-size: 0.85vw; margin-top: 3vh; margin-bottom: 4vh; display: grid; grid-template-columns: 1fr 1fr; gap: 4vw;">
+                <!-- Stat 1 -->
+                <div>
+                    <div style="margin-bottom: 1.5vh; display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5vh;">
+                        <span style="color: var(--fg-mut); font-size: 0.75vw; letter-spacing: 0.05em;">浏览量 (PV)</span>
+                        <span style="color: var(--fg); font-weight: 600;">+57.8% <span style="font-weight: 400; color: var(--fg-dim);">>>></span></span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 3em 1fr; gap: 1em; align-items: center; margin-bottom: 0.5vh; color: var(--fg-dim);">
+                        <span>2020</span>
+                        <div style="height: 4px; background: var(--border-light); width: 60%;"></div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 3em 1fr; gap: 1em; align-items: center; color: var(--fg);">
+                        <span>2021</span>
+                        <div style="height: 4px; background: var(--fg); width: 100%;"></div>
+                    </div>
+                </div>
+
+                <!-- Stat 2 -->
+                <div>
+                    <div style="margin-bottom: 1.5vh; display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5vh;">
+                        <span style="color: var(--fg-mut); font-size: 0.75vw; letter-spacing: 0.05em;">平均访问深度</span>
+                        <span style="color: var(--fg); font-weight: 600;">+30.0% <span style="font-weight: 400; color: var(--fg-dim);">>></span></span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 3em 1fr; gap: 1em; align-items: center; margin-bottom: 0.5vh; color: var(--fg-dim);">
+                        <span>2020</span>
+                        <div style="height: 4px; background: var(--border-light); width: 70%;"></div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 3em 1fr; gap: 1em; align-items: center; color: var(--fg);">
+                        <span>2021</span>
+                        <div style="height: 4px; background: var(--fg); width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+            <img src="images/project-ecommerce-interactive/impact-data.png" alt="Impact Data Analysis" style="width: 100%; margin-top: 3vh; border: 1px solid var(--border-light);">
+        </div>
+    </section>
+
+    <!-- Next Project -->
+    <a href="work.html" class="next-project">
+        <span class="next-label">NEXT PROJECT</span>
+        <div class="next-title">ASO投放策略 →</div>
+    </a>
+
+    <!-- Footer -->
+    <footer class="site-footer" style="margin-top: 0; padding-top: 4vh; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-end;">
+        <div class="footer-left">
+            <div style="font-family: var(--font-mono); font-size: 0.8vw; margin-bottom: 0.5vh; color: var(--fg-mut);">UPDATED</div>
+            <div style="font-size: 0.9vw;">2026.03.14</div>
+        </div>
+        <ul class="footer-links" style="display: flex; gap: 2vw;">
+            <li><a href="mailto:2978227503@qq.com" style="font-size: 1.5vw; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s;">Email</a></li>
+            <li><a href="#" style="font-size: 1.5vw; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s;">WeChat</a></li>
+        </ul>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
