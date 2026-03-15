@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>系统 X Netease — Goofy</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ── Project Detail Specific Styles ── */
+        .project-header {
+            padding: 12vh var(--page-pad) 6vh;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .project-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .meta-item {
+            padding: 2.5vw;
+            border-right: 1px solid var(--border-light);
+        }
+
+        .meta-item:last-child { border-right: none; }
+
+        .meta-label {
+            font-family: var(--font-mono);
+            font-size: 0.7vw;
+            color: var(--fg-dim);
+            margin-bottom: 1vh;
+            display: block;
+        }
+
+        .meta-value {
+            font-size: 1vw;
+            font-weight: 500;
+        }
+
+        .project-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4vw;
+            padding: 8vh var(--page-pad);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .content-sidebar {
+            position: sticky;
+            top: 12vh;
+            align-self: start;
+        }
+
+        .sidebar-title {
+            font-family: var(--font-mono);
+            font-size: 0.8vw;
+            color: var(--fg-mut);
+            margin-bottom: 2vh;
+            display: block;
+        }
+
+        .content-body p {
+            font-size: 1.1vw;
+            line-height: 1.6;
+            margin-bottom: 3vh;
+            color: var(--fg);
+            max-width: 60ch;
+        }
+
+        .content-body h3 {
+            font-size: 1.5vw;
+            font-weight: 600;
+            margin-top: 6vh;
+            margin-bottom: 2vh;
+        }
+
+        .content-body ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 3vh;
+        }
+
+        .content-body li {
+            position: relative;
+            padding-left: 1.5vw;
+            margin-bottom: 1vh;
+            font-size: 1.1vw;
+            line-height: 1.6;
+            color: var(--fg);
+        }
+
+        .content-body li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--fg-dim);
+        }
+
+        .gallery-item {
+            width: 100%;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .next-project {
+            padding: 8vh var(--page-pad);
+            border-top: 1px solid var(--border);
+            text-align: right;
+            display: block;
+            transition: background 0.2s ease;
+        }
+
+        .next-project:hover {
+            background: var(--fg);
+        }
+
+        .next-project:hover .next-label,
+        .next-project:hover .next-title {
+            color: var(--bg);
+        }
+
+        .next-label {
+            font-family: var(--font-mono);
+            font-size: 0.8vw;
+            color: var(--fg-dim);
+            margin-bottom: 1vh;
+            display: block;
+        }
+
+        .next-title {
+            font-size: 3vw;
+            font-weight: 500;
+            color: var(--fg);
+        }
+
+        @media (max-width: 768px) {
+            .project-meta-grid { grid-template-columns: 1fr 1fr; }
+            .meta-item { border-bottom: 1px solid var(--border-light); }
+            .meta-label { font-size: 2.5vw; }
+            .meta-value { font-size: 3.5vw; }
+
+            .project-content { grid-template-columns: 1fr; }
+            .content-sidebar { position: static; margin-bottom: 4vh; }
+            .sidebar-title { font-size: 3vw; }
+            .content-body p, .content-body li { font-size: 4vw; }
+            .content-body h3 { font-size: 5vw; }
+
+            .next-title { font-size: 8vw; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="site-nav">
+        <a href="index.html" class="nav-logo scramble-target" data-original="Goofy">Goofy</a>
+        <ul class="nav-links">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="about.html">简历</a></li>
+            <li><a href="work.html" class="active">作品</a></li>
+            <li><a href="blog.html">博客</a></li>
+            <li><a href="contact.html">联系</a></li>
+        </ul>
+        <div class="nav-hamburger" onclick="document.querySelector('.mobile-nav').classList.toggle('active')">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+    <div class="mobile-nav">
+        <a href="index.html">首页</a>
+        <a href="about.html">简历</a>
+        <a href="work.html">作品</a>
+        <a href="blog.html">博客</a>
+        <a href="contact.html">联系</a>
+    </div>
+
+    <!-- Project Header -->
+    <header class="project-header fade-in">
+        <div style="margin-bottom: 2vh;">
+            <a href="work.html" style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut); display: inline-flex; align-items: center; gap: 0.5vw;">
+                ← BACK TO WORK
+            </a>
+        </div>
+        <h1 class="page-title scramble-target" data-original="系统 X Netease">系统 X Netease</h1>
+        <div style="margin-top: 2vh; font-size: 1.5vw; color: var(--fg-mut);">提升设计质量 / 提升设计效率 / 提升设计转化</div>
+    </header>
+
+    <!-- Project Meta -->
+    <section class="project-meta-grid fade-in">
+        <div class="meta-item">
+            <span class="meta-label">CLIENT</span>
+            <div class="meta-value">网易 (Netease)</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">ROLE</span>
+            <div class="meta-value">系统设计 / AI应用</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">YEAR</span>
+            <div class="meta-value">2025</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">OUTPUT</span>
+            <div class="meta-value">设计系统 / 效率工具</div>
+        </div>
+    </section>
+
+
+
+    <!-- Content: Design Quality -->
+    <section class="project-content fade-in">
+        <div class="content-sidebar">
+            <span class="sidebar-title">01 — DESIGN QUALITY</span>
+        </div>
+        <div class="content-body">
+            <h3>提升设计质量：AI 赋能的生产管线</h3>
+            <p>通过引入 AI 工作流，我们在保持高品质视觉输出的同时，极大地降低了对特定画师或动效师的依赖，实现了设计质量的标准化与可复制化。</p>
+            
+            <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 4vh; margin-bottom: 2vh;">1. 手绘型需求 AI 生产管线</h4>
+            <p>针对以往耗时且风格难以统一的手绘插画需求，我们搭建了专属的 AI 绘画模型矩阵与工作流。通过精准的 Prompt 调试与 ControlNet 控制，确保输出的插画在色彩、光影、透视及角色特征上高度一致，将手绘质量从“个人发挥”转变为“系统保障”。</p>
+            <div style="display: flex; gap: 2vw; margin-top: 3vh; width: 100%;">
+                <!-- Image 1: natural width, fixed height container logic -->
+                <div style="flex: 0 0 auto;">
+                    <img src="images/project-system-netease/hand-drawn-ai-pipeline-1.png" alt="Hand-drawn AI Pipeline 1" style="height: 25vh; width: auto; max-width: 100%; display: block; border: 1px solid var(--border-light);">
+                </div>
+                <!-- Image 2: scaled to same height -->
+                <div style="flex: 0 0 auto; overflow-x: auto;">
+                    <img src="images/project-system-netease/hand-drawn-ai-pipeline-2.png" alt="Hand-drawn AI Pipeline 2" style="height: 25vh; width: auto; max-width: none; display: block; border: 1px solid var(--border-light);">
+                </div>
+            </div>
+
+            <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 4vh; margin-bottom: 2vh;">2. 动效型需求 AI 生产管线</h4>
+            <p>资源位动效通常需要平衡视觉冲击力与加载性能。我们利用 AI 生成基础动效素材，结合自动化脚本与表达式，快速生成符合多端规范的动效资产。这不仅提升了动效的流畅度与表现力，还有效避免了人工制作中的帧率掉帧或体积超标问题。</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2vw; margin-top: 3vh;">
+                <video src="images/project-system-netease/motion-video-1.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
+                <video src="images/project-system-netease/motion-video-2.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
+            </div>
+            <img src="images/project-system-netease/motion-ai-pipeline.png" alt="Motion AI Pipeline Output" style="width: 100%; margin-top: 2vh; border: 1px solid var(--border-light);">
+
+            <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 4vh; margin-bottom: 2vh;">3. 视觉设计型需求 AI 生产管线</h4>
+            <p>在常规的运营活动与 UI 视觉设计中，我们建立了基于 LoRA 的品牌资产库。通过训练专属的品牌风格模型，设计师可以快速生成符合品牌调性的背景、道具及合成素材，大幅缩短了从创意构思到视觉执行的周期。</p>
+            <img src="images/project-system-netease/visual-ai-pipeline.png" alt="Visual Design AI Pipeline Output" style="width: 100%; margin-top: 3vh; border: 1px solid var(--border-light);">
+        </div>
+    </section>
+
+    <!-- Content: Design Efficiency -->
+    <section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">02 — DESIGN EFFICIENCY</span>
+        </div>
+        <div class="content-body">
+            <h3>提升设计效率：外包工单清零</h3>
+            <p>面对业务每月 500+ 的海量外包工单需求，我们通过深度拆解需求类型，定制了针对性的 AI 自动化生产管线，成功实现了外包工单的全面清零，大幅降低了成本并提升了响应速度。</p>
+
+            <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 4vh; margin-bottom: 2vh;">1. 资源位型需求管线</h4>
+            <p>针对重复性高、规范明确的资源位图（如 Banner、弹窗、Icon），建立了“参数化生成 + 批量自动化”的工作流。设计师只需配置核心视觉元素，系统即可自动适配多尺寸、多场景的输出，实现“一次设计，全量生成”。</p>
+            <img src="images/project-system-netease/resource-pipeline.gif" alt="Resource Type AI Pipeline" style="width: 100%; margin-top: 3vh; border: 1px solid var(--border-light);">
+
+
+            <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 4vh; margin-bottom: 2vh;">2. 运营活动模版 / H5 长图型需求管线</h4>
+            <p>针对结构相对固定的运营活动页和 H5 长图，开发了“模块化拼装 + 风格化填充”的智能管线。通过 AI 快速生成符合主题的头图、背景及装饰元素，并结合布局算法自动填充内容，将原本数天的设计周期缩短至小时级。</p>
+            <div style="display: flex; gap: 1vw; margin-top: 3vh; overflow: hidden;">
+                <div style="flex: 1; height: 40vh; overflow: hidden; border: 1px solid var(--border-light);">
+                    <img src="images/project-system-netease/campaign-template-1.png" alt="Campaign Template 1" style="width: 100%; height: auto; object-fit: cover; object-position: top;">
+                </div>
+                <div style="flex: 1; height: 40vh; overflow: hidden; border: 1px solid var(--border-light);">
+                    <img src="images/project-system-netease/campaign-template-2.png" alt="Campaign Template 2" style="width: 100%; height: auto; object-fit: cover; object-position: top;">
+                </div>
+                <div style="flex: 1; height: 40vh; overflow: hidden; border: 1px solid var(--border-light);">
+                    <img src="images/project-system-netease/campaign-template-3.png" alt="Campaign Template 3" style="width: 100%; height: auto; object-fit: cover; object-position: top;">
+                </div>
+                <div style="flex: 1; height: 40vh; overflow: hidden; border: 1px solid var(--border-light);">
+                    <img src="images/project-system-netease/campaign-template-4.jpg" alt="Campaign Template 4" style="width: 100%; height: auto; object-fit: cover; object-position: top;">
+                </div>
+                <div style="flex: 1; height: 40vh; overflow: hidden; border: 1px solid var(--border-light);">
+                    <img src="images/project-system-netease/campaign-template-5.png" alt="Campaign Template 5" style="width: 100%; height: auto; object-fit: cover; object-position: top;">
+                </div>
+            </div>
+            <img src="images/project-system-netease/campaign-pipeline.png" alt="Campaign Design Pipeline" style="width: 100%; margin-top: 2vh; border: 1px solid var(--border-light);">
+        </div>
+    </section>
+
+    <!-- Content: Design Conversion -->
+    <section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">03 — DESIGN CONVERSION</span>
+        </div>
+        <div class="content-body">
+            <h3>提升设计转化：投放素材自进化系统</h3>
+            <p>在获客成本日益高昂的背景下，我们打造了一套“投放素材自进化系统”。通过打通设计与投放数据的闭环，让 AI 能够基于实时数据反馈，自动分析高转化素材的特征，并进行裂变迭代。</p>
+            <p>该系统实现了从“人工经验决策”向“数据驱动决策”的转型，不仅大幅提升了素材的跑量能力，更让设计产出能够直接对业务增长负责。</p>
+            <img src="images/project-system-netease/conversion-pipeline.png" alt="Design Conversion AI Pipeline" style="width: 100%; margin-top: 3vh; border: 1px solid var(--border-light);">
+        </div>
+    </section>
+
+    <!-- Next Project -->
+    <a href="work.html" class="next-project">
+        <span class="next-label">NEXT PROJECT</span>
+        <div class="next-title">ASO投放策略 →</div>
+    </a>
+
+    <!-- Footer -->
+    <footer class="site-footer" style="margin-top: 0; padding-top: 4vh; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-end;">
+        <div class="footer-left">
+            <div style="font-family: var(--font-mono); font-size: 0.8vw; margin-bottom: 0.5vh; color: var(--fg-mut);">UPDATED</div>
+            <div style="font-size: 0.9vw;">2026.03.14</div>
+        </div>
+        <ul class="footer-links" style="display: flex; gap: 2vw;">
+            <li><a href="mailto:2978227503@qq.com" style="font-size: 1.5vw; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s;">Email</a></li>
+            <li><a href="#" style="font-size: 1.5vw; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s;">WeChat</a></li>
+        </ul>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

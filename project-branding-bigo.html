@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>品牌 X BIGO — Goofy</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ── Project Detail Specific Styles ── */
+        .project-header {
+            padding: 12vh var(--page-pad) 6vh;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .project-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .meta-item {
+            padding: 2.5vw;
+            border-right: 1px solid var(--border-light);
+        }
+
+        .meta-item:last-child { border-right: none; }
+
+        .meta-label {
+            font-family: var(--font-mono);
+            font-size: 0.7vw;
+            color: var(--fg-dim);
+            margin-bottom: 1vh;
+            display: block;
+        }
+
+        .meta-value {
+            font-size: 1vw;
+            font-weight: 500;
+        }
+
+        .project-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4vw;
+            padding: 8vh var(--page-pad);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .content-sidebar {
+            position: sticky;
+            top: 12vh;
+            align-self: start;
+        }
+
+        .sidebar-title {
+            font-family: var(--font-mono);
+            font-size: 0.8vw;
+            color: var(--fg-mut);
+            margin-bottom: 2vh;
+            display: block;
+        }
+
+        .content-body p {
+            font-size: 1.1vw;
+            line-height: 1.6;
+            margin-bottom: 3vh;
+            color: var(--fg);
+            max-width: 60ch;
+        }
+
+        .content-body h3 {
+            font-size: 1.5vw;
+            font-weight: 600;
+            margin-top: 6vh;
+            margin-bottom: 2vh;
+        }
+
+        .content-body ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 3vh;
+        }
+
+        .content-body li {
+            position: relative;
+            padding-left: 1.5vw;
+            margin-bottom: 1vh;
+            font-size: 1.1vw;
+            line-height: 1.6;
+            color: var(--fg);
+        }
+
+        .content-body li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--fg-dim);
+        }
+
+        .gallery-item {
+            width: 100%;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .next-project {
+            padding: 8vh var(--page-pad);
+            border-top: 1px solid var(--border);
+            text-align: right;
+            display: block;
+            transition: background 0.2s ease;
+        }
+
+        .next-project:hover {
+            background: var(--fg);
+        }
+
+        .next-project:hover .next-label,
+        .next-project:hover .next-title {
+            color: var(--bg);
+        }
+
+        .next-label {
+            font-family: var(--font-mono);
+            font-size: 0.8vw;
+            color: var(--fg-dim);
+            margin-bottom: 1vh;
+            display: block;
+        }
+
+        .next-title {
+            font-size: 3vw;
+            font-weight: 500;
+            color: var(--fg);
+        }
+
+        @media (max-width: 768px) {
+            .project-meta-grid { grid-template-columns: 1fr 1fr; }
+            .meta-item { border-bottom: 1px solid var(--border-light); }
+            .meta-label { font-size: 2.5vw; }
+            .meta-value { font-size: 3.5vw; }
+
+            .project-content { grid-template-columns: 1fr; }
+            .content-sidebar { position: static; margin-bottom: 4vh; }
+            .sidebar-title { font-size: 3vw; }
+            .content-body p, .content-body li { font-size: 4vw; }
+            .content-body h3 { font-size: 5vw; }
+
+            .next-title { font-size: 8vw; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="site-nav">
+        <a href="index.html" class="nav-logo scramble-target" data-original="Goofy">Goofy</a>
+        <ul class="nav-links">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="about.html">简历</a></li>
+            <li><a href="work.html" class="active">作品</a></li>
+            <li><a href="blog.html">博客</a></li>
+            <li><a href="contact.html">联系</a></li>
+        </ul>
+        <div class="nav-hamburger" onclick="document.querySelector('.mobile-nav').classList.toggle('active')">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+    <div class="mobile-nav">
+        <a href="index.html">首页</a>
+        <a href="about.html">简历</a>
+        <a href="work.html">作品</a>
+        <a href="blog.html">博客</a>
+        <a href="contact.html">联系</a>
+    </div>
+
+    <!-- Project Header -->
+    <header class="project-header fade-in">
+        <div style="margin-bottom: 2vh;">
+            <a href="work.html" style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut); display: inline-flex; align-items: center; gap: 0.5vw;">
+                ← BACK TO WORK
+            </a>
+        </div>
+        <h1 class="page-title scramble-target" data-original="品牌 X BIGO">品牌 X BIGO</h1>
+        <div style="margin-top: 2vh; font-size: 1.5vw; color: var(--fg-mut);">IP动画 / IP延展</div>
+    </header>
+
+    <!-- Project Meta -->
+    <section class="project-meta-grid fade-in">
+        <div class="meta-item">
+            <span class="meta-label">CLIENT</span>
+            <div class="meta-value">BIGO LIVE</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">ROLE</span>
+            <div class="meta-value">IP动画 / 品牌设计</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">YEAR</span>
+            <div class="meta-value">2025</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">OUTPUT</span>
+            <div class="meta-value">动画视频 / 品牌周边</div>
+        </div>
+    </section>
+
+
+
+    <!-- Content Placeholder -->
+    <section class="project-content fade-in">
+        <div class="content-sidebar">
+            <span class="sidebar-title">01 — PROJECT OVERVIEW</span>
+        </div>
+        <div class="content-body">
+            <h3>品牌 IP 动画与延展</h3>
+            <p>基于 BIGO LIVE 的品牌 IP 形象，打造一系列高质量的动画视频与周边延展设计，提升品牌在全球市场的认知度与影响力。</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2vw; margin-top: 3vh;">
+                <video src="images/project-branding-bigo/quality-series-2.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
+                <video src="images/project-branding-bigo/quality-series-1.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content: Social Media IP Animation -->
+    <section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">02 — SOCIAL MEDIA</span>
+        </div>
+        <div class="content-body">
+            <h3>社媒 IP 动画</h3>
+            <p>结合全球热点与节日节点，创作了一系列生动有趣的 IP 短视频，在 Facebook、Instagram 等社交媒体平台广泛传播，有效提升了品牌的活跃度与用户粘性。</p>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1vw; margin-top: 3vh;">
+                <video src="images/project-branding-bigo/social-japan.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
+                <video src="images/project-branding-bigo/social-usa.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
+                <video src="images/project-branding-bigo/social-france.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
+                <video src="images/project-branding-bigo/social-australia.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
+                <video src="images/project-branding-bigo/social-egypt.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
+                <video src="images/project-branding-bigo/social-italy.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
+                <video src="images/project-branding-bigo/social-uk.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
+                <video src="images/project-branding-bigo/social-singapore.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content: Merchandise Design -->
+    <section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">03 — MERCHANDISE</span>
+        </div>
+        <div class="content-body">
+            <h3>创意周边系列设计</h3>
+            <p>基于 IP 形象开发的系列周边产品，通过精细的 3D 渲染与实拍视频展示，赋予品牌更强的实体感知与商业价值。</p>
+            <div style="display: flex; gap: 2vw; margin-top: 3vh;">
+                <div style="flex: 1;">
+                    <video src="images/project-branding-bigo/creative-dream.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
+                </div>
+                <!-- Spacer to constrain width and height -->
+                <div style="flex: 1;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content: Global Travel Series -->
+    <section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">04 — GLOBAL TRAVEL</span>
+        </div>
+        <div class="content-body">
+            <h3>环球旅行系列设计</h3>
+            <p>结合不同国家的地标与文化特色，打造 BIGO DINO 环球旅行系列视觉，展现品牌的全球化视野与多元文化包容性。</p>
+            <div style="display: flex; gap: 2vw; margin-top: 3vh;">
+                <div style="flex: 1;">
+                    <video src="images/project-branding-bigo/travel-osaka.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
+                </div>
+                <div style="flex: 1;">
+                    <video src="images/project-branding-bigo/travel-hongkong.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
+                </div>
+                <!-- Spacer to constrain width and height -->
+                <div style="flex: 0.5;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Next Project -->
+    <a href="work.html" class="next-project">
+        <span class="next-label">NEXT PROJECT</span>
+        <div class="next-title">ASO投放策略 →</div>
+    </a>
+
+    <!-- Footer -->
+    <footer class="site-footer" style="margin-top: 0; padding-top: 4vh; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-end;">
+        <div class="footer-left">
+            <div style="font-family: var(--font-mono); font-size: 0.8vw; margin-bottom: 0.5vh; color: var(--fg-mut);">UPDATED</div>
+            <div style="font-size: 0.9vw;">2026.03.14</div>
+        </div>
+        <ul class="footer-links" style="display: flex; gap: 2vw;">
+            <li><a href="mailto:2978227503@qq.com" style="font-size: 1.5vw; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s;">Email</a></li>
+            <li><a href="#" style="font-size: 1.5vw; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s;">WeChat</a></li>
+        </ul>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
