@@ -160,22 +160,22 @@
     <!-- Navigation -->
     <nav class="site-nav">
         <a href="index.html" class="nav-logo scramble-target" data-original="Goofy">Goofy</a>
-        <ul class="nav-links">
-            <li><a href="index.html">首页</a></li>
-            <li><a href="about.html">简历</a></li>
-            <li><a href="work.html" class="active">作品</a></li>
-            <li><a href="blog.html">博客</a></li>
-            <li><a href="contact.html">联系</a></li>
-        </ul>
-        <div class="nav-hamburger" onclick="document.querySelector('.mobile-nav').classList.toggle('active')">
-            <span></span><span></span><span></span>
+        <div style="display: flex; align-items: center; gap: 2vw;">
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="about.html">简历</a></li>
+                <li><a href="work.html" class="active">作品</a></li>
+                <li><a href="contact.html">联系</a></li>
+            </ul>
+            <div class="nav-hamburger" onclick="document.querySelector('.mobile-nav').classList.toggle('active')">
+                <span></span><span></span><span></span>
+            </div>
         </div>
     </nav>
     <div class="mobile-nav">
         <a href="index.html">首页</a>
         <a href="about.html">简历</a>
         <a href="work.html">作品</a>
-        <a href="blog.html">博客</a>
         <a href="contact.html">联系</a>
     </div>
 
@@ -325,9 +325,9 @@
     </section>
 
     <!-- Next Project -->
-    <a href="work.html" class="next-project">
+    <a href="index.html#work" class="next-project">
         <span class="next-label">NEXT PROJECT</span>
-        <div class="next-title">ASO投放策略 →</div>
+        <div class="next-title">返回作品列表 →</div>
     </a>
 
     <!-- Footer -->

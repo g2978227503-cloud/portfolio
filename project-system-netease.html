@@ -160,22 +160,22 @@
     <!-- Navigation -->
     <nav class="site-nav">
         <a href="index.html" class="nav-logo scramble-target" data-original="Goofy">Goofy</a>
-        <ul class="nav-links">
-            <li><a href="index.html">首页</a></li>
-            <li><a href="about.html">简历</a></li>
-            <li><a href="work.html" class="active">作品</a></li>
-            <li><a href="blog.html">博客</a></li>
-            <li><a href="contact.html">联系</a></li>
-        </ul>
-        <div class="nav-hamburger" onclick="document.querySelector('.mobile-nav').classList.toggle('active')">
-            <span></span><span></span><span></span>
+        <div style="display: flex; align-items: center; gap: 2vw;">
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="about.html">简历</a></li>
+                <li><a href="work.html" class="active">作品</a></li>
+                <li><a href="contact.html">联系</a></li>
+            </ul>
+            <div class="nav-hamburger" onclick="document.querySelector('.mobile-nav').classList.toggle('active')">
+                <span></span><span></span><span></span>
+            </div>
         </div>
     </nav>
     <div class="mobile-nav">
         <a href="index.html">首页</a>
         <a href="about.html">简历</a>
         <a href="work.html">作品</a>
-        <a href="blog.html">博客</a>
         <a href="contact.html">联系</a>
     </div>
 
@@ -218,11 +218,12 @@
             <span class="sidebar-title">01 — DESIGN QUALITY</span>
         </div>
         <div class="content-body">
-            <h3>提升设计质量：AI 赋能的生产管线</h3>
-            <p>通过引入 AI 工作流，我们在保持高品质视觉输出的同时，极大地降低了对特定画师或动效师的依赖，实现了设计质量的标准化与可复制化。</p>
+            <h3>提升设计品质：AI 赋能的标准化生产管线</h3>
+            <p>通过引入 AI 工作流，在保持高品质视觉输出的同时，极大地降低了对特定画师或动效师的依赖，实现了设计质量的标准化与可复制化。</p>
             
             <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 4vh; margin-bottom: 2vh;">1. 手绘型需求 AI 生产管线</h4>
-            <p>针对以往耗时且风格难以统一的手绘插画需求，我们搭建了专属的 AI 绘画模型矩阵与工作流。通过精准的 Prompt 调试与 ControlNet 控制，确保输出的插画在色彩、光影、透视及角色特征上高度一致，将手绘质量从“个人发挥”转变为“系统保障”。</p>
+            <p>针对以往耗时且风格难以统一的手绘插画需求，搭建了专属的 AI 绘画模型工作流。通过精准的 Prompt 调试与垫图控制，确保输出的插画在色彩、光影、透视及角色特征上高度一致，将手绘质量从“个人发挥”转变为“系统保障”。</p>
+            <p>该工作流可模拟团队多位设计师的画风，并搭配 n8n 管线，有效支持了逆水寒/炉石传说 游戏IP与用户合影二创等互动功能。</p>
             <div style="display: flex; gap: 2vw; margin-top: 3vh; width: 100%;">
                 <!-- Image 1: natural width, fixed height container logic -->
                 <div style="flex: 0 0 auto;">
@@ -235,7 +236,8 @@
             </div>
 
             <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 4vh; margin-bottom: 2vh;">2. 动效型需求 AI 生产管线</h4>
-            <p>资源位动效通常需要平衡视觉冲击力与加载性能。我们利用 AI 生成基础动效素材，结合自动化脚本与表达式，快速生成符合多端规范的动效资产。这不仅提升了动效的流畅度与表现力，还有效避免了人工制作中的帧率掉帧或体积超标问题。</p>
+            <p>在传统资源位设计中，受限于人力成本，难以在所有点位实现精致的视觉表现。利用 AI 生成基础动效素材，快速提升整体设计品质。</p>
+            <p>以小程序下拉菜单资源位为例，将原本静态 KV 升级为微呼吸动效，不仅显著提升了视觉效果与沉浸感，还有效避免了动效制作水平不一的问题。</p>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2vw; margin-top: 3vh;">
                 <video src="images/project-system-netease/motion-video-1.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
                 <video src="images/project-system-netease/motion-video-2.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
@@ -243,8 +245,17 @@
             <img src="images/project-system-netease/motion-ai-pipeline.png" alt="Motion AI Pipeline Output" style="width: 100%; margin-top: 2vh; border: 1px solid var(--border-light);">
 
             <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 4vh; margin-bottom: 2vh;">3. 视觉设计型需求 AI 生产管线</h4>
-            <p>在常规的运营活动与 UI 视觉设计中，我们建立了基于 LoRA 的品牌资产库。通过训练专属的品牌风格模型，设计师可以快速生成符合品牌调性的背景、道具及合成素材，大幅缩短了从创意构思到视觉执行的周期。</p>
-            <img src="images/project-system-netease/visual-ai-pipeline.png" alt="Visual Design AI Pipeline Output" style="width: 100%; margin-top: 3vh; border: 1px solid var(--border-light);">
+            <p>在常规的运营活动设计中，建立了基于游戏的特定资产库。通过提示词逆向工程，可以快速生成符合游戏调性的背景、道具及合成素材。</p>
+            <p>通过 ComfyUI 管线进行最后合成，大幅缩短了从创意构思到视觉执行的周期。</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2vw; margin-top: 3vh;">
+                <div style="height: 25vh; border: 1px solid var(--border-light);">
+                    <img src="images/project-system-netease/visual-ai-parameters.png" alt="Visual AI Parameters" style="width: 100%; height: 100%; object-fit: contain; object-position: center; background: #000;">
+                </div>
+                <div style="height: 25vh; border: 1px solid var(--border-light); overflow: hidden;">
+                    <img src="images/project-system-netease/visual-ai-sketch.png" alt="Visual AI Sketch" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                </div>
+            </div>
+            <img src="images/project-system-netease/visual-ai-pipeline.png" alt="Visual Design AI Pipeline Output" style="width: 100%; margin-top: 2vw; border: 1px solid var(--border-light);">
         </div>
     </section>
 
@@ -255,29 +266,29 @@
         </div>
         <div class="content-body">
             <h3>提升设计效率：外包工单清零</h3>
-            <p>面对业务每月 500+ 的海量外包工单需求，我们通过深度拆解需求类型，定制了针对性的 AI 自动化生产管线，成功实现了外包工单的全面清零，大幅降低了成本并提升了响应速度。</p>
+            <p>面对团队每月 500+ 的海量外包工单需求，通过深度拆解需求类型，分类定制 AI 自动化生产管线，成功实现了外包工单的全面清零，大幅降低了部门成本并提升了响应速度。</p>
 
             <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 4vh; margin-bottom: 2vh;">1. 资源位型需求管线</h4>
-            <p>针对重复性高、规范明确的资源位图（如 Banner、弹窗、Icon），建立了“参数化生成 + 批量自动化”的工作流。设计师只需配置核心视觉元素，系统即可自动适配多尺寸、多场景的输出，实现“一次设计，全量生成”。</p>
+            <p>针对重复性高、规范明确的资源位图（如 Banner、弹窗），建立了“参数化生成 + 批量自动化”的工作流。设计师或运营人员只需配置核心视觉元素，系统即可自动适配多尺寸的符合规范的设计，实现“一次设计，全量生成”。</p>
             <img src="images/project-system-netease/resource-pipeline.gif" alt="Resource Type AI Pipeline" style="width: 100%; margin-top: 3vh; border: 1px solid var(--border-light);">
 
 
             <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 4vh; margin-bottom: 2vh;">2. 运营活动模版 / H5 长图型需求管线</h4>
-            <p>针对结构相对固定的运营活动页和 H5 长图，开发了“模块化拼装 + 风格化填充”的智能管线。通过 AI 快速生成符合主题的头图、背景及装饰元素，并结合布局算法自动填充内容，将原本数天的设计周期缩短至小时级。</p>
+            <p>针对结构相对固定的运营活动页，开发了“模块化拼装 + 风格化填充”的 n8n 管线。通过 AI 快速生成符合主题的边框、背景及装饰元素，并结合组件功能自动填充内容，将原本数天的设计周期缩短至小时级。</p>
             <div style="display: flex; gap: 1vw; margin-top: 3vh; overflow: hidden;">
-                <div style="flex: 1; height: 40vh; overflow: hidden; border: 1px solid var(--border-light);">
+                <div style="flex: 1; height: 30vh; overflow: hidden; border: 1px solid var(--border-light);">
                     <img src="images/project-system-netease/campaign-template-1.png" alt="Campaign Template 1" style="width: 100%; height: auto; object-fit: cover; object-position: top;">
                 </div>
-                <div style="flex: 1; height: 40vh; overflow: hidden; border: 1px solid var(--border-light);">
+                <div style="flex: 1; height: 30vh; overflow: hidden; border: 1px solid var(--border-light);">
                     <img src="images/project-system-netease/campaign-template-2.png" alt="Campaign Template 2" style="width: 100%; height: auto; object-fit: cover; object-position: top;">
                 </div>
-                <div style="flex: 1; height: 40vh; overflow: hidden; border: 1px solid var(--border-light);">
+                <div style="flex: 1; height: 30vh; overflow: hidden; border: 1px solid var(--border-light);">
                     <img src="images/project-system-netease/campaign-template-3.png" alt="Campaign Template 3" style="width: 100%; height: auto; object-fit: cover; object-position: top;">
                 </div>
-                <div style="flex: 1; height: 40vh; overflow: hidden; border: 1px solid var(--border-light);">
+                <div style="flex: 1; height: 30vh; overflow: hidden; border: 1px solid var(--border-light);">
                     <img src="images/project-system-netease/campaign-template-4.jpg" alt="Campaign Template 4" style="width: 100%; height: auto; object-fit: cover; object-position: top;">
                 </div>
-                <div style="flex: 1; height: 40vh; overflow: hidden; border: 1px solid var(--border-light);">
+                <div style="flex: 1; height: 30vh; overflow: hidden; border: 1px solid var(--border-light);">
                     <img src="images/project-system-netease/campaign-template-5.png" alt="Campaign Template 5" style="width: 100%; height: auto; object-fit: cover; object-position: top;">
                 </div>
             </div>
@@ -292,16 +303,16 @@
         </div>
         <div class="content-body">
             <h3>提升设计转化：投放素材自进化系统</h3>
-            <p>在获客成本日益高昂的背景下，我们打造了一套“投放素材自进化系统”。通过打通设计与投放数据的闭环，让 AI 能够基于实时数据反馈，自动分析高转化素材的特征，并进行裂变迭代。</p>
+            <p>在获客成本日益高昂的背景下，为商业化部门打造了一套“投放素材自进化系统”。通过打通设计与投放数据的闭环，让 AI 能够基于数据反馈，自动分析高转化素材的特征，并进行裂变迭代。</p>
             <p>该系统实现了从“人工经验决策”向“数据驱动决策”的转型，不仅大幅提升了素材的跑量能力，更让设计产出能够直接对业务增长负责。</p>
             <img src="images/project-system-netease/conversion-pipeline.png" alt="Design Conversion AI Pipeline" style="width: 100%; margin-top: 3vh; border: 1px solid var(--border-light);">
         </div>
     </section>
 
     <!-- Next Project -->
-    <a href="work.html" class="next-project">
+    <a href="index.html#work" class="next-project">
         <span class="next-label">NEXT PROJECT</span>
-        <div class="next-title">ASO投放策略 →</div>
+        <div class="next-title">返回作品列表 →</div>
     </a>
 
     <!-- Footer -->

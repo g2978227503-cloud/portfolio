@@ -101,4 +101,38 @@ document.addEventListener('DOMContentLoaded', () => {
     initFadeIn();
     initMobileNav();
     initClock();
+
+    // ── Work List Hover Preview ──
+    const workRows = document.querySelectorAll('.work-row');
+    let previewImg = document.createElement('img');
+    previewImg.style.position = 'fixed';
+    previewImg.style.pointerEvents = 'none';
+    previewImg.style.opacity = '0';
+    previewImg.style.transition = 'opacity 0.3s ease, transform 0.3s var(--transition)';
+    previewImg.style.transform = 'translate(-50%, -50%) scale(0.9)';
+    previewImg.style.zIndex = '100';
+    previewImg.style.width = '30vw';
+    previewImg.style.height = 'auto';
+    previewImg.style.objectFit = 'cover';
+    document.body.appendChild(previewImg);
+
+    workRows.forEach(row => {
+        row.addEventListener('mouseenter', (e) => {
+            const previewUrl = row.getAttribute('data-preview');
+            if (previewUrl) {
+                previewImg.src = previewUrl;
+                previewImg.style.opacity = '1';
+                previewImg.style.transform = `translate(${e.clientX}px, ${e.clientY}px) scale(1)`;
+            }
+        });
+        
+        row.addEventListener('mousemove', (e) => {
+            previewImg.style.transform = `translate(${e.clientX}px, ${e.clientY}px) scale(1)`;
+        });
+
+        row.addEventListener('mouseleave', () => {
+            previewImg.style.opacity = '0';
+            previewImg.style.transform = 'translate(-50%, -50%) scale(0.9)';
+        });
+    });
 });

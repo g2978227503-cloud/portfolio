@@ -6,22 +6,33 @@
     <title>Goofy — 产品设计师</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* ── Home-specific: lock scroll ── */
-        body.home-page { overflow: hidden; }
+        /* ── Global Layout ── */
+        body { 
+            overflow-x: hidden; 
+            overflow-y: auto; /* Allow scrolling */
+        }
 
         .layout-grid {
             display: flex;
             flex-direction: column;
-            height: 100vh;
             width: 100vw;
             position: relative;
             z-index: 10;
         }
 
-        .canvas-zone {
-            flex: 0 0 70vh;
+        /* ── Section Spacing ── */
+        .page-section {
+            min-height: 100vh;
             position: relative;
+            background: var(--bg);
             border-bottom: 1px solid var(--border);
+        }
+
+        /* ── Hero / Canvas ── */
+        .canvas-zone {
+            height: 85vh; /* Fixed height for hero */
+            position: relative;
+            border-bottom: none;
             overflow: hidden;
             display: flex;
             align-items: center;
@@ -58,8 +69,9 @@
             letter-spacing: 0.01em;
         }
 
+        /* ── Panel Zone (Hero Footer) ── */
         .panel-zone {
-            flex: 0 0 30vh;
+            height: 15vh;
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             padding: 2vw 4vw;
@@ -67,6 +79,7 @@
             background-color: var(--bg);
             position: relative;
             z-index: 20;
+            border-bottom: 1px solid var(--border);
         }
 
         .panel-col {
@@ -97,256 +110,680 @@
             font-weight: 400;
         }
 
-        .link-list, .colophon-list {
-            list-style: none;
+        /* ── System Menu ── */
+        .sys-menu {
             display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .link-list a {
-            color: var(--fg);
-            text-decoration: none;
-            border-bottom: 1px solid transparent;
-            transition: border-color 0.2s ease;
-        }
-
-        .link-list a:hover { border-bottom-color: var(--fg); }
-
-        .colophon-list {
-            color: var(--fg-mut);
-            gap: 0.5rem;
-        }
-
-        .colophon-list li:not(:last-child)::after { content: ','; }
-
-        .home-label {
-            font-family: var(--font-mono);
-            font-size: 0.7vw;
-            color: var(--fg-mut);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.25rem;
-            display: block;
-        }
-
-        /* ── Home nav override: corners ── */
-        .corner {
-            position: fixed;
-            font-size: 2vw;
-            font-weight: 500;
-            line-height: 1;
-            letter-spacing: -0.02em;
-            z-index: 50;
-            cursor: pointer;
-            padding: 2vw;
-            color: var(--fg);
-            transition: opacity 0.3s ease;
-            user-select: none;
-        }
-
-        .corner:hover { opacity: 0.5; }
-        .corner-tl { top: 0; left: 0; }
-        .corner-tr { top: 0; right: 0; }
-        .corner-bl { bottom: 0; left: 0; }
-        .corner-br { bottom: 0; right: 0; }
-
-        /* ── Full-screen Nav Overlay ── */
-        .nav-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background-color: var(--bg);
-            z-index: 100;
-            display: flex;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .nav-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .nav-close {
-            position: absolute;
-            top: 2vw; right: 2vw;
-            font-size: 1.5vw;
-            cursor: pointer;
-            z-index: 110;
-            transition: opacity 0.2s ease;
-        }
-
-        .nav-close:hover { opacity: 0.5; }
-
-        .nav-content {
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 3vw;
             width: 100%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            padding: 8vw;
-            gap: 4vw;
+            margin-top: 4vh;
         }
 
-        .nav-section { margin-bottom: 4vw; }
-
-        .nav-title {
-            font-family: var(--font-mono);
-            font-size: 0.8vw;
-            color: var(--fg-mut);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 2vw;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 0.5vw;
-        }
-
-        .nav-list { list-style: none; }
-
-        .nav-item {
-            font-size: 2.5vw;
-            font-weight: 500;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.5vw;
-            cursor: pointer;
+        .sys-link {
             display: flex;
             align-items: baseline;
+            font-family: var(--font-mono);
+            color: var(--fg);
+            text-decoration: none;
             position: relative;
+            padding-left: 0;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+
+        .sys-idx {
+            font-size: 0.7vw;
+            color: var(--fg-mut);
+            margin-right: 0.5vw;
+            opacity: 0.5;
             transition: opacity 0.2s ease;
         }
 
-        .nav-item:hover { opacity: 0.6; }
-
-        .nav-item a {
-            color: inherit;
-            text-decoration: none;
+        .sys-text {
+            font-size: 0.9vw;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            position: relative;
         }
 
-        .nav-item-meta {
-            font-family: var(--font-mono);
-            font-size: 0.8vw;
-            color: var(--fg-mut);
-            margin-left: 2vw;
-            opacity: 0;
-            transform: translateX(-10px);
-            transition: all 0.3s ease;
+        .sys-link:hover { transform: translateY(-2px); }
+        .sys-link:hover .sys-idx { opacity: 1; color: var(--fg); }
+        .sys-link::before {
+            content: ''; 
+            position: absolute;
+            bottom: -5px; left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--fg);
+            transition: width 0.3s ease;
         }
+        .sys-link:hover::before { width: 100%; opacity: 1; left: 0; }
 
-        .nav-item:hover .nav-item-meta {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .cap-list {
+        /* ── Scroll Hint ── */
+        .scroll-hint {
+            position: absolute;
+            bottom: 4vh;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
             flex-direction: column;
-            gap: 1vw;
+            align-items: center;
+            gap: 1vh;
+            cursor: pointer;
+            z-index: 20;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
         }
 
-        .cap-item { font-size: 1.5vw; color: var(--fg); }
+        .scroll-hint:hover { opacity: 1; }
+        .scroll-text {
+            font-family: var(--font-mono);
+            font-size: 0.7vw;
+            letter-spacing: 0.1em;
+            color: var(--fg-mut);
+        }
+        .scroll-line {
+            width: 1px;
+            height: 3vh;
+            background: var(--fg-mut);
+            animation: scrollLine 2s infinite;
+        }
+        @keyframes scrollLine {
+            0% { transform: scaleY(0); transform-origin: top; }
+            50% { transform: scaleY(1); transform-origin: top; }
+            51% { transform: scaleY(1); transform-origin: bottom; }
+            100% { transform: scaleY(0); transform-origin: bottom; }
+        }
+
+        /* ── Section Headers ── */
+        .section-header-sticky {
+            position: sticky;
+            top: 0;
+            background: var(--bg);
+            z-index: 100;
+            padding: 2vw 4vw;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title-large {
+            font-size: 2vw;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+        }
+
+        /* ── About Grid ── */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 20% 1fr;
+            gap: 4vw;
+            align-items: start;
+            padding: 4vw;
+        }
+        .about-photo {
+            width: 100%; aspect-ratio: 1;
+            background: var(--border-light);
+            border: 1px solid var(--border);
+            position: relative; overflow: hidden; margin-bottom: 2vh;
+        }
+        .about-photo img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(30%); transition: filter 0.6s ease; }
+        .about-photo:hover img { filter: grayscale(0%); }
+        .profile-meta { font-family: var(--font-mono); font-size: 0.7vw; color: var(--fg-mut); display: flex; flex-direction: column; gap: 0.8vh; }
+        .profile-meta-row { display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5vh; }
+        .about-text { font-size: 1.6vw; font-weight: 400; line-height: 1.6; letter-spacing: -0.01em; }
+        
+        /* ── Timeline ── */
+        .timeline { display: flex; flex-direction: column; border-top: 1px solid var(--border); }
+        .timeline-item { display: grid; grid-template-columns: 10vw 1fr; gap: 4vw; padding: 4vh 4vw; border-bottom: 1px solid var(--border-light); }
+        .timeline-year { font-family: var(--font-mono); font-size: 0.75vw; color: var(--fg-dim); padding-top: 0.3em; }
+        .timeline-content h3 { font-size: 1.3vw; font-weight: 500; color: var(--fg); margin: 0; }
+        .timeline-subtitle { font-family: var(--font-mono); font-size: 0.75vw; color: var(--fg-mut); margin-top: 0.5vh; margin-bottom: 1.5vh; }
+        .timeline-content ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1.5vh; }
+        .timeline-content li { position: relative; padding-left: 1.2vw; font-size: 0.9vw; color: var(--fg-mut); line-height: 1.7; }
+        .timeline-content li::before { content: ''; position: absolute; left: 0; top: 0.75em; width: 0.5vw; height: 1px; background: var(--border); }
+        .timeline-content li strong { color: var(--fg); font-weight: 500; }
+
+        /* ── Skills Grid ── */
+        .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border-light); border: 1px solid var(--border-light); margin: 4vw; }
+        .skill-card { background: var(--bg); padding: 3vw; height: 100%; transition: background 0.3s; }
+        .skill-card:hover { background: #fafafa; }
+        .skill-number { font-family: var(--font-mono); font-size: 0.65vw; color: var(--fg-mut); opacity: 0.5; display: block; margin-bottom: 1.5vh; }
+        .skill-card h3 { font-size: 1.1vw; margin: 0 0 0.5vh; font-weight: 500; }
+        .skill-card p { font-size: 0.8vw; color: var(--fg-mut); margin: 0; }
+
+        /* ── Work Stats ── */
+        .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border-light); border-bottom: 1px solid var(--border); }
+        .stat-item { background: var(--bg); padding: 3vw; text-align: center; }
+        .stat-number { font-family: var(--font-mono); font-size: 2.5vw; margin-bottom: 0.5vh; }
+        .stat-label { font-family: var(--font-mono); font-size: 0.65vw; color: var(--fg-mut); text-transform: uppercase; }
+
+        /* ── Work List ── */
+        .work-group { display: grid; grid-template-columns: 25vw 1fr; border-bottom: 1px solid var(--border); }
+        .group-header { padding: 3vw 4vw; border-right: 1px solid var(--border); position: sticky; top: 8vh; align-self: start; height: auto; }
+        .group-id { font-family: var(--font-mono); font-size: 0.7vw; color: var(--fg-dim); display: block; margin-bottom: 1vh; }
+        .group-title { font-size: 1.2vw; font-weight: 500; margin: 0; }
+        .work-row { display: grid; grid-template-columns: 1.5fr 1fr auto; align-items: center; padding: 2.5vw 3vw; border-bottom: 1px solid var(--border-light); text-decoration: none; transition: background 0.2s; }
+        .work-row:hover { background: #fafafa; }
+        .work-row:last-child { border-bottom: none; }
+        .row-title { font-size: 1.1vw; font-weight: 500; color: var(--fg); }
+        .row-desc { font-size: 0.85vw; color: var(--fg-mut); }
+        .row-meta { font-family: var(--font-mono); font-size: 0.75vw; color: var(--fg-dim); }
+
+        /* ── Contact ── */
+        .contact-layout { display: grid; grid-template-columns: 1fr 1fr; min-height: 70vh; }
+        .contact-left { padding: 6vh 4vw; border-right: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center; }
+        .contact-right { padding: 6vh 4vw; display: flex; flex-direction: column; justify-content: center; }
+        .contact-headline { font-size: 3.5vw; font-weight: 500; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 3vh; }
+        .contact-subline { font-size: 1vw; color: var(--fg-mut); line-height: 1.6; max-width: 80%; margin-bottom: 5vh; }
+        .channel-item { display: flex; align-items: baseline; gap: 2vw; padding: 1.5vh 0; border-bottom: 1px solid var(--border-light); }
+        .channel-label { font-family: var(--font-mono); font-size: 0.7vw; color: var(--fg-dim); text-transform: uppercase; min-width: 80px; }
+        .channel-value { font-size: 1.1vw; }
+        .channel-value a { color: var(--fg); text-decoration: none; }
+
+        .form-group { margin-bottom: 3vh; display: flex; flex-direction: column; gap: 0.8vh; }
+        .form-group label { font-family: var(--font-mono); font-size: 0.7vw; color: var(--fg-mut); text-transform: uppercase; }
+        .form-group input, .form-group textarea, .form-group select { font-family: var(--font-main); font-size: 1vw; padding: 1.2vh 0; border: none; border-bottom: 1px solid var(--border); background: transparent; outline: none; }
+        .submit-btn { font-family: var(--font-main); font-size: 0.9vw; font-weight: 500; padding: 1.5vh 3vw; background: var(--fg); color: var(--bg); border: none; cursor: pointer; align-self: flex-start; }
+
+        /* ── Footer ── */
+        .site-footer { padding: 4vh 4vw; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-end; }
+        .footer-links { list-style: none; display: flex; gap: 2vw; margin: 0; padding: 0; }
+        .footer-links a { font-size: 1.5vw; text-decoration: none; color: var(--fg); }
+
+        @media (max-width: 768px) {
+            .hero-headline { font-size: 10vw; }
+            .sys-menu { flex-direction: column; gap: 2vh; }
+            .sys-text { font-size: 4vw; }
+            .panel-zone { height: auto; grid-template-columns: 1fr; gap: 2vh; }
+            .about-grid, .contact-layout, .work-group { grid-template-columns: 1fr; }
+            .stats-row { grid-template-columns: 1fr 1fr; }
+            .group-header { position: static; border-right: none; border-bottom: 1px solid var(--border); }
+            .contact-left { border-right: none; border-bottom: 1px solid var(--border); }
+        }
     </style>
 </head>
-<body class="home-page">
+<body>
 
-    <!-- Corner Navigation -->
-    <div class="corner corner-tl" onclick="toggleNav()">G</div>
-    <div class="corner corner-tr" onclick="toggleNav()">F</div>
-    <div class="corner corner-bl" onclick="toggleNav()">0</div>
-    <div class="corner corner-br" onclick="toggleNav()">1</div>
-
-    <div class="layout-grid">
-        <!-- Canvas Zone -->
-        <div class="canvas-zone" id="canvas-container">
-            <canvas id="ascii-canvas"></canvas>
-            <div class="hero-content">
-                <h1 class="hero-headline scramble-target" data-original="Goofy’s Portfolio">Goofy’s Portfolio</h1>
-                <p class="hero-subline scramble-target-body" data-original="用设计构建直觉化的数字体验">用设计构建直觉化的数字体验</p>
-            </div>
+    <!-- Top Navigation (Sticky) -->
+    <nav class="site-nav" style="position: fixed; top: 0; left: 0; width: 100%; z-index: 900; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; padding: 0 4vw; height: 8vh;">
+        <div style="display: flex; align-items: center; gap: 2vw;">
+             <a href="#home" class="nav-logo scramble-target" data-original="Goofy">Goofy</a>
         </div>
 
-        <!-- Panel Zone -->
-        <div class="panel-zone">
-            <div class="panel-col col-left">
-                <div class="telemetry-line" id="clock">00:00:00 UTC</div>
-                <p class="editorial-text scramble-target-body" data-original="专注于界面、系统与以人为本的设计解决方案">
-                    专注于界面、系统与以人为本的设计解决方案
-                </p>
+        <div style="display: flex; align-items: center; gap: 2vw;">
+            <ul class="nav-links" style="margin: 0; display: flex; gap: 2vw;">
+                <li><a href="#home">首页</a></li>
+                <li><a href="#about">简历</a></li>
+                <li><a href="#work">作品</a></li>
+                <li><a href="#contact">联系</a></li>
+            </ul>
+            <div class="nav-hamburger" onclick="document.querySelector('.mobile-nav').classList.toggle('active')">
+                <span></span><span></span><span></span>
             </div>
-            <div class="panel-col col-mid">
-                <span class="home-label">社交链接</span>
-                <ul class="link-list">
-                    <li><a href="mailto:hello@goofy.design">邮箱</a></li>
-                    <li><a href="#">Dribbble</a></li>
-                    <li><a href="#">GitHub</a></li>
-                    <li><a href="#">Twitter</a></li>
-                </ul>
-                <span class="home-label" style="margin-top: 1vw;">技术栈</span>
-                <ul class="colophon-list">
-                    <li>HTML</li>
-                    <li>Canvas</li>
-                    <li>Vanilla JS</li>
-                </ul>
+        </div>
+    </nav>
+
+    <!-- Section: Home -->
+    <div id="home" class="page-section">
+        <div class="layout-grid">
+            <!-- Canvas Zone -->
+            <div class="canvas-zone" id="canvas-container">
+                <canvas id="ascii-canvas"></canvas>
+                <div class="hero-content">
+                    <h1 class="hero-headline scramble-target" data-original="Goofy’s Portfolio">Goofy’s Portfolio</h1>
+                    <p class="hero-subline scramble-target-body" data-original="用设计构建直觉化的数字体验">用设计构建直觉化的数字体验</p>
+                    
+                    <div class="sys-menu">
+                        <a href="#about" class="sys-link">
+                            <span class="sys-idx">01</span>
+                            <span class="sys-text scramble-target" data-original="简历 / RESUME">简历 / RESUME</span>
+                        </a>
+                        <a href="#work" class="sys-link">
+                            <span class="sys-idx">02</span>
+                            <span class="sys-text scramble-target" data-original="作品 / WORK">作品 / WORK</span>
+                        </a>
+                        <a href="#contact" class="sys-link">
+                            <span class="sys-idx">03</span>
+                            <span class="sys-text scramble-target" data-original="联系 / CONTACT">联系 / CONTACT</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="scroll-hint" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})">
+                    <div class="scroll-text">SCROLL TO EXPLORE</div>
+                    <div class="scroll-line"></div>
+                </div>
             </div>
-            <div class="panel-col col-right">
-                <div class="telemetry-line" id="ping">PING 14MS</div>
-                <p class="editorial-text">© 2026</p>
+
+            <!-- Panel Zone -->
+            <div class="panel-zone">
+                <div class="panel-col col-left">
+                    <p class="editorial-text scramble-target-body" data-original="专注于界面、系统与以人为本的设计解决方案">
+                        专注于界面、系统与以人为本的设计解决方案
+                    </p>
+                </div>
+                <div class="panel-col col-mid"></div>
+                <div class="panel-col col-right">
+                    <p class="editorial-text">© 2026</p>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Full-screen Nav Overlay -->
-    <div class="nav-overlay" id="nav">
-        <div class="nav-close" onclick="toggleNav()">✕</div>
-        <div class="nav-content">
-            <div>
-                <div class="nav-section">
-                    <div class="nav-title">导航</div>
-                    <ul class="nav-list">
-                        <li class="nav-item"><a href="index.html">首页</a></li>
-                        <li class="nav-item"><a href="about.html">关于</a></li>
-                        <li class="nav-item"><a href="work.html">作品</a></li>
-                        <li class="nav-item"><a href="blog.html">博客</a></li>
-                        <li class="nav-item"><a href="contact.html">联系</a></li>
+    <!-- Section: About -->
+    <div id="about" class="page-section">
+        <div class="section-header-sticky">
+            <div class="section-title-large">简历 / RESUME</div>
+            <div style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut);">01</div>
+        </div>
+
+        <div class="about-grid">
+            <div class="about-photo-wrapper">
+                <div class="about-photo">
+                    <img src="images/profile.jpg" alt="高飞" loading="lazy" style="object-fit: cover; object-position: top; width: 100%; height: 100%;">
+                    <div style="position: absolute; bottom: 1vh; right: 1vh; color: #fff; font-family: var(--font-mono); font-size: 0.7vw; background: rgba(0,0,0,0.5); padding: 0.2em 0.5em;">ID: GF-26</div>
+                </div>
+                <div class="value-item">
+                    <h3 style="font-size: 0.9vw; text-transform: uppercase; color: var(--fg-mut); margin-bottom: 2vh; letter-spacing: 0.05em; font-family: var(--font-mono);">Honors</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1vh;">
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-light); padding-bottom: 1vh;">
+                            <span style="font-size: 0.9vw;">应邀新浪AIGC培训讲座讲师</span>
+                            <span style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut);">2023</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-light); padding-bottom: 1vh;">
+                            <span style="font-size: 0.9vw;">京东集团产品创新奖</span>
+                            <span style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut);">2022</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-light); padding-bottom: 1vh;">
+                            <span style="font-size: 0.9vw;">京东年度优秀设计师</span>
+                            <span style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut);">2021</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-light); padding-bottom: 1vh;">
+                            <span style="font-size: 0.9vw;">京东年度新锐设计师</span>
+                            <span style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut);">2020</span>
+                        </li>
                     </ul>
                 </div>
             </div>
-            <div>
-                <div class="nav-section">
-                    <div class="nav-title">精选作品</div>
-                    <ul class="nav-list">
-                        <li class="nav-item">大神设计系统 <span class="nav-item-meta">2025 — 设计系统</span></li>
-                        <li class="nav-item">H5 框架生成器 <span class="nav-item-meta">2025 — AI 自动化</span></li>
-                        <li class="nav-item">品牌视觉套件 <span class="nav-item-meta">2024 — 视觉识别</span></li>
-                    </ul>
-                </div>
-                <div class="nav-section" style="margin-top: 4vw;">
-                    <div class="nav-title">能力</div>
-                    <div class="cap-list">
-                        <div class="cap-item">产品设计</div>
-                        <div class="cap-item">设计系统</div>
-                        <div class="cap-item">交互设计</div>
-                        <div class="cap-item">原型与动效</div>
+            <div class="about-text">
+                <h2 style="font-size: 2vw; font-weight: 500; color: var(--fg); margin-bottom: 4vh; letter-spacing: -0.02em; line-height: 1; margin-top: 0;">
+                    高飞｜Goofy
+                </h2>
+                <div style="display: flex; flex-direction: column; gap: 3vh;">
+                    <div style="border-left: 2px solid var(--border); padding-left: 1.5vw;">
+                        <p style="font-size: 0.75vw; color: var(--fg-mut); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1vh; font-family: var(--font-mono);">Experience</p>
+                        <p style="margin: 0; color: var(--fg);"><strong>6 年</strong> 互联网大厂设计经验（京东 3 年 / BIGO 2 年 / 网易近 1 年）。</p>
+                    </div>
+                    <div style="border-left: 2px solid var(--border); padding-left: 1.5vw;">
+                        <p style="font-size: 0.75vw; color: var(--fg-mut); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1vh; font-family: var(--font-mono);">Capabilities</p>
+                        <p style="margin: 0; color: var(--fg);">专注“<strong>用户洞察 + 增长导向</strong>”的全链路设计（创意策划→视觉/系统→落地与资产沉淀）。<br>具备 <strong>AIGC 工作流搭建</strong> 与创新应用能力。</p>
+                        <div class="skills-grid" style="grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border-light); border: 1px solid var(--border-light); margin: 2vh 0 0 0;">
+                            <div class="skill-card" style="background: var(--bg); border: none; padding: 1.5vw; height: 100%;">
+                                <span class="skill-number" style="color: var(--fg-mut); opacity: 0.5;">01</span>
+                                <h3 style="font-size: 1.1vw; margin: 1.5vh 0 0.5vh;">产品 / UI</h3>
+                                <p style="font-size: 0.8vw; color: var(--fg-mut); margin-bottom: 1.5vh;">Figma · Sketch ·创意策划 · 视觉设计</p>
+                                <div style="display: flex; flex-wrap: wrap; gap: 0.5vw;">
+                                    <span style="font-family: var(--font-mono); font-size: 0.7vw; padding: 0.3em 0.6em; border: 1px solid var(--border); border-radius: 100px; color: var(--fg-dim);">Design System</span>
+                                </div>
+                            </div>
+                            <div class="skill-card" style="background: var(--bg); border: none; padding: 1.5vw; height: 100%;">
+                                <span class="skill-number" style="color: var(--fg-mut); opacity: 0.5;">02</span>
+                                <h3 style="font-size: 1.1vw; margin: 1.5vh 0 0.5vh;">AIGC / 自动化</h3>
+                                <p style="font-size: 0.8vw; color: var(--fg-mut); margin-bottom: 1.5vh;">ComfyUI · LoRA · Prompt · n8n · AI 智能体（Open Claw）</p>
+                                <div style="display: flex; flex-wrap: wrap; gap: 0.5vw;">
+                                    <span style="font-family: var(--font-mono); font-size: 0.7vw; padding: 0.3em 0.6em; border: 1px solid var(--border); border-radius: 100px; color: var(--fg-dim);">ComfyUI</span>
+                                    <span style="font-family: var(--font-mono); font-size: 0.7vw; padding: 0.3em 0.6em; border: 1px solid var(--border); border-radius: 100px; color: var(--fg-dim);">LoRA</span>
+                                    <span style="font-family: var(--font-mono); font-size: 0.7vw; padding: 0.3em 0.6em; border: 1px solid var(--border); border-radius: 100px; color: var(--fg-dim);">n8n</span>
+                                    <span style="font-family: var(--font-mono); font-size: 0.7vw; padding: 0.3em 0.6em; border: 1px solid var(--border); border-radius: 100px; color: var(--fg-dim);">Workflow</span>
+                                </div>
+                            </div>
+                            <div class="skill-card" style="background: var(--bg); border: none; padding: 1.5vw; height: 100%;">
+                                <span class="skill-number" style="color: var(--fg-mut); opacity: 0.5;">03</span>
+                                <h3 style="font-size: 1.1vw; margin: 1.5vh 0 0.5vh;">动效 / 3D</h3>
+                                <p style="font-size: 0.8vw; color: var(--fg-mut); margin-bottom: 1.5vh;">After Effects · C4D · 动态设计语言与规范</p>
+                                <div style="display: flex; flex-wrap: wrap; gap: 0.5vw;">
+                                    <span style="font-family: var(--font-mono); font-size: 0.7vw; padding: 0.3em 0.6em; border: 1px solid var(--border); border-radius: 100px; color: var(--fg-dim);">Motion</span>
+                                    <span style="font-family: var(--font-mono); font-size: 0.7vw; padding: 0.3em 0.6em; border: 1px solid var(--border); border-radius: 100px; color: var(--fg-dim);">AE</span>
+                                    <span style="font-family: var(--font-mono); font-size: 0.7vw; padding: 0.3em 0.6em; border: 1px solid var(--border); border-radius: 100px; color: var(--fg-dim);">C4D</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Experience Timeline -->
+        <div class="timeline">
+            <!-- Item 1: Netease -->
+            <div class="timeline-item">
+                <div class="timeline-year">
+                    <span style="font-size: 1.2em; font-weight: 500; color: var(--fg);">2025.11</span>
+                    <span style="opacity: 0.5;">— 至今</span>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-header">
+                        <div style="display: flex; align-items: baseline; gap: 1vw;">
+                            <h3 style="margin: 0; font-size: 1.5vw;">网易游戏</h3>
+                            <span style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut);">运营设计组长</span>
+                        </div>
+                        <div class="timeline-subtitle" style="margin-top: 0.8vh; padding-bottom: 1.5vh; border-bottom: 1px dashed var(--border-light);">
+                            大神产品视觉设计体系建设与团队管理
+                        </div>
+                    </div>
+                    <ul>
+                        <li>
+                            <div style="margin-bottom: 0.5vh; color: var(--fg); font-weight: 500;">品牌升级</div>
+                            <div style="opacity: 0.8;">负责网易大神社区APP产品视觉设计体系建设与团队管理，主导大神APP视觉改版与创意落地。</div>
+                        </li>
+                        <li>
+                            <div style="margin-bottom: 0.5vh; color: var(--fg); font-weight: 500;">AIGC 模型美学与应用探索</div>
+                            <div style="opacity: 0.8;">负责图像/视频生成大模型的美学标准制定与数据调优，建立专业的美学规范以持续提升模型生成质量。积极探索 AIGC 技术在视频特效、直播互动等业务场景中的创新应用，通过 Prompt 优化、LoRA 训练及 ComfyUI 工作流搭建，推动技术与创意的深度融合。</div>
+                        </li>
+                        <li>
+                            <div style="margin-bottom: 0.5vh; color: var(--fg); font-weight: 500;">团队管理与梯队建设</div>
+                            <div style="opacity: 0.8;">负责视觉组团队的日常管理与人才梯队建设，制定团队绩效目标与培养计划。通过定期技术分享与项目复盘，提升团队专业能力与设计视野，促进跨部门协作效率提升。</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Item 2: BIGO -->
+            <div class="timeline-item">
+                <div class="timeline-year">
+                    <span style="font-size: 1.2em; font-weight: 500; color: var(--fg);">2023.07</span>
+                    <span style="opacity: 0.5;">— 2025.11</span>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-header">
+                        <div style="display: flex; align-items: baseline; gap: 1vw;">
+                            <h3 style="margin: 0; font-size: 1.5vw;">BIGO LIVE</h3>
+                            <span style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut);">资深视觉设计师</span>
+                        </div>
+                        <div class="timeline-subtitle" style="margin-top: 0.8vh; padding-bottom: 1.5vh; border-bottom: 1px dashed var(--border-light);">
+                            全球市场创意分析与投放增长视觉设计
+                        </div>
+                    </div>
+                    <ul>
+                        <li>
+                            <div style="margin-bottom: 0.5vh; color: var(--fg); font-weight: 500;">广告投放素材优化</div>
+                            <div style="opacity: 0.8;">围绕核心业务目标，全年持续迭代 10 版投放策略（正向率 80%），结合 25 次 A/B 测试数据驱动优化投放素材，成功推动中东、美国等多国广告转化率持续提升。同时牵头建设 8 国本地化调研与合规设计指南，搭建 UG 团队本地化资产库。推动 Bigo Live 首次登上置顶 Apple 推荐位，累计获 Apple 官方推荐超 20 次（含多次主动推荐），有效带动下载增长。</div>
+                        </li>
+                        <li>
+                            <div style="margin-bottom: 0.5vh; color: var(--fg); font-weight: 500;">社媒创意素材设计</div>
+                            <div style="opacity: 0.8;">结合 AIGC 技术优化创意产出流程，打造「DINO 巨物与地标系列」「环球旅行系列」等爆款内容，FB / INS 自然观看 2100w+，FB 互动率提升 7.9 倍，播放量级占官号 TOP 10 中 4–5 席（除 Gala 外），大幅提升品牌曝光与投放转化效益。</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Item 3: JD -->
+            <div class="timeline-item">
+                <div class="timeline-year">
+                    <span style="font-size: 1.2em; font-weight: 500; color: var(--fg);">2020.07</span>
+                    <span style="opacity: 0.5;">— 2023.07</span>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-header">
+                        <div style="display: flex; align-items: baseline; gap: 1vw;">
+                            <h3 style="margin: 0; font-size: 1.5vw;">京东</h3>
+                            <span style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut);">高级视觉设计师</span>
+                        </div>
+                        <div class="timeline-subtitle" style="margin-top: 0.8vh; padding-bottom: 1.5vh; border-bottom: 1px dashed var(--border-light);">
+                            游戏化营销创意策划与大促视觉设计
+                        </div>
+                    </div>
+                    <ul>
+                        <li>
+                            <div style="margin-bottom: 0.5vh; color: var(--fg); font-weight: 500;">游戏化营销设计</div>
+                            <div style="opacity: 0.8;">负责电商游戏营销的创意策划、项目统筹、视觉设计与监修、迭代规划及策略制定。根据活动定位与业务诉求，提供并推动落地游戏化营销设计方案，通过设计手段助力业务数据增长。累计主导并参与营销 IP「好玩节」、「日常 IP」汽车赛事、「全渠道」超级体验店等近 10 款互动游戏设计落地。此外，主导京东 IP JOY LoRA 1.0 版本模型训练，探索 AIGC 在品牌角色一致性生成中的应用。</div>
+                        </li>
+                        <li>
+                            <div style="margin-bottom: 0.5vh; color: var(--fg); font-weight: 500;">运营活动与日常营销</div>
+                            <div style="opacity: 0.8;">负责多个京东 S 级 / A 级大促（双 11、618、年货节等）及日常 UI 营销设计。主导「我爱周末」营销 IP 的策略输出与视觉设计，建立 3D 资产库与视觉规范，获部门高度评价并助力业务增长。</div>
+                        </li>
+                        <li>
+                            <div style="margin-bottom: 0.5vh; color: var(--fg); font-weight: 500;">京东微信域 UI 设计</div>
+                            <div style="opacity: 0.8;">负责京东购物小程序 UI 日常设计与创新，包括京东全渠道首页改版、京东微信域动态设计语言、年货节购物车分享等。</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+
+    <!-- Education & Honors (Moved to bottom of About) -->
+    <div style="padding: 4vw; border-top: 1px solid var(--border);">
+        <div style="display: grid; grid-template-columns: 1fr; gap: 4vw;">
+             <div class="value-item" style="display: flex; align-items: baseline; gap: 4vw;">
+                <h3 style="width: 10vw; flex-shrink: 0; font-size: 0.9vw; text-transform: uppercase; color: var(--fg-mut); letter-spacing: 0.05em; font-family: var(--font-mono); margin: 0;">Education</h3>
+                <div style="display: flex; justify-content: space-between; width: 100%; align-items: baseline;">
+                    <div style="font-size: 1.2vw; font-weight: 500;">哈尔滨师范大学</div>
+                    <p style="font-size: 0.9vw; color: var(--fg-mut); margin: 0;">美术学院 / 服装与服饰设计 / 本科</p>
+                    <div style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut);">2016.09 — 2020.07</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+
+    <!-- Section: Work -->
+    <div id="work" class="page-section">
+        <div class="section-header-sticky">
+            <div class="section-title-large">作品 / WORK</div>
+            <div style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut);">02</div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-row">
+            <div class="stat-item">
+                <div class="stat-number">05</div>
+                <div class="stat-label">设计领域</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">10+</div>
+                <div class="stat-label">核心项目</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">30+</div>
+                <div class="stat-label">方法论沉淀</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">交付质量</div>
+            </div>
+        </div>
+
+        <!-- Work List -->
+        <div class="work-container">
+            <!-- Group 01 -->
+            <div class="work-group">
+                <div class="group-header">
+                    <span class="group-id">01</span>
+                    <h2 class="group-title">团队管理</h2>
+                </div>
+                <div class="group-list">
+                    <a href="project-influence.html" class="work-row" data-preview="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=500&fit=crop">
+                        <div class="row-title">影响力</div>
+                        <div class="row-desc">方法论沉淀 / 技术研究 / 内外影响</div>
+                        <div class="row-meta"><span>ALL</span></div>
+                    </a>
+                    <a href="project-empowerment.html" class="work-row" data-preview="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&h=500&fit=crop">
+                        <div class="row-title">人才赋能</div>
+                        <div class="row-desc">人才培养 / 专业课程分享</div>
+                        <div class="row-meta"><span>2025</span></div>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Group 02 -->
+            <div class="work-group">
+                <div class="group-header">
+                    <span class="group-id">02</span>
+                    <h2 class="group-title">AI</h2>
+                </div>
+                <div class="group-list">
+                    <a href="project-system-netease.html" class="work-row" data-preview="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&h=500&fit=crop">
+                        <div class="row-title">系统 X Netease</div>
+                        <div class="row-desc">提升设计质量 / 提升设计效率 / 提升设计转化</div>
+                        <div class="row-meta"><span>2025</span></div>
+                    </a>
+                    <a href="project-branding-bigo.html" class="work-row" data-preview="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=500&fit=crop">
+                    <div class="row-title">品牌 X BIGO</div>
+                    <div class="row-desc">IP动画 / IP延展</div>
+                    <div class="row-meta"><span>2025</span></div>
+                </a>
+                <a href="project-personal-app.html" class="work-row" data-preview="https://images.unsplash.com/photo-1555421689-491a97ff2040?w=800&h=500&fit=crop">
+                    <div class="row-title">APP X 个人</div>
+                    <div class="row-desc">AI健身应用开发</div>
+                    <div class="row-meta"><span>2025</span></div>
+                </a>
+                </div>
+            </div>
+
+            <!-- Group 03 -->
+            <div class="work-group">
+                <div class="group-header">
+                    <span class="group-id">03</span>
+                    <h2 class="group-title">品牌</h2>
+                </div>
+                <div class="group-list">
+                    <a href="project-branding.html" class="work-row" data-preview="https://images.unsplash.com/photo-1545235617-9465d2a55698?w=800&h=500&fit=crop">
+                        <div class="row-title">大神APP品牌升级</div>
+                        <div class="row-desc">全站视觉语言重塑与品牌资产沉淀</div>
+                        <div class="row-meta"><span>2025</span></div>
+                    </a>
+                    <a href="project-jd-motion.html" class="work-row" data-preview="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&h=500&fit=crop">
+                        <div class="row-title">京东小程序动效语言</div>
+                        <div class="row-desc">动效规范体系搭建 / 用户体验提升</div>
+                        <div class="row-meta"><span>2022</span></div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Group 04 -->
+            <div class="work-group">
+                <div class="group-header">
+                    <span class="group-id">04</span>
+                    <h2 class="group-title">电商</h2>
+                </div>
+                <div class="group-list">
+                    <a href="project-ecommerce-interactive.html" class="work-row" data-preview="https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?w=800&h=500&fit=crop">
+                        <div class="row-title">汽车赛事视觉升级</div>
+                        <div class="row-desc">游戏化营销互动</div>
+                        <div class="row-meta"><span>2021</span></div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Group 05: Growth -->
+            <div class="work-group">
+                <div class="group-header">
+                    <span class="group-id">05</span>
+                    <h2 class="group-title">国际化/增长</h2>
+                </div>
+                <div class="group-list">
+                    <a href="project-aso.html" class="work-row" data-preview="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop">
+                        <div class="row-title">ASO投放策略</div>
+                        <div class="row-desc">全球应用商店素材优化与转化率提升</div>
+                        <div class="row-meta"><span>2024</span></div>
+                    </a>
+                </div>
+            </div>
+    </div>
+
+    <!-- Section: Contact -->
+    <div id="contact" class="page-section">
+        <div class="section-header-sticky">
+            <div class="section-title-large">联系 / CONTACT</div>
+            <div style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut);">03</div>
+        </div>
+
+        <div class="contact-layout">
+            <div class="contact-left">
+                <h2 class="contact-headline">有项目想法？</h2>
+                <p class="contact-subline">无论是新产品、设计系统重构，还是关于设计的交流 — 我都很乐意与你沟通。</p>
+
+                <div class="contact-channels">
+                    <div class="channel-item">
+                        <span class="channel-label">邮箱</span>
+                        <span class="channel-value"><a href="mailto:2978227503@qq.com">2978227503@qq.com</a></span>
+                    </div>
+                    <div class="channel-item">
+                        <span class="channel-label">手机</span>
+                        <span class="channel-value"><a href="tel:16620151167">16620151167</a></span>
+                    </div>
+                    <div class="channel-item">
+                        <span class="channel-label">微信</span>
+                        <div style="display: flex; flex-direction: column; gap: 1vh;">
+                            <span class="channel-value">13206540280</span>
+                            <img src="images/wechat-qr.png" alt="WeChat QR Code" style="width: 10vw; height: auto; border: 1px solid var(--border-light);">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-right">
+                <div style="margin-bottom: 4vh;">
+                    <span style="font-family: var(--font-mono); font-size: 0.7vw; color: var(--fg-mut); text-transform: uppercase; display: block; margin-bottom: 2vh;">FAQ</span>
+                    <div class="faq-list">
+                        <div class="faq-item" style="margin-bottom: 2vh;">
+                            <div class="faq-q" style="font-size: 1vw; font-weight: 500; color: var(--fg); margin-bottom: 0.5vh;">目前接受什么样的合作？</div>
+                            <div class="faq-a" style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.5;">全职机会优先，同时也对具有挑战性的顾问咨询或设计系统搭建项目感兴趣。</div>
+                        </div>
+                        <div class="faq-item" style="margin-bottom: 2vh;">
+                            <div class="faq-q" style="font-size: 1vw; font-weight: 500; color: var(--fg); margin-bottom: 0.5vh;">擅长的设计领域？</div>
+                            <div class="faq-a" style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.5;">专注于数字产品体验设计，尤其擅长 AIGC 工作流整合、游戏化营销以及设计系统搭建。</div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-q" style="font-size: 1vw; font-weight: 500; color: var(--fg); margin-bottom: 0.5vh;">如何开始合作？</div>
+                            <div class="faq-a" style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.5;">请通过邮件或微信发送您的项目简介，我会尽快回复并安排一次简短的沟通会议。</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <span style="font-family: var(--font-mono); font-size: 0.7vw; color: var(--fg-mut); text-transform: uppercase; display: block; margin-bottom: 2vh;">Current Status</span>
+                    <div style="display: flex; align-items: center; gap: 1vw; padding: 1.5vw; background: var(--bg); border: 1px solid var(--border-light);">
+                        <span style="width: 0.6vw; height: 0.6vw; background: #22c55e; border-radius: 50%; display: block; box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1);"></span>
+                        <span style="font-size: 0.9vw; color: var(--fg);">Open to Opportunities / 随时到岗</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="footer-left">
+                <div style="font-family: var(--font-mono); font-size: 0.8vw; margin-bottom: 0.5vh; color: var(--fg-mut);">UPDATED</div>
+                <div style="font-size: 0.9vw;">2026.03.14</div>
+            </div>
+            <ul class="footer-links" style="display: flex; gap: 2vw;">
+                <li><a href="mailto:2978227503@qq.com" style="font-size: 1.5vw; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s;">Email</a></li>
+                <li><a href="#" style="font-size: 1.5vw; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s;">WeChat</a></li>
+                <li><a href="tel:16620151167" style="font-size: 1.5vw; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s;">Phone</a></li>
+            </ul>
+        </footer>
     </div>
 
     <script src="app.js"></script>
     <script>
-        // ── Home-specific: Nav toggle & Ping ──
-        function toggleNav() {
-            document.getElementById('nav').classList.toggle('active');
-        }
+        // ── Smooth Scroll for Anchor Links ──
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
 
-        setInterval(() => {
-            if (Math.random() > 0.9) {
-                document.getElementById('ping').innerText = `PING ${Math.floor(Math.random() * 10 + 12)}MS`;
-            }
-        }, 1000);
-
-        // ── ASCII Canvas ──
+        // ── ASCII Canvas (Re-integrated) ──
         const canvas = document.getElementById('ascii-canvas');
         const ctx = canvas.getContext('2d');
         let cols, rows;
@@ -359,6 +796,7 @@
         const cfg = { landscapeHeight: 0.7, amp: 15, freq: 0.05, lensRadius: 150 };
 
         function resizeCanvas() {
+            if(!canvas) return;
             const rect = canvas.parentElement.getBoundingClientRect();
             const dpr = window.devicePixelRatio || 1;
             canvas.width = rect.width * dpr;
@@ -370,17 +808,20 @@
             ctx.textBaseline = 'top';
         }
         window.addEventListener('resize', resizeCanvas);
-        canvas.parentElement.addEventListener('mousemove', (e) => {
-            const rect = canvas.parentElement.getBoundingClientRect();
-            mouseX = e.clientX - rect.left; mouseY = e.clientY - rect.top;
-        });
-        canvas.parentElement.addEventListener('mouseleave', () => { mouseX = -1000; mouseY = -1000; });
+        if(canvas) {
+            canvas.parentElement.addEventListener('mousemove', (e) => {
+                const rect = canvas.parentElement.getBoundingClientRect();
+                mouseX = e.clientX - rect.left; mouseY = e.clientY - rect.top;
+            });
+            canvas.parentElement.addEventListener('mouseleave', () => { mouseX = -1000; mouseY = -1000; });
+        }
 
         function noise(x, t) {
             return Math.sin(x * cfg.freq + t) * cfg.amp + Math.sin(x * cfg.freq * 2.5 - t * 1.5) * (cfg.amp * 0.4);
         }
 
         function drawASCII() {
+            if(!canvas) return;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             let dx = mouseX - pMouseX, dy = mouseY - pMouseY;
             mouseVelocity = Math.min(Math.sqrt(dx * dx + dy * dy), 50);

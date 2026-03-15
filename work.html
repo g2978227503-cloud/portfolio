@@ -217,22 +217,22 @@
     <!-- Navigation -->
     <nav class="site-nav">
         <a href="index.html" class="nav-logo scramble-target" data-original="Goofy">Goofy</a>
-        <ul class="nav-links">
-            <li><a href="index.html">首页</a></li>
-            <li><a href="about.html">简历</a></li>
-            <li><a href="work.html" class="active">作品</a></li>
-            <li><a href="blog.html">博客</a></li>
-            <li><a href="contact.html">联系</a></li>
-        </ul>
-        <div class="nav-hamburger" onclick="document.querySelector('.mobile-nav').classList.toggle('active')">
-            <span></span><span></span><span></span>
+        <div style="display: flex; align-items: center; gap: 2vw;">
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="about.html">简历</a></li>
+                <li><a href="work.html" class="active">作品</a></li>
+                <li><a href="contact.html">联系</a></li>
+            </ul>
+            <div class="nav-hamburger" onclick="document.querySelector('.mobile-nav').classList.toggle('active')">
+                <span></span><span></span><span></span>
+            </div>
         </div>
     </nav>
     <div class="mobile-nav">
         <a href="index.html">首页</a>
         <a href="about.html">简历</a>
         <a href="work.html">作品</a>
-        <a href="blog.html">博客</a>
         <a href="contact.html">联系</a>
     </div>
 
@@ -315,19 +315,16 @@
                 <h2 class="group-title" style="margin-top: 1vh;">团队管理</h2>
             </div>
             <div class="group-list">
-                <a href="#" class="work-row" data-preview="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=500&fit=crop">
+                <a href="project-influence.html" class="work-row" data-preview="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=500&fit=crop">
                     <div class="row-title">影响力</div>
                     <div class="row-desc">方法论沉淀 / 技术研究 / 内外影响</div>
                     <div class="row-meta"><span>ALL</span></div>
                 </a>
-                <a href="#" class="work-row" data-preview="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&h=500&fit=crop">
-                    <div class="row-title">人才赋能</div>
-                    <div class="row-desc">人才培养 / 专业课程分享</div>
+                <a href="project-empowerment.html" class="work-row" data-preview="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&h=500&fit=crop">
+                    <div class="row-title">人才培养</div>
+                    <div class="row-desc">体系搭建 / 效能提升</div>
                     <div class="row-meta"><span>2025</span></div>
                 </a>
-
-
-
             </div>
         </div>
 
@@ -403,6 +400,12 @@
 
     </section>
 
+    <!-- Next Page Hint -->
+    <a href="contact.html" class="next-hint fade-in" style="display: block; text-align: center; padding: 6vh 0 2vh; text-decoration: none;">
+        <span style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut); letter-spacing: 0.05em; display: block; margin-bottom: 1vh;">NEXT PAGE</span>
+        <div style="font-size: 2vw; font-weight: 500; color: var(--fg);">联系 / Contact ↓</div>
+    </a>
+
     <!-- Footer -->
     <footer class="site-footer" style="margin-top: 0; padding-top: 4vh; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-end;">
         <div class="footer-left">
@@ -417,5 +420,26 @@
     </footer>
 
     <script src="app.js"></script>
+    <script>
+        // ── Scroll Navigation ──
+        let lastScrollTime = 0;
+        window.addEventListener('wheel', (e) => {
+            const now = Date.now();
+            if (now - lastScrollTime < 1000) return;
+
+            // Scroll Up -> About (Resume)
+            if (window.scrollY <= 0 && e.deltaY < -20) {
+                lastScrollTime = now;
+                window.location.href = 'about.html';
+            }
+
+            // Scroll Down -> Contact
+            // Check if at bottom (using scrollHeight for robustness)
+            if ((window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 50 && e.deltaY > 20) {
+                lastScrollTime = now;
+                window.location.href = 'contact.html';
+            }
+        }, { passive: true });
+    </script>
 </body>
 </html>

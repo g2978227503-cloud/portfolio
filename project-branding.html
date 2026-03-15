@@ -140,24 +140,27 @@
 <body>
 
     <!-- Navigation -->
-    <nav class="site-nav">
-        <a href="index.html" class="nav-logo scramble-target" data-original="Goofy">Goofy</a>
-        <ul class="nav-links">
-            <li><a href="index.html">首页</a></li>
-            <li><a href="about.html">简历</a></li>
-            <li><a href="work.html" class="active">作品</a></li>
-            <li><a href="blog.html">博客</a></li>
-            <li><a href="contact.html">联系</a></li>
-        </ul>
-        <div class="nav-hamburger" onclick="document.querySelector('.mobile-nav').classList.toggle('active')">
-            <span></span><span></span><span></span>
+    <nav class="site-nav" style="position: fixed; top: 0; left: 0; width: 100%; z-index: 900; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; padding: 0 4vw; height: 8vh;">
+        <div style="display: flex; align-items: center; gap: 2vw;">
+             <a href="index.html" class="nav-logo scramble-target" data-original="Goofy">Goofy</a>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 2vw;">
+            <ul class="nav-links" style="margin: 0; display: flex; gap: 2vw;">
+                <li><a href="index.html#home">首页</a></li>
+                <li><a href="index.html#about">简历</a></li>
+                <li><a href="index.html#work">作品</a></li>
+                <li><a href="index.html#contact">联系</a></li>
+            </ul>
+            <div class="nav-hamburger" onclick="document.querySelector('.mobile-nav').classList.toggle('active')">
+                <span></span><span></span><span></span>
+            </div>
         </div>
     </nav>
     <div class="mobile-nav">
         <a href="index.html">首页</a>
         <a href="about.html">简历</a>
         <a href="work.html">作品</a>
-        <a href="blog.html">博客</a>
         <a href="contact.html">联系</a>
     </div>
 
@@ -209,29 +212,12 @@
         </div>
     </section>
 
-    <!-- Content: Solution -->
-    <section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
-        <div class="content-sidebar">
-            <span class="sidebar-title">02 — SOLUTION</span>
-        </div>
-        <div class="content-body">
-            <h3>核心策略：连接与共鸣</h3>
-            <p>我们提取了“连接”、“热爱”、“多元”作为核心设计关键词。在色彩上，保留了品牌标志性的红色，但调整了饱和度和明度，使其更具年轻活力。</p>
-            <p>在图形语言上，引入了“像素块”与“对话气泡”的融合元素，象征着游戏基因与社区互动的结合。这套图形系统被广泛应用于图标、插画及界面背景中。</p>
-        </div>
-    </section>
 
-    <!-- Gallery Grid -->
-    <section class="project-gallery fade-in">
-        <div class="gallery-item">
-            <img src="images/full-case.png?v=1" alt="Full Case Study" style="width: 100%; height: auto; display: block;">
-        </div>
-    </section>
 
     <!-- Next Project -->
-    <a href="work.html" class="next-project">
+    <a href="index.html#work" class="next-project">
         <span class="next-label">NEXT PROJECT</span>
-        <div class="next-title">京东小程序动效语言 →</div>
+        <div class="next-title">返回作品列表 →</div>
     </a>
 
     <!-- Footer -->

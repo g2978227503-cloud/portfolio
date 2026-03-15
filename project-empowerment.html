@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人才赋能 — Goofy</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ── Project Detail Specific Styles ── */
+        .project-header {
+            padding: 12vh var(--page-pad) 6vh;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .project-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .meta-item {
+            padding: 2.5vw;
+            border-right: 1px solid var(--border-light);
+        }
+
+        .meta-item:last-child { border-right: none; }
+
+        .meta-label {
+            font-family: var(--font-mono);
+            font-size: 0.7vw;
+            color: var(--fg-dim);
+            margin-bottom: 1vh;
+            display: block;
+        }
+
+        .meta-value {
+            font-size: 1vw;
+            font-weight: 500;
+        }
+
+        .project-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4vw;
+            padding: 8vh var(--page-pad);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .content-sidebar {
+            position: sticky;
+            top: 12vh;
+            align-self: start;
+        }
+
+        .sidebar-title {
+            font-family: var(--font-mono);
+            font-size: 0.8vw;
+            color: var(--fg-mut);
+            margin-bottom: 2vh;
+            display: block;
+        }
+
+        .content-body p {
+            font-size: 1.1vw;
+            line-height: 1.6;
+            margin-bottom: 3vh;
+            color: var(--fg);
+            max-width: 60ch;
+        }
+
+        .content-body h3 {
+            font-size: 1.5vw;
+            font-weight: 600;
+            margin-top: 6vh;
+            margin-bottom: 2vh;
+        }
+
+        .content-body ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 3vh;
+        }
+
+        .content-body li {
+            position: relative;
+            padding-left: 1.5vw;
+            margin-bottom: 1vh;
+            font-size: 1.1vw;
+            line-height: 1.6;
+            color: var(--fg);
+        }
+
+        .content-body li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--fg-dim);
+        }
+
+        .next-project {
+            padding: 8vh var(--page-pad);
+            border-top: 1px solid var(--border);
+            text-align: right;
+            display: block;
+            transition: background 0.2s ease;
+        }
+
+        .next-project:hover {
+            background: var(--fg);
+        }
+
+        .next-project:hover .next-label,
+        .next-project:hover .next-title {
+            color: var(--bg);
+        }
+
+        .next-label {
+            font-family: var(--font-mono);
+            font-size: 0.8vw;
+            color: var(--fg-dim);
+            margin-bottom: 1vh;
+            display: block;
+        }
+
+        .next-title {
+            font-size: 3vw;
+            font-weight: 500;
+            color: var(--fg);
+        }
+
+        @media (max-width: 768px) {
+            .project-meta-grid { grid-template-columns: 1fr 1fr; }
+            .meta-item { border-bottom: 1px solid var(--border-light); }
+            .meta-label { font-size: 2.5vw; }
+            .meta-value { font-size: 3.5vw; }
+
+            .project-content { grid-template-columns: 1fr; }
+            .content-sidebar { position: static; margin-bottom: 4vh; }
+            .sidebar-title { font-size: 3vw; }
+            .content-body p, .content-body li { font-size: 4vw; }
+            .content-body h3 { font-size: 5vw; }
+
+            .next-title { font-size: 8vw; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="site-nav" style="position: fixed; top: 0; left: 0; width: 100%; z-index: 900; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; padding: 0 4vw; height: 8vh;">
+        <div style="display: flex; align-items: center; gap: 2vw;">
+             <a href="index.html" class="nav-logo scramble-target" data-original="Goofy">Goofy</a>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 2vw;">
+            <ul class="nav-links" style="margin: 0; display: flex; gap: 2vw;">
+                <li><a href="index.html#home">首页</a></li>
+                <li><a href="index.html#about">简历</a></li>
+                <li><a href="index.html#work">作品</a></li>
+                <li><a href="index.html#contact">联系</a></li>
+            </ul>
+            <div class="nav-hamburger" onclick="document.querySelector('.mobile-nav').classList.toggle('active')">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+    <div class="mobile-nav">
+        <a href="index.html#home">首页</a>
+        <a href="index.html#about">简历</a>
+        <a href="index.html#work">作品</a>
+        <a href="index.html#contact">联系</a>
+    </div>
+
+    <!-- Project Header -->
+    <header class="project-header fade-in" style="margin-top: 8vh;">
+        <div style="margin-bottom: 2vh;">
+            <a href="index.html#work" style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut); display: inline-flex; align-items: center; gap: 0.5vw;">
+                ← BACK TO WORK
+            </a>
+        </div>
+        <h1 class="page-title scramble-target" data-original="人才培养">人才培养</h1>
+        <div style="margin-top: 2vh; font-size: 1.5vw; color: var(--fg-mut);">体系搭建 / 效能提升</div>
+    </header>
+
+    <!-- Project Meta -->
+    <section class="project-meta-grid fade-in">
+        <div class="meta-item">
+            <span class="meta-label">CLIENT</span>
+            <div class="meta-value">Internal Design Team</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">ROLE</span>
+            <div class="meta-value">Design Lead / Manager</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">YEAR</span>
+            <div class="meta-value">2025</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">OUTPUT</span>
+            <div class="meta-value">课程体系 / 团队成长</div>
+        </div>
+    </section>
+
+
+
+    <!-- Content: Team Management -->
+    <section class="project-content fade-in">
+        <div class="content-sidebar">
+            <span class="sidebar-title">01 — TEAM MANAGEMENT</span>
+        </div>
+        <div class="content-body">
+            <h3>团队成长与能力赋能</h3>
+            <p>构建从「新人落地」到「进阶成长」的全链路培养体系。通过标准化的入职指引、多维度的绩效量化标准以及实战型的通用能力文档库，全方位赋能团队成员，打造高自驱、高产出的设计团队。</p>
+
+            <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 4vh; margin-bottom: 2vh;">新人落地指南</h4>
+            <p>建立完整的入职指引与导师制度，确保新成员加入后可以快速上手。</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2vw; margin-top: 3vh; margin-bottom: 4vh;">
+                <div style="border: 1px solid var(--border-light); padding: 2vw;">
+                    <h5 style="font-size: 1vw; font-weight: 600; margin-bottom: 1vh; color: var(--fg);">入职准备</h5>
+                    <p style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.6; margin-bottom: 0;">个人介绍、背景破冰，快速建立团队认知</p>
+                </div>
+                <div style="border: 1px solid var(--border-light); padding: 2vw;">
+                    <h5 style="font-size: 1vw; font-weight: 600; margin-bottom: 1vh; color: var(--fg);">工具权限</h5>
+                    <p style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.6; margin-bottom: 0;">环境配置/OA/网盘/协作平台权限开通</p>
+                </div>
+                <div style="border: 1px solid var(--border-light); padding: 2vw;">
+                    <h5 style="font-size: 1vw; font-weight: 600; margin-bottom: 1vh; color: var(--fg);">团队融入</h5>
+                    <p style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.6; margin-bottom: 0;">知悉组织架构与关键对接人，明确业务范围与考核标准</p>
+                </div>
+                <div style="border: 1px solid var(--border-light); padding: 2vw;">
+                    <h5 style="font-size: 1vw; font-weight: 600; margin-bottom: 1vh; color: var(--fg);">系统规范</h5>
+                    <p style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.6; margin-bottom: 0;">设计规范/渠道规范/设计模版/重点项目路径</p>
+                </div>
+            </div>
+
+            <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 6vh; margin-bottom: 3vh;">人员成长路径</h4>
+            <p>建立定期的绩效盘点与能力评估，量化成员的成长与制定针对性的提升计划。</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2vw; margin-top: 3vh;">
+                <div style="border: 1px solid var(--border-light); padding: 2vw;">
+                    <h5 style="font-size: 1vw; font-weight: 600; margin-bottom: 1vh; color: var(--fg);">产出效率</h5>
+                    <p style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.6; margin-bottom: 0;">评估任务完成的及时性与吞吐量</p>
+                </div>
+                <div style="border: 1px solid var(--border-light); padding: 2vw;">
+                    <h5 style="font-size: 1vw; font-weight: 600; margin-bottom: 1vh; color: var(--fg);">产出质量与视觉创新</h5>
+                    <p style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.6; margin-bottom: 0;">评估任务复杂度、呈现效果及对业务的转化贡献</p>
+                </div>
+                <div style="border: 1px solid var(--border-light); padding: 2vw;">
+                    <h5 style="font-size: 1vw; font-weight: 600; margin-bottom: 1vh; color: var(--fg);">规范性</h5>
+                    <p style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.6; margin-bottom: 0;">评估设计文件的管理规范与协作效率</p>
+                </div>
+                <div style="border: 1px solid var(--border-light); padding: 2vw;">
+                    <h5 style="font-size: 1vw; font-weight: 600; margin-bottom: 1vh; color: var(--fg);">分享/复盘/资产沉淀</h5>
+                    <p style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.6; margin-bottom: 0;">评估对团队效能、知识沉淀与协作的正向价值</p>
+                </div>
+                <div style="border: 1px solid var(--border-light); padding: 2vw; grid-column: span 2;">
+                    <h5 style="font-size: 1vw; font-weight: 600; margin-bottom: 1vh; color: var(--fg);">AI应用</h5>
+                    <p style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.6; margin-bottom: 0;">评估AI工具在设计工作中的应用深度、提效成果与创新落地</p>
+                </div>
+            </div>
+
+            <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 6vh; margin-bottom: 3vh;">通用能力提升文档库</h4>
+            <p>针对设计师的通用能力短板，沉淀了一系列实战型文档，涵盖思维模型、沟通协作、数据分析等核心维度，帮助成员构建更全面的职业竞争力。</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2vw; margin-top: 3vh;">
+                <div style="border: 1px solid var(--border-light); padding: 2vw;">
+                    <h5 style="font-size: 1vw; font-weight: 600; margin-bottom: 1vh; color: var(--fg);">方法论 x 思维模型</h5>
+                    <p style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.6; margin-bottom: 0;">目标管理 / 问题分析</p>
+                </div>
+                <div style="border: 1px solid var(--border-light); padding: 2vw;">
+                    <h5 style="font-size: 1vw; font-weight: 600; margin-bottom: 1vh; color: var(--fg);">项目讲解能力</h5>
+                    <p style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.6; margin-bottom: 0;">项目汇报逻辑模板</p>
+                </div>
+                <div style="border: 1px solid var(--border-light); padding: 2vw;">
+                    <h5 style="font-size: 1vw; font-weight: 600; margin-bottom: 1vh; color: var(--fg);">方案输出能力</h5>
+                    <p style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.6; margin-bottom: 0;">如何输出设计方案</p>
+                </div>
+                <div style="border: 1px solid var(--border-light); padding: 2vw;">
+                    <h5 style="font-size: 1vw; font-weight: 600; margin-bottom: 1vh; color: var(--fg);">沟通协作能力</h5>
+                    <p style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.6; margin-bottom: 0;">跨部门沟通话术</p>
+                </div>
+                <div style="border: 1px solid var(--border-light); padding: 2vw;">
+                    <h5 style="font-size: 1vw; font-weight: 600; margin-bottom: 1vh; color: var(--fg);">数据思维能力</h5>
+                    <p style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.6; margin-bottom: 0;">如何拆解运营数据 / 如何看懂数据名词</p>
+                </div>
+                <div style="border: 1px solid var(--border-light); padding: 2vw;">
+                    <h5 style="font-size: 1vw; font-weight: 600; margin-bottom: 1vh; color: var(--fg);">价值证明能力</h5>
+                    <p style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.6; margin-bottom: 0;">如何证明设计价值</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Next Project -->
+    <a href="index.html#work" class="next-project">
+        <span class="next-label">NEXT PROJECT</span>
+        <div class="next-title">返回作品列表 →</div>
+    </a>
+
+    <!-- Footer -->
+    <footer class="site-footer" style="margin-top: 0; padding-top: 4vh; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 4vh; padding-left: 4vw; padding-right: 4vw;">
+        <div class="footer-left">
+            <div style="font-family: var(--font-mono); font-size: 0.8vw; margin-bottom: 0.5vh; color: var(--fg-mut);">UPDATED</div>
+            <div style="font-size: 0.9vw;">2026.03.14</div>
+        </div>
+        <ul class="footer-links" style="display: flex; gap: 2vw;">
+            <li><a href="mailto:2978227503@qq.com" style="font-size: 1.5vw; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s;">Email</a></li>
+            <li><a href="#" style="font-size: 1.5vw; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s;">WeChat</a></li>
+        </ul>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
