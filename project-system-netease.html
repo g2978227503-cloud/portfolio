@@ -218,12 +218,12 @@
             <span class="sidebar-title">01 — DESIGN QUALITY</span>
         </div>
         <div class="content-body">
-            <h3>提升设计品质：AI 赋能的标准化生产管线</h3>
-            <p>通过引入 AI 工作流，在保持高品质视觉输出的同时，极大地降低了对特定画师或动效师的依赖，实现了设计质量的标准化与可复制化。</p>
+            <h3>AI提升设计质量：设计标准化生产</h3>
+            <p>通过引入 AI 工作流，在保障高品质视觉输出的同时，降低对特定画师或动画师的依赖，实现设计质量的标准化、可复制与规模化交付。</p>
             
-            <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 4vh; margin-bottom: 2vh;">1. 手绘型需求 AI 生产管线</h4>
-            <p>针对以往耗时且风格难以统一的手绘插画需求，搭建了专属的 AI 绘画模型工作流。通过精准的 Prompt 调试与垫图控制，确保输出的插画在色彩、光影、透视及角色特征上高度一致，将手绘质量从“个人发挥”转变为“系统保障”。</p>
-            <p>该工作流可模拟团队多位设计师的画风，并搭配 n8n 管线，有效支持了逆水寒/炉石传说 游戏IP与用户合影二创等互动功能。</p>
+            <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 4vh; margin-bottom: 2vh;">1. 手绘类需求的 AI 生产管线</h4>
+            <p>针对过往耗时高、风格一致性难保障的手绘插画需求，搭建专属 AI 绘画模型与工作流。通过精细化 Prompt 调校与垫图（参考图）约束，稳定控制色彩、光影、透视与角色特征，使插画输出在不同批次间保持高度一致，将手绘质量从“依赖个人发挥”升级为“系统化保障”。</p>
+            <p>该管线可模拟团队多位设计师的画风，并结合 n8n 自动化编排，实现从需求触发、生成到交付的无设计师流程化生产，有效支撑《逆水寒》《炉石传说》等游戏 IP 与“用户合影二创”等互动玩法的规模化落地。</p>
             <div style="display: flex; gap: 2vw; margin-top: 3vh; width: 100%;">
                 <!-- Image 1: natural width, fixed height container logic -->
                 <div style="flex: 0 0 auto;">
@@ -235,18 +235,18 @@
                 </div>
             </div>
 
-            <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 4vh; margin-bottom: 2vh;">2. 动效型需求 AI 生产管线</h4>
-            <p>在传统资源位设计中，受限于人力成本，难以在所有点位实现精致的视觉表现。利用 AI 生成基础动效素材，快速提升整体设计品质。</p>
-            <p>以小程序下拉菜单资源位为例，将原本静态 KV 升级为微呼吸动效，不仅显著提升了视觉效果与沉浸感，还有效避免了动效制作水平不一的问题。</p>
+            <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 4vh; margin-bottom: 2vh;">2. 动画类需求的 AI 生产管线</h4>
+            <p>在传统资源位设计中，受人力与成本限制，难以在所有点位都实现高精度的动效呈现。通过引入 AI 生成基础动效素材的工作流，可快速补齐动效能力覆盖面，在不显著增加制作成本的前提下，整体提升设计质感与一致性。</p>
+            <p>以小程序下拉彩蛋资源位为例，将原本的静态 KV 升级为轻量“微呼吸”动效，不仅显著增强视觉表现与沉浸感，也通过模板化参数与流程约束，避免因不同制作人员水平差异导致的动效质量不一致问题。</p>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2vw; margin-top: 3vh;">
                 <video src="images/project-system-netease/motion-video-1.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
                 <video src="images/project-system-netease/motion-video-2.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
             </div>
             <img src="images/project-system-netease/motion-ai-pipeline.png" alt="Motion AI Pipeline Output" style="width: 100%; margin-top: 2vh; border: 1px solid var(--border-light);">
 
-            <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 4vh; margin-bottom: 2vh;">3. 视觉设计型需求 AI 生产管线</h4>
-            <p>在常规的运营活动设计中，建立了基于游戏的特定资产库。通过提示词逆向工程，可以快速生成符合游戏调性的背景、道具及合成素材。</p>
-            <p>通过 ComfyUI 管线进行最后合成，大幅缩短了从创意构思到视觉执行的周期。</p>
+            <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 4vh; margin-bottom: 2vh;">3. 视觉设计类需求的 AI 生产管线</h4>
+            <p>在常规运营活动设计中，基于对游戏视觉风格的深度洞察，沉淀并建立了严格的美学规范与专用资产库。通过提示词逆向工程与参数调优，能够快速生成符合游戏调性的背景、道具与合成素材，确保风格统一、产出稳定。</p>
+            <p>在专业审美把控的前提下，结合 ComfyUI 管线进行可控的分层生成与精准合成，既保障了高品质的视觉呈现，也显著缩短了从创意构思到视觉执行的整体周期。</p>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2vw; margin-top: 3vh;">
                 <div style="height: 25vh; border: 1px solid var(--border-light);">
                     <img src="images/project-system-netease/visual-ai-parameters.png" alt="Visual AI Parameters" style="width: 100%; height: 100%; object-fit: contain; object-position: center; background: #000;">
@@ -265,16 +265,18 @@
             <span class="sidebar-title">02 — DESIGN EFFICIENCY</span>
         </div>
         <div class="content-body">
-            <h3>提升设计效率：外包工单清零</h3>
-            <p>面对团队每月 500+ 的海量外包工单需求，通过深度拆解需求类型，分类定制 AI 自动化生产管线，成功实现了外包工单的全面清零，大幅降低了部门成本并提升了响应速度。</p>
+            <h3>AI 提升设计效率：外包工单清零</h3>
+            <p>面对团队每月 500+ 的外包工单需求，通过深度拆解需求类型并分类搭建 AI 自动化生产管线，实现外包工单全面清零，显著降低部门成本，同时提升交付响应速度与产能稳定性。</p>
 
-            <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 4vh; margin-bottom: 2vh;">1. 资源位型需求管线</h4>
-            <p>针对重复性高、规范明确的资源位图（如 Banner、弹窗），建立了“参数化生成 + 批量自动化”的工作流。设计师或运营人员只需配置核心视觉元素，系统即可自动适配多尺寸的符合规范的设计，实现“一次设计，全量生成”。</p>
+            <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 4vh; margin-bottom: 2vh;">1. 资源位类需求的AI生产管线</h4>
+            <p>针对重复度高、规范清晰的资源位物料（如 Banner、弹窗等），搭建“参数化生成 + 批量自动化”的生产工作流。设计师或运营只需配置核心视觉元素与文案信息，系统即可自动完成多尺寸适配与规范校验，产出一致且合规的设计，实现“一次设计，全量生成”。</p>
             <img src="images/project-system-netease/resource-pipeline.gif" alt="Resource Type AI Pipeline" style="width: 100%; margin-top: 3vh; border: 1px solid var(--border-light);">
+            <img src="images/project-system-netease/workflow-group-9.png" alt="Workflow Overview" style="width: 100%; margin-top: 2vh; border: 1px solid var(--border-light);">
+            <img src="images/project-system-netease/workflow-3.png" style="width: 100%; margin-top: 2vh; border: 1px solid var(--border-light);">
 
 
-            <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 4vh; margin-bottom: 2vh;">2. 运营活动模版 / H5 长图型需求管线</h4>
-            <p>针对结构相对固定的运营活动页，开发了“模块化拼装 + 风格化填充”的 n8n 管线。通过 AI 快速生成符合主题的边框、背景及装饰元素，并结合组件功能自动填充内容，将原本数天的设计周期缩短至小时级。</p>
+            <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 4vh; margin-bottom: 2vh;">2. 运营活动类需求的AI生产管线</h4>
+            <p>针对结构相对固定的运营活动页需求，搭建“风格化模块生成”的 n8n 自动化管线：将页面拆解为可复用组件与版式模块，基于主题由 AI 批量生成匹配风格的边框、背景与装饰元素，并按组件规则自动填充文案、图标及活动信息。整体将原本以天计的设计周期压缩至小时级，同时确保风格统一与产出稳定。</p>
             <div style="display: flex; gap: 1vw; margin-top: 3vh; overflow: hidden;">
                 <div style="flex: 1; height: 30vh; overflow: hidden; border: 1px solid var(--border-light);">
                     <img src="images/project-system-netease/campaign-template-1.png" alt="Campaign Template 1" style="width: 100%; height: auto; object-fit: cover; object-position: top;">
@@ -302,9 +304,9 @@
             <span class="sidebar-title">03 — DESIGN CONVERSION</span>
         </div>
         <div class="content-body">
-            <h3>提升设计转化：投放素材自进化系统</h3>
+            <h3>AI提升设计转化：投放素材自进化系统</h3>
             <p>在获客成本日益高昂的背景下，为商业化部门打造了一套“投放素材自进化系统”。通过打通设计与投放数据的闭环，让 AI 能够基于数据反馈，自动分析高转化素材的特征，并进行裂变迭代。</p>
-            <p>该系统实现了从“人工经验决策”向“数据驱动决策”的转型，不仅大幅提升了素材的跑量能力，更让设计产出能够直接对业务增长负责。</p>
+            <p>从“人工经验决策”向“数据驱动决策”的转型，提升了素材的跑量能力，让设计产出能够直接助力业务增长。</p>
             <img src="images/project-system-netease/conversion-pipeline.png" alt="Design Conversion AI Pipeline" style="width: 100%; margin-top: 3vh; border: 1px solid var(--border-light);">
         </div>
     </section>

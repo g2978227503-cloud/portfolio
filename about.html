@@ -221,42 +221,40 @@
         }
 
         /* ── Skills Grid ── */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2vw;
+        .skills-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 4vw; 
+            margin-top: 3vh; 
+            border-top: 1px solid var(--border); 
+            padding-top: 3vh; 
         }
-
-        .skill-card {
-            padding: 2vw;
-            border: 1px solid var(--border);
-            transition: all 0.3s var(--transition);
+        .skill-card { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: flex-start; 
+            padding: 0;
+            border: none;
         }
-
-        .skill-card:hover {
-            border-color: var(--fg);
-            transform: translateY(-2px);
+        .skill-card:hover { border-color: transparent; transform: none; }
+        .skill-number { 
+            font-family: var(--font-mono); 
+            font-size: 0.75vw; 
+            color: var(--fg-dim); 
+            margin-bottom: 1vh; 
         }
-
-        .skill-card h3 {
-            font-size: 1vw;
-            font-weight: 500;
-            margin-bottom: 1vh;
+        .skill-card h3 { 
+            font-size: 1vw; 
+            font-weight: 500; 
+            margin: 0 0 1vh 0; 
+            color: var(--fg); 
             letter-spacing: -0.01em;
         }
-
-        .skill-card p {
-            font-size: 0.75vw;
-            color: var(--fg-mut);
-            line-height: 1.5;
-        }
-
-        .skill-number {
-            font-family: var(--font-mono);
-            font-size: 0.65vw;
-            color: var(--fg-dim);
-            margin-bottom: 1.5vh;
-            display: block;
+        .skill-card p { 
+            font-size: 0.85vw; 
+            color: var(--fg-mut); 
+            margin: 0; 
+            line-height: 1.6; 
         }
 
         /* ── Values/Honors ── */
@@ -355,83 +353,83 @@
     <section class="section fade-in">
         <span class="section-label">01 — 个人总结</span>
         <div class="about-grid">
-            <div class="about-photo-wrapper">
+            <div class="about-photo-wrapper" style="display: flex; flex-direction: column; height: 100%;">
                 <div class="about-photo">
-                    <img src="images/profile.jpg" alt="高飞" loading="lazy">
-                    <div style="position: absolute; bottom: 1vh; right: 1vh; color: #fff; font-family: var(--font-mono); font-size: 0.7vw; background: rgba(0,0,0,0.5); padding: 0.2em 0.5em;">ID: GF-26</div>
+                    <img src="images/profile.jpg" alt="高飞" loading="lazy" style="object-fit: cover; object-position: top; width: 100%; height: 100%;">
                 </div>
-                <div class="value-item">
-                    <h3 style="font-size: 0.9vw; text-transform: uppercase; color: var(--fg-mut); margin-bottom: 2vh; letter-spacing: 0.05em; font-family: var(--font-mono);">Honors</h3>
-                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1vh;">
-                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-light); padding-bottom: 1vh;">
-                            <span style="font-size: 0.9vw;">应邀新浪AIGC培训讲座讲师</span>
-                            <span style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut);">2023</span>
-                        </li>
-                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-light); padding-bottom: 1vh;">
-                            <span style="font-size: 0.9vw;">京东集团产品创新奖</span>
-                            <span style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut);">2022</span>
-                        </li>
-                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-light); padding-bottom: 1vh;">
-                            <span style="font-size: 0.9vw;">京东年度优秀设计师</span>
-                            <span style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut);">2021</span>
-                        </li>
-                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-light); padding-bottom: 1vh;">
-                            <span style="font-size: 0.9vw;">京东年度新锐设计师</span>
-                            <span style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut);">2020</span>
-                        </li>
-                    </ul>
+                
+                <!-- Profile Meta -->
+                <div class="profile-meta" style="margin-top: 2vh; font-family: var(--font-mono); font-size: 0.75vw; color: var(--fg-mut); flex: 1; display: flex; flex-direction: column;">
+                    <div style="margin-bottom: 1.5vh; display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5vh;">
+                        <span>LOCATION</span>
+                        <span style="color: var(--fg);">Guangzhou, CN</span>
+                    </div>
+                    <div style="margin-bottom: 1.5vh; display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5vh;">
+                        <span>STATUS</span>
+                        <span style="color: var(--fg); display: flex; align-items: center; gap: 0.5em;"><span style="width: 6px; height: 6px; background: #22c55e; border-radius: 50%; display: inline-block;"></span> Available</span>
+                    </div>
+                    <div style="margin-bottom: 1.5vh; display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5vh;">
+                        <span>AGE</span>
+                        <span style="color: var(--fg);">28</span>
+                    </div>
+                    <div style="margin-top: auto;">
+                        <div style="margin-bottom: 0.5vh; font-size: 0.7vw; opacity: 0.7;">CONTACT</div>
+                        <a href="mailto:2978227503@qq.com" style="color: var(--fg); display: block; margin-bottom: 0.5vh; text-decoration: none;">2978227503@qq.com</a>
+                        <div style="color: var(--fg);">WeChat: 13206540280</div>
+                    </div>
                 </div>
+
             </div>
             <div class="about-text">
                 <h2 style="font-size: 2vw; font-weight: 500; color: var(--fg); margin-bottom: 4vh; letter-spacing: -0.02em; line-height: 1; margin-top: 0;">
                     高飞｜Goofy
                 </h2>
-                
                 <div style="display: flex; flex-direction: column; gap: 3vh;">
-                    <div style="border-left: 2px solid var(--border); padding-left: 1.5vw;">
+                    <div style="padding-left: 0;">
                         <p style="font-size: 0.75vw; color: var(--fg-mut); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1vh; font-family: var(--font-mono);">Experience</p>
-                        <p style="margin: 0; color: var(--fg);">拥有 <strong>6 年互联网设计经验</strong>，专注于 <strong>AI + 设计</strong> 的深度融合。从京东的电商游戏化营销，到 BIGO 的海外增长设计，再到网易游戏的智能化管线搭建，始终致力于探索 AI 技术在 <strong>降本增效</strong> 与 <strong>业务增长</strong> 中的落地应用，主导过多个从 0 到 1 的智能化设计体系与百万级用户产品。</p>
+                        <p style="margin: 0; color: var(--fg);"><strong>6 年</strong> 互联网大厂设计经验（京东 3 年 / BIGO 2 年 / 网易近 1 年）。</p>
                     </div>
-
-                    <div style="border-left: 2px solid var(--border); padding-left: 1.5vw;">
+                    <div style="padding-left: 0;">
                         <p style="font-size: 0.75vw; color: var(--fg-mut); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1vh; font-family: var(--font-mono);">Capabilities</p>
                         <p style="margin: 0; color: var(--fg);">专注“<strong>用户洞察 + 增长导向</strong>”的全链路设计（创意策划→视觉/系统→落地与资产沉淀）。<br>具备 <strong>AIGC 工作流搭建</strong> 与创新应用能力。</p>
-                        <div class="skills-grid" style="grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border-light); border: 1px solid var(--border-light); margin: 2vh 0 0 0;">
-                            <div class="skill-card" style="background: var(--bg); border: none; padding: 1.5vw; height: 100%;">
-                                <span class="skill-number" style="color: var(--fg-mut); opacity: 0.5;">01</span>
-                                <h3 style="font-size: 1.1vw; margin: 1.5vh 0 0.5vh;">产品 / UI</h3>
-                                <p style="font-size: 0.8vw; color: var(--fg-mut); margin-bottom: 1.5vh;">Figma · Sketch ·创意策划 · 视觉设计</p>
-                                <div style="display: flex; flex-wrap: wrap; gap: 0.5vw;">
-                                    <span style="font-family: var(--font-mono); font-size: 0.7vw; padding: 0.3em 0.6em; border: 1px solid var(--border); border-radius: 100px; color: var(--fg-dim);">Design System</span>
-                                </div>
+                        <div class="skills-grid" style="margin-top: 2vh; padding-top: 0; border-top: none; gap: 2vw;">
+                            <div class="skill-card">
+                                <span class="skill-number">01</span>
+                                <h3>产品 / UI</h3>
+                                <p>创意策划 · 视觉设计</p>
                             </div>
-                            <div class="skill-card" style="background: var(--bg); border: none; padding: 1.5vw; height: 100%;">
-                                <span class="skill-number" style="color: var(--fg-mut); opacity: 0.5;">02</span>
-                                <h3 style="font-size: 1.1vw; margin: 1.5vh 0 0.5vh;">AIGC / 自动化</h3>
-                                <p style="font-size: 0.8vw; color: var(--fg-mut); margin-bottom: 1.5vh;">ComfyUI · LoRA · Prompt · n8n · AI 智能体（Open Claw）</p>
-                                <div style="display: flex; flex-wrap: wrap; gap: 0.5vw;">
-                                    <span style="font-family: var(--font-mono); font-size: 0.7vw; padding: 0.3em 0.6em; border: 1px solid var(--border); border-radius: 100px; color: var(--fg-dim);">ComfyUI</span>
-                                    <span style="font-family: var(--font-mono); font-size: 0.7vw; padding: 0.3em 0.6em; border: 1px solid var(--border); border-radius: 100px; color: var(--fg-dim);">LoRA</span>
-                                    <span style="font-family: var(--font-mono); font-size: 0.7vw; padding: 0.3em 0.6em; border: 1px solid var(--border); border-radius: 100px; color: var(--fg-dim);">n8n</span>
-                                    <span style="font-family: var(--font-mono); font-size: 0.7vw; padding: 0.3em 0.6em; border: 1px solid var(--border); border-radius: 100px; color: var(--fg-dim);">Workflow</span>
-                                </div>
+                            <div class="skill-card">
+                                <span class="skill-number">02</span>
+                                <h3>AIGC / 自动化</h3>
+                                <p>ComfyUI · LoRA · Prompt · AI 智能体（Open Claw）</p>
                             </div>
-                            <div class="skill-card" style="background: var(--bg); border: none; padding: 1.5vw; height: 100%;">
-                                <span class="skill-number" style="color: var(--fg-mut); opacity: 0.5;">03</span>
-                                <h3 style="font-size: 1.1vw; margin: 1.5vh 0 0.5vh;">动效 / 3D</h3>
-                                <p style="font-size: 0.8vw; color: var(--fg-mut); margin-bottom: 1.5vh;">After Effects · C4D · 动态设计语言与规范</p>
-                                <div style="display: flex; flex-wrap: wrap; gap: 0.5vw;">
-                                    <span style="font-family: var(--font-mono); font-size: 0.7vw; padding: 0.3em 0.6em; border: 1px solid var(--border); border-radius: 100px; color: var(--fg-dim);">Motion</span>
-                                    <span style="font-family: var(--font-mono); font-size: 0.7vw; padding: 0.3em 0.6em; border: 1px solid var(--border); border-radius: 100px; color: var(--fg-dim);">AE</span>
-                                    <span style="font-family: var(--font-mono); font-size: 0.7vw; padding: 0.3em 0.6em; border: 1px solid var(--border); border-radius: 100px; color: var(--fg-dim);">C4D</span>
-                                </div>
+                            <div class="skill-card">
+                                <span class="skill-number">03</span>
+                                <h3>动效 / 3D</h3>
+                                <p>After Effects · C4D</p>
                             </div>
                         </div>
                     </div>
-
-                    <div style="border-left: 2px solid var(--border); padding-left: 1.5vw;">
-                        <p style="font-size: 0.75vw; color: var(--fg-mut); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1vh; font-family: var(--font-mono);">AI Empowerment</p>
-                        <p style="margin: 0; color: var(--fg);">同时具备 <strong>AI 赋能设计</strong> 的实践能力，能够将 AIGC 工具应用于创意发想、视觉探索、素材生成与方案提效，优化设计流程与协作效率，加速高质量方案交付，并探索 AI 在互动玩法与增长场景中的创新应用。</p>
+                    <div style="padding-left: 0;">
+                        <p style="font-size: 0.75vw; color: var(--fg-mut); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1vh; font-family: var(--font-mono);">Honors</p>
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2vw;">
+                            <div>
+                                <span style="font-family: var(--font-mono); font-size: 0.75vw; color: var(--fg-dim); display: block; margin-bottom: 0.5vh;">2023</span>
+                                <h3 style="font-size: 0.9vw; font-weight: 500; margin: 0; color: var(--fg); line-height: 1.4;">应邀新浪AIGC培训讲座讲师</h3>
+                            </div>
+                            <div>
+                                <span style="font-family: var(--font-mono); font-size: 0.75vw; color: var(--fg-dim); display: block; margin-bottom: 0.5vh;">2022</span>
+                                <h3 style="font-size: 0.9vw; font-weight: 500; margin: 0; color: var(--fg); line-height: 1.4;">京东集团产品创新奖</h3>
+                            </div>
+                            <div>
+                                <span style="font-family: var(--font-mono); font-size: 0.75vw; color: var(--fg-dim); display: block; margin-bottom: 0.5vh;">2021</span>
+                                <h3 style="font-size: 0.9vw; font-weight: 500; margin: 0; color: var(--fg); line-height: 1.4;">京东年度优秀设计师</h3>
+                            </div>
+                            <div>
+                                <span style="font-family: var(--font-mono); font-size: 0.75vw; color: var(--fg-dim); display: block; margin-bottom: 0.5vh;">2020</span>
+                                <h3 style="font-size: 0.9vw; font-weight: 500; margin: 0; color: var(--fg); line-height: 1.4;">京东年度新锐设计师</h3>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -453,7 +451,7 @@
                     <div class="timeline-header">
                         <div style="display: flex; align-items: baseline; gap: 1vw;">
                             <h3 style="margin: 0; font-size: 1.5vw;">网易游戏</h3>
-                            <span style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut);">运营设计组长</span>
+                            <span style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut);">视觉组长</span>
                         </div>
                         <div class="timeline-subtitle" style="margin-top: 0.8vh; padding-bottom: 1.5vh; border-bottom: 1px dashed var(--border-light);">
                             大神产品视觉设计体系建设与团队管理
@@ -462,7 +460,7 @@
                     <ul>
                         <li>
                             <div style="margin-bottom: 0.5vh; color: var(--fg); font-weight: 500;">AI 智能化设计体系建设</div>
-                            <div style="opacity: 0.8;">搭建手绘、动效、视觉合成三大 AI 生产管线，实现设计质量的标准化与可复制化。通过 LoRA 模型训练与 ComfyUI 工作流，解决多设计师画风统一难题，支持逆水寒、炉石传说等 IP 的精细化运营需求；将静态 KV 升级为微呼吸动效，显著提升视觉沉浸感。</div>
+                            <div style="opacity: 0.8;">总领大神设计部AIGC（视觉/UX/动画）规划与落地，搭建统一美学标准、生产规范与评审体系，推动设计能力标准化与规模化交付，实现提质降本。构建手绘/视觉/动效AI生产管线与自动化工作流（Prompt/LoRA/ComfyUI/n8n），覆盖资源位、活动页、互动玩法等核心场景，显著提升风格一致性、响应速度与产能稳定性。</div>
                         </li>
                         <li>
                             <div style="margin-bottom: 0.5vh; color: var(--fg); font-weight: 500;">效能革命：外包工单清零</div>
@@ -474,7 +472,7 @@
                         </li>
                         <li>
                             <div style="margin-bottom: 0.5vh; color: var(--fg); font-weight: 500;">团队管理与梯队建设</div>
-                            <div style="opacity: 0.8;">负责视觉组团队管理与人才梯队建设。制定绩效目标，推动技术分享与复盘，提升团队 AI 技术视野与专业能力，促进跨部门协作效率。</div>
+                            <div style="opacity: 0.8;">负责大神视觉组日常管理（任务分配/排期协调/质量把控/成员辅导），保障重点项目按期高质量交付。为团队赋能（体系搭建-评估机制-资产沉淀），搭建新人到进阶的培养体系：完善入职指引/导师制与设计规范模版；建立绩效与能力评估并定期盘点；沉淀通用方法与案例文档，提升交付稳定性与协作效率。</div>
                         </li>
                     </ul>
                 </div>
@@ -499,11 +497,11 @@
                     <ul>
                         <li>
                             <div style="margin-bottom: 0.5vh; color: var(--fg); font-weight: 500;">广告投放素材优化</div>
-                            <div style="opacity: 0.8;">围绕核心业务目标，全年持续迭代 10 版投放策略（正向率 80%），结合 25 次 A/B 测试数据驱动优化投放素材，成功推动中东、美国等多国广告转化率持续提升。同时牵头建设 8 国本地化调研与合规设计指南，搭建 UG 团队本地化资产库。推动 Bigo Live 首次登上置顶 Apple 推荐位，累计获 Apple 官方推荐超 20 次（含多次主动推荐），有效带动下载增长。</div>
+                            <div style="opacity: 0.8;">ASO素材优化体系搭建（数据驱动迭代），围绕核心业务目标输出全年持续迭代的 10版策略，素材策略正向率80%，结合 25次A/B测试 优化商店素材投放策略，推动中东、美国等多国商店素材转化率持续提升，牵头搭建UG团队本地化资料共享库，主导美国/沙特/韩国/越南/印尼等 6国本地化调研 与合规设计指南制定。</div>
                         </li>
                         <li>
                             <div style="margin-bottom: 0.5vh; color: var(--fg); font-weight: 500;">社媒创意素材设计</div>
-                            <div style="opacity: 0.8;">结合 AIGC 技术优化创意产出流程，打造「DINO 巨物与地标系列」「环球旅行系列」等爆款内容，FB / INS 自然观看 2100w+，FB 互动率提升 7.9 倍，播放量级占官号 TOP 10 中 4–5 席（除 Gala 外），大幅提升品牌曝光与投放转化效益。</div>
+                            <div style="opacity: 0.8;">推动AIGC能力融入生产链路，提高创意产出效率与质量稳定性，打造爆款「DINO巨物与地标系列」：YouTube Shorts 单条曝光 26w+；FB/INS 自然观看 1100w+；FB互动率提升 7.9倍，显著提升品牌曝光与互动。</div>
                         </li>
                     </ul>
                 </div>
@@ -528,11 +526,11 @@
                     <ul>
                         <li>
                             <div style="margin-bottom: 0.5vh; color: var(--fg); font-weight: 500;">游戏化营销设计</div>
-                            <div style="opacity: 0.8;">负责电商游戏营销的创意策划、项目统筹、视觉设计与监修、迭代规划及策略制定。根据活动定位与业务诉求，提供并推动落地游戏化营销设计方案，通过设计手段助力业务数据增长。累计主导并参与营销 IP「好玩节」、「日常 IP」汽车赛事、「全渠道」超级体验店等近 10 款互动游戏设计落地。此外，主导京东 IP JOY LoRA 1.0 版本模型训练，探索 AIGC 在品牌角色一致性生成中的应用。</div>
+                            <div style="opacity: 0.8;">游戏化营销（创意策划-统筹-视觉落地），根据活动定位与业务诉求制定游戏化营销方案并推动上线，通过设计与玩法提升互动与转化。主导/参与落地近 10款互动游戏，覆盖营销IP「好玩节」、日常IP「汽车赛事」、全渠道「超级体验店」等。此外，主导京东 IP JOY LoRA 1.0 版本模型训练，探索 AIGC 在品牌角色一致性生成中的应用。</div>
                         </li>
                         <li>
                             <div style="margin-bottom: 0.5vh; color: var(--fg); font-weight: 500;">运营活动与日常营销</div>
-                            <div style="opacity: 0.8;">负责多个京东 S 级 / A 级大促（双 11、618、年货节等）及日常 UI 营销设计。主导「我爱周末」营销 IP 的策略输出与视觉设计，建立 3D 资产库与视觉规范，获部门高度评价并助力业务增长。</div>
+                            <div style="opacity: 0.8;">负责多个大促与日常运营设计（S级/A级项目），双11大势新品/超级新品日/年货节万券齐发等会场视觉；618首页氛围改造；女神节APP启动屏视频等。主导日常营销IP「我爱周末」策略输出与视觉体系建设：IP心智固化策略、VI/主视觉、3D资产沉淀、长期规范沉淀，获业务高度评价并助力数据增长。</div>
                         </li>
                         <li>
                             <div style="margin-bottom: 0.5vh; color: var(--fg); font-weight: 500;">京东微信域 UI 设计</div>
@@ -542,57 +540,25 @@
                 </div>
             </div>
 
-        </div>
-    </section>
+            <!-- Item 4: Education -->
+            <div class="timeline-item">
+                <div class="timeline-year">
+                    <span style="font-size: 1.2em; font-weight: 500; color: var(--fg);">2016.09</span>
+                    <span style="opacity: 0.5;">— 2020.07</span>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-header">
+                        <div style="display: flex; align-items: baseline; gap: 1vw;">
+                            <h3 style="margin: 0; font-size: 1.5vw;">哈尔滨师范大学</h3>
+                            <span style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut);">本科</span>
+                        </div>
+                        <div class="timeline-subtitle" style="margin-top: 0.8vh; padding-bottom: 1.5vh; border-bottom: 1px dashed var(--border-light);">
+                            美术学院 / 服装与服饰设计
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Skills -->
-    <section class="section fade-in">
-        <span class="section-label">03 — 专业技能</span>
-        <div class="skills-grid" style="grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border-light); border: 1px solid var(--border-light);">
-            <div class="skill-card" style="background: var(--bg); border: none; padding: 3vw; height: 100%;">
-                <span class="skill-number" style="color: var(--fg-mut); opacity: 0.5;">01</span>
-                <h3 style="font-size: 1.1vw; margin: 1.5vh 0 0.5vh;">产品 / UI</h3>
-                <p style="font-size: 0.8vw; color: var(--fg-mut); margin-bottom: 1.5vh;">Figma · Sketch ·创意策划 · 视觉设计</p>
-                <div style="display: flex; flex-wrap: wrap; gap: 0.5vw;">
-                    <span style="font-family: var(--font-mono); font-size: 0.7vw; padding: 0.3em 0.6em; border: 1px solid var(--border); border-radius: 100px; color: var(--fg-dim);">Design System</span>
-                </div>
-            </div>
-            <div class="skill-card" style="background: var(--bg); border: none; padding: 3vw; height: 100%;">
-                <span class="skill-number" style="color: var(--fg-mut); opacity: 0.5;">02</span>
-                <h3 style="font-size: 1.1vw; margin: 1.5vh 0 0.5vh;">AIGC / 自动化</h3>
-                <p style="font-size: 0.8vw; color: var(--fg-mut); margin-bottom: 1.5vh;">ComfyUI · LoRA · Prompt · n8n · AI 智能体（Open Claw）</p>
-                <div style="display: flex; flex-wrap: wrap; gap: 0.5vw;">
-                    <span style="font-family: var(--font-mono); font-size: 0.7vw; padding: 0.3em 0.6em; border: 1px solid var(--border); border-radius: 100px; color: var(--fg-dim);">ComfyUI</span>
-                    <span style="font-family: var(--font-mono); font-size: 0.7vw; padding: 0.3em 0.6em; border: 1px solid var(--border); border-radius: 100px; color: var(--fg-dim);">LoRA</span>
-                    <span style="font-family: var(--font-mono); font-size: 0.7vw; padding: 0.3em 0.6em; border: 1px solid var(--border); border-radius: 100px; color: var(--fg-dim);">n8n</span>
-                    <span style="font-family: var(--font-mono); font-size: 0.7vw; padding: 0.3em 0.6em; border: 1px solid var(--border); border-radius: 100px; color: var(--fg-dim);">Workflow</span>
-                </div>
-            </div>
-            <div class="skill-card" style="background: var(--bg); border: none; padding: 3vw; height: 100%;">
-                <span class="skill-number" style="color: var(--fg-mut); opacity: 0.5;">03</span>
-                <h3 style="font-size: 1.1vw; margin: 1.5vh 0 0.5vh;">动效 / 3D</h3>
-                <p style="font-size: 0.8vw; color: var(--fg-mut); margin-bottom: 1.5vh;">After Effects · C4D · 动态设计语言与规范</p>
-                <div style="display: flex; flex-wrap: wrap; gap: 0.5vw;">
-                    <span style="font-family: var(--font-mono); font-size: 0.7vw; padding: 0.3em 0.6em; border: 1px solid var(--border); border-radius: 100px; color: var(--fg-dim);">Motion</span>
-                    <span style="font-family: var(--font-mono); font-size: 0.7vw; padding: 0.3em 0.6em; border: 1px solid var(--border); border-radius: 100px; color: var(--fg-dim);">AE</span>
-                    <span style="font-family: var(--font-mono); font-size: 0.7vw; padding: 0.3em 0.6em; border: 1px solid var(--border); border-radius: 100px; color: var(--fg-dim);">C4D</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Education & Honors -->
-    <section class="section fade-in">
-        <span class="section-label">04 — 教育与荣誉</span>
-        <div class="values-row" style="display: grid; grid-template-columns: 1fr; gap: 4vw; border-top: 1px solid var(--border); padding-top: 4vh;">
-             <div class="value-item" style="display: flex; align-items: baseline; gap: 4vw;">
-                <h3 style="width: 10vw; flex-shrink: 0; font-size: 0.9vw; text-transform: uppercase; color: var(--fg-mut); letter-spacing: 0.05em; font-family: var(--font-mono); margin: 0;">Education</h3>
-                <div style="display: flex; justify-content: space-between; width: 100%; align-items: baseline;">
-                    <div style="font-size: 1.2vw; font-weight: 500;">哈尔滨师范大学</div>
-                    <p style="font-size: 0.9vw; color: var(--fg-mut); margin: 0;">美术学院 / 服装与服饰设计 / 本科</p>
-                    <div style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut);">2016.09 — 2020.07</div>
-                </div>
-            </div>
         </div>
     </section>
 

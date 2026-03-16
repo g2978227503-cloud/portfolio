@@ -412,6 +412,43 @@ img {
     z-index: 20;
 }
 
+/* ── About ── */
+.about-grid {
+    display: grid;
+    grid-template-columns: 20% 1fr;
+    gap: 4vw;
+    align-items: stretch;
+    padding: 4vw;
+}
+
+.about-photo-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-meta {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2vw;
+    margin-top: 3vh;
+    border-top: 1px solid var(--border);
+    padding-top: 3vh;
+}
+
+.skill-card:nth-child(2) {
+            transform: translateX(-10vw);
+        }
+        
+        .skill-card:nth-child(3) {
+            transform: translateX(-7vw);
+        }
+
 /* ── Work List ── */
 .work-group { display: grid; grid-template-columns: 25vw 1fr; border-bottom: 1px solid var(--border); }
 .group-header { 

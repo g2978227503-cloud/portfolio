@@ -209,8 +209,8 @@
         </div>
         <div class="content-body">
             <h3>产品概述</h3>
-            <p>Deepkeep 是一款整合了饮食管理、运动课程与训练日志核心功能的 AI 健康管理平台。旨在通过 AI 动态生成个性化健身计划，实现“训练-饮食-数据追踪”的全链路闭环。</p>
-            <p><strong>目标用户：</strong> 健身用户、有健身意向但无计划人群以及需要健康管理的老年化人群。</p>
+            <p>一款整合饮食管理、运动课程与训练日志的 AI 健康管理 App，通过 AI 生成并动态调整个性化健身计划，形成“训练-饮食-数据追踪”闭环。</p>
+            <p><strong>目标用户：</strong> 健身人群、想健身但缺计划的人、需要健康管理的中老年用户。</p>
         </div>
     </section>
 
@@ -220,23 +220,19 @@
             <span class="sidebar-title">02 — CORE FUNCTIONS</span>
         </div>
         <div class="content-body">
-            <h3>一期核心功能</h3>
+            <h3>核心功能</h3>
             
-            <h4 style="font-size: 1.2vw; font-weight: 500; margin-top: 4vh; margin-bottom: 2vh;">1. AI 动态训练计划生成</h4>
+            <h4 style="font-size: 1.2vw; font-weight: 500; margin-top: 4vh; margin-bottom: 2vh;">AI 动态训练计划</h4>
             <ul style="list-style: none; padding: 0;">
-                <li><strong>数据输入：</strong> 支持用户基础信息（BMI、体脂率、运动能力）及目标（增肌/减脂/塑形）录入，并支持 Apple Watch 体脂率、心率等可穿戴设备数据自动同步。</li>
-                <li><strong>动态生成：</strong> 基于 DeepSeek 通义模型 + 关键词训练，结合用户画像生成包含有氧类型、器械选择、组数/次数的个性化计划。（如：减脂用户生成“HIIT+力量训练”组合）。</li>
-                <li><strong>动态调整：</strong> 
-                    <br><span style="font-size: 0.6em; vertical-align: middle; margin-right: 0.5vw;">○</span>根据用户完成状态确认内容与难度。
-                    <br><span style="font-size: 0.6em; vertical-align: middle; margin-right: 0.5vw;">○</span>若未完成当日训练，系统自动缩短后续休息日或降低强度。
-                    <br><span style="font-size: 0.6em; vertical-align: middle; margin-right: 0.5vw;">○</span>根据体脂率变化动态更新食谱（如体脂下降 5% 后增加碳水比例）。
-                </li>
+                <li>支持录入基础信息与目标（增肌/减脂/塑形），并同步 Apple Watch 等可穿戴数据（心率/体脂等）。</li>
+                <li>基于 DeepSeek / GPT模型生成训练内容（有氧类型、器械、组数/次数等）。</li>
+                <li>按完成情况与身体数据变化动态调强度、休息节奏，并联动调整食谱。</li>
             </ul>
 
-            <h4 style="font-size: 1.2vw; font-weight: 500; margin-top: 4vh; margin-bottom: 2vh;">2. 日历集成管理</h4>
+            <h4 style="font-size: 1.2vw; font-weight: 500; margin-top: 4vh; margin-bottom: 2vh;">日历集成管理</h4>
             <ul style="list-style: none; padding: 0;">
-                <li><strong>一键导入：</strong> 用户确认计划后，自动生成 iCal 文件并同步至 Apple Calendar，包含训练时间与动作详情。</li>
-                <li><strong>动态更新：</strong> 计划调整后，通过 iOS Shortcuts API 自动更新日历事件并推送通知。</li>
+                <li>确认计划后一键生成并同步 Apple Calendar（训练时间 + 动作详情）。</li>
+                <li>计划变化后通过 iOS Shortcuts 自动更新日历事件并通知提醒。</li>
             </ul>
         </div>
     </section>
@@ -267,7 +263,7 @@
             <h3>技术实现方案</h3>
             <ul>
                 <li><strong>后端与数据流：</strong> n8n 搭建自动化工作流，处理数据接收、DeepSeek 模型调用与计划返回。</li>
-                <li><strong>前端与 UI：</strong> Cursor 辅助编写 iOS 前端代码及 UI 设计。</li>
+                <li><strong>前端与 UI：</strong> Cursor 编写 iOS 前端代码及 UI 设计。</li>
             </ul>
         </div>
     </section>
