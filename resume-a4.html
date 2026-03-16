@@ -9,226 +9,195 @@
       @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
 
       :root {
-        --bg: #ffffff;
-        --fg: #0b0b0b;
-        --muted: #5f5f5f;
-        --dim: #8b8b8b;
-        --border: #e8e8e8;
-        --border-soft: rgba(232, 232, 232, 0.65);
-        --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Microsoft YaHei', sans-serif;
-        --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+        --bg: #FAFAFA;
+        --fg: #050505;
+        --muted: #666666;
+        --dim: #999999;
+        --border: #E0E0E0;
+        --border-soft: rgba(224, 224, 224, 0.75);
+        --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        --mono: 'JetBrains Mono', monospace;
       }
 
       @page {
         size: A4;
-        margin: 12mm;
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      html,
-      body {
-        height: 100%;
-      }
-
-      body {
-        margin: 0;
-        background: var(--bg);
-        color: var(--fg);
-        font-family: var(--font);
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-
-      a {
-        color: inherit;
-        text-decoration: none;
-        border-bottom: 1px solid rgba(11, 11, 11, 0.25);
+        margin: 8mm;
       }
 
       .page {
         width: min(980px, calc(100vw - 32px));
         margin: 0 auto;
-        padding: 22px 0 28px;
+        padding: 4px 0 8px;
       }
 
-      .top {
+      .header {
         display: grid;
-        grid-template-columns: 1.5fr 1fr;
-        gap: 16px;
-        padding-bottom: 14px;
-        border-bottom: 1px solid var(--border);
+        grid-template-columns: 1fr auto;
+        gap: 8px;
+        align-items: center;
       }
 
       .name {
-        font-size: 28px;
-        font-weight: 700;
+        font-family: var(--font);
+        font-size: 24px;
+        font-weight: 500;
         letter-spacing: -0.02em;
-        line-height: 1.12;
+        line-height: 1;
       }
 
-      .title {
-        margin-top: 6px;
-        font-size: 13px;
-        color: var(--muted);
-        font-weight: 600;
-      }
-
-      .summary {
-        margin-top: 10px;
-        font-size: 12.5px;
-        line-height: 1.65;
-        color: var(--fg);
-      }
-
-      .meta {
-        display: grid;
-        gap: 6px;
-        align-content: start;
-        justify-items: end;
-      }
-
-      .meta-line {
+      .contact {
+        margin-top: 4px;
         font-family: var(--mono);
-        font-size: 11px;
-        line-height: 1.45;
+        font-size: 9.5px;
+        line-height: 1.2;
         color: var(--muted);
-        text-align: right;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
       }
 
-      .meta-strong {
-        color: var(--fg);
-        font-weight: 700;
+      .contact-line {
+        margin: 0;
       }
 
-      .content {
-        display: grid;
-        grid-template-columns: 1.62fr 0.88fr;
-        gap: 18px;
-        padding-top: 14px;
+      .divider {
+        margin-top: 6px;
+        border-top: 1px solid var(--fg);
       }
 
       .section {
+        margin-top: 8px;
         break-inside: avoid;
-        margin-top: 12px;
-      }
-
-      .section:first-child {
-        margin-top: 0;
       }
 
       .section-title {
-        display: flex;
-        align-items: baseline;
-        justify-content: space-between;
-        padding: 8px 0 6px;
-        border-bottom: 1px solid var(--border);
-      }
-
-      .section-title h2 {
         margin: 0;
-        font-size: 12.5px;
-        letter-spacing: 0.08em;
+        font-family: var(--font);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        line-height: 1.1;
         text-transform: uppercase;
-        font-weight: 800;
       }
 
-      .section-title .hint {
+      .section-hr {
+        margin-top: 4px;
+        border-top: 1px solid var(--border);
+      }
+
+      .block {
+        margin-top: 4px;
+      }
+
+      .block-title {
+        margin: 0 0 2px 0;
         font-family: var(--mono);
+        font-size: 10px;
+        font-weight: 400;
+        line-height: 1.3;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+      }
+
+      .para {
+        margin: 0 0 2px 0;
+        font-family: var(--font);
         font-size: 10.5px;
-        color: var(--dim);
+        line-height: 1.4;
+        color: var(--fg);
       }
 
-      .item {
-        padding: 10px 0;
-        border-bottom: 1px solid var(--border-soft);
+      .list {
+        margin: 2px 0 0;
+        padding: 0;
+        list-style: none;
       }
 
-      .item:last-child {
-        border-bottom: 0;
-        padding-bottom: 0;
+      .list li {
+        position: relative;
+        padding-left: 10px;
+        margin: 2px 0;
+        font-size: 10.5px;
+        line-height: 1.4;
+        color: var(--fg);
       }
 
-      .item-head {
+      .list li::before {
+        content: '+';
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 9px;
+        line-height: 1.5;
+      }
+
+      .list strong {
+        font-weight: 500;
+        color: var(--fg);
+      }
+
+      .work-item {
+        margin-top: 6px;
+        padding-top: 6px;
+        border-top: 1px solid var(--border-soft);
+      }
+
+      .work-item:first-of-type {
+        border-top: 0;
+        padding-top: 2px;
+      }
+
+      .work-head {
         display: grid;
         grid-template-columns: 1fr auto;
-        gap: 10px;
-        align-items: baseline;
-      }
-
-      .item-title {
-        font-size: 13px;
-        font-weight: 800;
-        line-height: 1.35;
-      }
-
-      .item-sub {
-        margin-top: 3px;
-        font-size: 12px;
-        color: var(--muted);
-        line-height: 1.45;
-      }
-
-      .item-time {
-        font-family: var(--mono);
-        font-size: 10.5px;
-        color: var(--dim);
-        white-space: nowrap;
-      }
-
-      ul {
-        margin: 8px 0 0;
-        padding: 0 0 0 16px;
-      }
-
-      li {
-        font-size: 12px;
-        line-height: 1.6;
-        color: var(--fg);
-        margin: 2px 0;
-      }
-
-      .pill {
-        display: inline-flex;
-        border: 1px solid var(--border);
-        border-radius: 999px;
-        padding: 6px 10px;
-        font-size: 11.5px;
-        line-height: 1;
-        color: var(--muted);
-        margin: 6px 6px 0 0;
-        white-space: nowrap;
-      }
-
-      .kv {
-        display: grid;
-        grid-template-columns: 1fr;
         gap: 6px;
-        padding: 10px;
-        border: 1px solid var(--border);
-      }
-
-      .kv-row {
-        display: flex;
         align-items: baseline;
-        justify-content: space-between;
-        gap: 10px;
       }
 
-      .kv-k {
-        font-family: var(--mono);
+      .company {
+        font-family: var(--font);
+        font-size: 11.5px;
+        font-weight: 600;
+        line-height: 1.2;
+        letter-spacing: -0.01em;
+      }
+
+      .role {
+        margin-top: 1px;
+        font-family: var(--font);
         font-size: 10.5px;
-        letter-spacing: 0.06em;
+        font-weight: 400;
+        color: var(--muted);
+        line-height: 1.3;
+      }
+
+      .work-meta {
+        text-align: right;
+        font-family: var(--mono);
+        font-size: 9.5px;
+        line-height: 1.3;
         color: var(--dim);
       }
 
-      .kv-v {
-        font-size: 12px;
+      .work-meta .muted {
+        color: var(--dim);
+      }
+
+      .work-block {
+        margin-top: 3px;
+      }
+
+      .work-block-title {
+        margin: 0 0 1px 0;
+        font-family: var(--mono);
+        font-size: 9.5px;
+        font-weight: 400;
         color: var(--fg);
-        text-align: right;
-        font-weight: 600;
+        line-height: 1.3;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
       }
 
       .qr {
@@ -277,14 +246,16 @@
       }
 
       @media (max-width: 820px) {
-        .top,
-        .content {
+        .header {
           grid-template-columns: 1fr;
         }
-        .meta {
-          justify-items: start;
+        .photo {
+          width: 96px;
         }
-        .meta-line {
+        .work-head {
+          grid-template-columns: 1fr;
+        }
+        .work-meta {
           text-align: left;
         }
       }
@@ -292,153 +263,134 @@
   </head>
   <body>
     <main class="page" role="document">
-      <section class="top" aria-label="抬头信息">
+      <header class="header" aria-label="简历抬头">
         <div>
-          <div class="name">高飞（Goofy）</div>
-          <div class="title">视觉设计 / 视觉组长 · 增长导向全链路设计 · AIGC 工作流</div>
-          <div class="summary">
-            6 年互联网大厂设计经验（京东 3 年 / BIGO 2 年 / 网易近 1 年），专注“用户洞察 + 增长导向”的全链路设计（创意策划→视觉/系统→落地与资产沉淀），具备 AIGC 工作流搭建与创新应用能力。
+          <div class="name">高飞</div>
+          <div class="contact" aria-label="联系方式">
+            <p class="contact-line">电话：<a href="tel:16620151167">16620151167</a> ｜ 邮箱：<a href="mailto:2978227503@qq.com">2978227503@qq.com</a> ｜ 微信：13206540280</p>
           </div>
         </div>
-        <div class="meta" aria-label="联系与基本信息">
-          <div class="meta-line"><span class="meta-strong">LOCATION</span>｜Guangzhou, CN</div>
-          <div class="meta-line"><span class="meta-strong">STATUS</span>｜Available</div>
-          <div class="meta-line"><span class="meta-strong">EMAIL</span>｜<a href="mailto:2978227503@qq.com">2978227503@qq.com</a></div>
-          <div class="meta-line"><span class="meta-strong">PHONE</span>｜<a href="tel:16620151167">16620151167</a></div>
-          <div class="meta-line"><span class="meta-strong">WECHAT</span>｜13206540280</div>
+      </header>
+
+
+
+      <section class="section" aria-label="个人总结">
+        <h2 class="section-title">个人总结</h2>
+        <div class="section-hr" aria-hidden="true"></div>
+
+        <div class="block" aria-label="从业经验">
+          <h3 class="block-title">从业经验</h3>
+          <p class="para">6 年 互联网大厂设计经验（京东 3 年 / BIGO 2 年 / 网易近 1 年）。</p>
+          <p class="para">专注“用户洞察 + 增长导向”的全链路设计（创意策划→视觉/系统→落地与资产沉淀）。具备 AIGC 工作流搭建 与创新应用能力。</p>
+        </div>
+
+        <div class="block" aria-label="专业技能">
+          <h3 class="block-title">专业技能</h3>
+          <p class="para">工具：Sketch / Figma（UI）、C4D（3D）、After Effects（动效）、ComfyUI（AIGC）、n8n（自动化）。</p>
+
+        </div>
+
+        <div class="block" aria-label="个人荣誉">
+          <h3 class="block-title">个人荣誉</h3>
+          <p class="para">应邀新浪 AIGC 培训讲座讲师（2023）、京东集团产品创新奖（2022）、京东年度优秀设计师（2021）、京东年度新锐设计师（2020）。</p>
         </div>
       </section>
 
-      <section class="content" aria-label="简历内容">
-        <div>
-          <section class="section" aria-label="工作经历">
-            <div class="section-title">
-              <h2>Experience</h2>
-              <div class="hint">Growth · System · Execution</div>
-            </div>
+      <section class="section" aria-label="工作经历">
+        <h2 class="section-title">工作经历</h2>
+        <div class="section-hr" aria-hidden="true"></div>
 
-            <article class="item">
-              <div class="item-head">
-                <div class="item-title">网易游戏｜视觉组长</div>
-                <div class="item-time">2025.11–至今</div>
-              </div>
-              <div class="item-sub">大神产品视觉设计体系建设与团队管理</div>
-              <ul>
-                <li>总领 AIGC（视觉/UX/动画）规划与落地，搭建统一美学标准、生产规范与评审体系，推动交付标准化与规模化</li>
-                <li>搭建手绘/视觉/动效 AI 生产管线与自动化工作流（Prompt/LoRA/ComfyUI/n8n），提升风格一致性、响应速度与产能稳定性</li>
-                <li>面向月均 500+ 运营需求，构建“参数化生成 + 模块化拼装”自动化生产，将设计周期从天级缩短至小时级，实现外包工单清零</li>
-                <li>打造投放素材自进化系统，打通设计与投放数据闭环，推动从经验决策到数据决策的转型</li>
-              </ul>
-            </article>
+        <article class="work-item" aria-label="网易游戏">
+          <div class="work-head">
+            <div>
+              <div class="company">网易游戏</div>
+              <div class="role">视觉组长｜大神产品视觉设计体系建设与团队管理</div>
+            </div>
+            <div class="work-meta">
+              <div>2025.11 — 至今</div>
+            </div>
+          </div>
+          <div class="work-block">
+            <p class="work-block-title">【AIGC 模型美学与应用探索】</p>
+            <p class="para">总领大神设计部AIGC（视觉/UX/动画）规划与落地，搭建统一美学标准、生产规范与评审体系，推动设计能力标准化与规模化交付，实现提质降本。构建手绘/视觉/动效AI生产管线与自动化工作流（Prompt/LoRA/ComfyUI/n8n），覆盖资源位、活动页、互动玩法等核心场景，显著提升风格一致性、响应速度与产能稳定性。</p>
+          </div>
+          <div class="work-block">
+            <p class="work-block-title">【团队管理与梯队建设】</p>
+            <p class="para">负责大神视觉组日常管理（任务分配/排期协调/质量把控/成员辅导），保障重点项目按期高质量交付。为团队赋能（体系搭建-评估机制-资产沉淀），搭建新人到进阶的培养体系：完善入职指引/导师制与设计规范模版；建立绩效与能力评估并定期盘点；沉淀通用方法与案例文档，提升交付稳定性与协作效率。</p>
+          </div>
+          <div class="work-block">
+            <p class="work-block-title">【大神APP品牌升级】</p>
+            <p class="para">主导大神 APP 品牌视觉升级，围绕“游戏热爱者社区”定位重构视觉语言体系，统一品牌基因并沉淀社区/漫剧/赛事/会员四大板块差异化识别。搭建核心场景的应用设计与多游戏 IP 适配规范，提升视觉一致性、落地效率与用户体验。</p>
+          </div>
+        </article>
 
-            <article class="item">
-              <div class="item-head">
-                <div class="item-title">BIGO LIVE｜资深视觉设计师</div>
-                <div class="item-time">2023.07–2025.11</div>
-              </div>
-              <div class="item-sub">全球市场创意分析与投放增长视觉设计</div>
-              <ul>
-                <li>搭建 ASO 素材优化体系，围绕业务目标持续迭代 10 版策略，策略正向率 80%；结合 25 次 A/B 测试推动多国转化提升</li>
-                <li>牵头搭建本地化资料共享库，主导美国/沙特/韩国/越南/印尼等 6 国本地化调研与合规设计指南</li>
-                <li>推动 AIGC 融入生产链路，打造社媒爆款系列：FB/INS 自然观看 1100w+，FB 互动率提升 7.9 倍</li>
-              </ul>
-            </article>
+        <article class="work-item" aria-label="BIGO LIVE">
+          <div class="work-head">
+            <div>
+              <div class="company">BIGO LIVE</div>
+              <div class="role">资深视觉设计师｜全球市场创意分析与投放增长视觉设计</div>
+            </div>
+            <div class="work-meta">
+              <div>2023.07 — 2025.11</div>
+            </div>
+          </div>
 
-            <article class="item">
-              <div class="item-head">
-                <div class="item-title">京东｜高级视觉设计师</div>
-                <div class="item-time">2020.07–2023.07</div>
-              </div>
-              <div class="item-sub">游戏化营销创意策划与大促视觉设计</div>
-              <ul>
-                <li>主导/参与落地近 10 款互动游戏，覆盖营销 IP「好玩节」、日常 IP「汽车赛事」、全渠道「超级体验店」等</li>
-                <li>主导京东 IP JOY LoRA 1.0 模型训练，探索 AIGC 在品牌角色一致性生成中的应用</li>
-                <li>主导日常营销 IP「我爱周末」策略与视觉体系建设：IP 心智固化策略、VI/主视觉、3D 资产与长期规范沉淀</li>
-                <li>负责京东购物小程序 UI 日常设计与创新：微信域动态设计语言、首页改版、分享链路等</li>
-              </ul>
-            </article>
-          </section>
-        </div>
+          <div class="work-block">
+            <p class="work-block-title">【广告投放素材优化】</p>
+            <p class="para">ASO素材优化体系搭建（数据驱动迭代），围绕核心业务目标输出全年持续迭代的 10版策略，素材策略正向率80%，结合 25次A/B测试 优化商店素材投放策略，推动中东、美国等多国商店素材转化率持续提升，牵头搭建UG团队本地化资料共享库，主导美国/沙特/韩国/越南/印尼等 6国本地化调研 与合规设计指南制定。</p>
+          </div>
 
-        <aside>
-          <section class="section" aria-label="能力">
-            <div class="section-title">
-              <h2>Capabilities</h2>
-              <div class="hint">01–03</div>
-            </div>
-            <div class="item">
-              <div class="item-title">产品 / UI</div>
-              <div class="item-sub">创意策划 · 视觉设计</div>
-              <div>
-                <span class="pill">Product</span><span class="pill">UI</span><span class="pill">Visual</span>
-              </div>
-            </div>
-            <div class="item">
-              <div class="item-title">AIGC / 自动化</div>
-              <div class="item-sub">ComfyUI · LoRA · Prompt · AI 智能体（Open Claw）</div>
-              <div>
-                <span class="pill">ComfyUI</span><span class="pill">LoRA</span><span class="pill">n8n</span>
-              </div>
-            </div>
-            <div class="item">
-              <div class="item-title">动效 / 3D</div>
-              <div class="item-sub">After Effects · C4D</div>
-              <div>
-                <span class="pill">Motion</span><span class="pill">AE</span><span class="pill">C4D</span>
-              </div>
-            </div>
-          </section>
+          <div class="work-block">
+            <p class="work-block-title">【社媒创意素材设计】</p>
+            <p class="para">推动AIGC能力融入生产链路，提高创意产出效率与质量稳定性，打造爆款「DINO巨物与地标系列」：YouTube Shorts 单条曝光 26w+；FB/INS 自然观看 1100w+；FB互动率提升 7.9倍，显著提升品牌曝光与互动。</p>
+          </div>
+        </article>
 
-          <section class="section" aria-label="教育">
-            <div class="section-title">
-              <h2>Education</h2>
-              <div class="hint">2016–2020</div>
+        <article class="work-item" aria-label="京东">
+          <div class="work-head">
+            <div>
+              <div class="company">京东</div>
+              <div class="role">高级视觉设计师｜游戏化营销创意策划与大促视觉设计</div>
             </div>
-            <div class="item">
-              <div class="item-head">
-                <div class="item-title">哈尔滨师范大学｜本科</div>
-                <div class="item-time">2016.09–2020.07</div>
-              </div>
-              <div class="item-sub">美术学院 / 服装与服饰设计</div>
+            <div class="work-meta">
+              <div>2020.07 — 2023.07</div>
             </div>
-          </section>
+          </div>
 
-          <section class="section" aria-label="荣誉">
-            <div class="section-title">
-              <h2>Honors</h2>
-              <div class="hint">2020–2023</div>
-            </div>
-            <div class="item">
-              <div class="kv" role="list">
-                <div class="kv-row" role="listitem"><span class="kv-k">2023</span><span class="kv-v">应邀新浪 AIGC 培训讲座讲师</span></div>
-                <div class="kv-row" role="listitem"><span class="kv-k">2022</span><span class="kv-v">京东集团产品创新奖</span></div>
-                <div class="kv-row" role="listitem"><span class="kv-k">2021</span><span class="kv-v">京东年度优秀设计师</span></div>
-                <div class="kv-row" role="listitem"><span class="kv-k">2020</span><span class="kv-v">京东年度新锐设计师</span></div>
-              </div>
-            </div>
-          </section>
-
-          <section class="section" aria-label="联系">
-            <div class="section-title">
-              <h2>Contact</h2>
-              <div class="hint">Scan & reach</div>
-            </div>
-            <div class="qr">
-              <img src="images/wechat-qr.png" alt="微信二维码" />
-              <div class="qr-text">
-                Email：2978227503@qq.com<br />
-                Phone：16620151167<br />
-                WeChat：13206540280
-              </div>
-            </div>
-          </section>
-        </aside>
+          <div class="work-block">
+            <p class="work-block-title">【游戏化营销设计】</p>
+            <p class="para">游戏化营销（创意策划-统筹-视觉落地），根据活动定位与业务诉求制定游戏化营销方案并推动上线，通过设计与玩法提升互动与转化。主导/参与落地近 10款互动游戏，覆盖营销IP「好玩节」、日常IP「汽车赛事」、全渠道「超级体验店」等。此外，主导京东 IP JOY LoRA 1.0 版本模型训练，探索 AIGC 在品牌角色一致性生成中的应用。</p>
+          </div>
+          <div class="work-block">
+            <p class="work-block-title">【运营活动与日常营销】</p>
+            <p class="para">负责多个大促与日常运营设计（S级/A级项目），双11大势新品/超级新品日/年货节万券齐发等会场视觉；618首页氛围改造；女神节APP启动屏视频等。主导日常营销IP「我爱周末」策略输出与视觉体系建设：IP心智固化策略、VI/主视觉、3D资产沉淀、长期规范沉淀，获业务高度评价并助力数据增长。</p>
+          </div>
+          <div class="work-block">
+            <p class="work-block-title">【京东微信域 UI 设计】</p>
+            <p class="para">负责京东购物小程序 UI 日常设计与创新，包括京东全渠道首页改版、京东微信域动态设计语言、年货节购物车分享等。</p>
+          </div>
+        </article>
       </section>
 
-      <div class="footer" aria-label="页脚">
-        <div>Updated: 2026.03</div>
-        <div>Based on about.html</div>
-      </div>
+      <section class="section" aria-label="教育经历">
+        <h2 class="section-title">教育经历</h2>
+        <div class="section-hr" aria-hidden="true"></div>
+
+        <article class="work-item" aria-label="哈尔滨师范大学">
+          <div class="work-head" style="grid-template-columns: auto 1fr auto; align-items: baseline; gap: 16px;">
+            <div class="company">哈尔滨师范大学</div>
+            <div class="role" style="margin-top: 0;">美术学院｜服装与服饰设计｜本科</div>
+            <div class="work-meta" style="display: flex; gap: 12px; align-items: baseline;">
+              <div>2016.09 - 2020.07</div>
+              <div class="muted">哈尔滨</div>
+            </div>
+          </div>
+        </article>
+
+
+      </section>
+
+
     </main>
   </body>
 </html>
