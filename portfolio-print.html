@@ -1,0 +1,1552 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>高飞 (Goofy) - 作品集 Portfolio</title>
+    <style>
+        
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+
+      :root {
+        --bg: #FAFAFA;
+        --fg: #050505;
+        --muted: #666666;
+        --dim: #999999;
+        --border: #E0E0E0;
+        --border-soft: rgba(224, 224, 224, 0.75);
+        --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        --mono: 'JetBrains Mono', monospace;
+      }
+
+      @page {
+        size: A4;
+        margin: 8mm;
+      }
+
+      .page {
+        width: min(980px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 4px 0 8px;
+      }
+
+      .header {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .name {
+        font-family: var(--font);
+        font-size: 24px;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+        line-height: 1;
+      }
+
+      .contact {
+        margin-top: 4px;
+        font-family: var(--mono);
+        font-size: 9.5px;
+        line-height: 1.2;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+      }
+
+      .contact-line {
+        margin: 0;
+      }
+
+      .divider {
+        margin-top: 6px;
+        border-top: 1px solid var(--fg);
+      }
+
+      .section {
+        margin-top: 8px;
+        break-inside: avoid;
+      }
+
+      .section-title {
+        margin: 0;
+        font-family: var(--font);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        line-height: 1.1;
+        text-transform: uppercase;
+      }
+
+      .section-hr {
+        margin-top: 4px;
+        border-top: 1px solid var(--border);
+      }
+
+      .block {
+        margin-top: 4px;
+      }
+
+      .block-title {
+        margin: 0 0 2px 0;
+        font-family: var(--mono);
+        font-size: 10px;
+        font-weight: 400;
+        line-height: 1.3;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+      }
+
+      .para {
+        margin: 0 0 2px 0;
+        font-family: var(--font);
+        font-size: 10.5px;
+        line-height: 1.4;
+        color: var(--fg);
+      }
+
+      .list {
+        margin: 2px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .list li {
+        position: relative;
+        padding-left: 10px;
+        margin: 2px 0;
+        font-size: 10.5px;
+        line-height: 1.4;
+        color: var(--fg);
+      }
+
+      .list li::before {
+        content: '+';
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 9px;
+        line-height: 1.5;
+      }
+
+      .list strong {
+        font-weight: 500;
+        color: var(--fg);
+      }
+
+      .work-item {
+        margin-top: 6px;
+        padding-top: 6px;
+        border-top: 1px solid var(--border-soft);
+      }
+
+      .work-item:first-of-type {
+        border-top: 0;
+        padding-top: 2px;
+      }
+
+      .work-head {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 6px;
+        align-items: baseline;
+      }
+
+      .company {
+        font-family: var(--font);
+        font-size: 11.5px;
+        font-weight: 600;
+        line-height: 1.2;
+        letter-spacing: -0.01em;
+      }
+
+      .role {
+        margin-top: 1px;
+        font-family: var(--font);
+        font-size: 10.5px;
+        font-weight: 400;
+        color: var(--muted);
+        line-height: 1.3;
+      }
+
+      .work-meta {
+        text-align: right;
+        font-family: var(--mono);
+        font-size: 9.5px;
+        line-height: 1.3;
+        color: var(--dim);
+      }
+
+      .work-meta .muted {
+        color: var(--dim);
+      }
+
+      .work-block {
+        margin-top: 3px;
+      }
+
+      .work-block-title {
+        margin: 0 0 1px 0;
+        font-family: var(--mono);
+        font-size: 9.5px;
+        font-weight: 400;
+        color: var(--fg);
+        line-height: 1.3;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+      }
+
+      .qr {
+        display: grid;
+        grid-template-columns: 56px 1fr;
+        gap: 10px;
+        align-items: center;
+        margin-top: 10px;
+        padding: 10px;
+        border: 1px solid var(--border);
+      }
+
+      .qr img {
+        width: 56px;
+        height: 56px;
+        object-fit: cover;
+      }
+
+      .qr-text {
+        font-size: 11px;
+        line-height: 1.55;
+        color: var(--muted);
+      }
+
+      .footer {
+        margin-top: 14px;
+        padding-top: 10px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        color: var(--dim);
+        font-family: var(--mono);
+        font-size: 10px;
+      }
+
+      @media print {
+        .page {
+          width: 100%;
+          margin: 0;
+          padding: 0;
+        }
+        a {
+          border-bottom: 0;
+        }
+      }
+
+      @media (max-width: 820px) {
+        .header {
+          grid-template-columns: 1fr;
+        }
+        .photo {
+          width: 96px;
+        }
+        .work-head {
+          grid-template-columns: 1fr;
+        }
+        .work-meta {
+          text-align: left;
+        }
+      }
+    
+        
+        /* Additional Print Styles */
+        @media print {
+            body { -webkit-print-color-adjust: exact; }
+            .page-break { page-break-before: always; }
+            .no-print { display: none !important; }
+        }
+        
+        .project-page {
+            width: min(980px, calc(100vw - 32px));
+            margin: 0 auto;
+            padding: 40px 0;
+            page-break-before: always;
+        }
+        
+        /* Reset some project styles to fit the print layout */
+        .project-header { padding: 20px 0; border-bottom: 2px solid #000; }
+        .page-title { font-family: var(--font); font-size: 24px; font-weight: 600; margin: 0; }
+        
+        .project-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+        .meta-item { padding: 10px; border-right: 1px solid #eee; }
+        .meta-item:last-child { border-right: none; }
+        .meta-label { font-family: var(--mono); font-size: 10px; color: #666; display: block; margin-bottom: 4px; }
+        .meta-value { font-family: var(--font); font-size: 12px; font-weight: 500; }
+        
+        .project-content {
+            display: grid;
+            grid-template-columns: 1fr 3fr; /* Adjusted for print width */
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .content-sidebar { }
+        .sidebar-title { font-family: var(--mono); font-size: 10px; color: #999; font-weight: 600; }
+        
+        .content-body h3 { font-family: var(--font); font-size: 16px; margin: 0 0 10px 0; }
+        .content-body p, .content-body li { font-family: var(--font); font-size: 12px; line-height: 1.6; color: #333; margin-bottom: 10px; }
+        
+        img, video { max-width: 100%; height: auto; display: block; margin-top: 10px; border: 1px solid #eee; }
+        
+        /* Hide navigation elements from imported HTML */
+        .site-nav, .mobile-nav, .next-project, .site-footer { display: none !important; }
+        
+        /* Fade-in animation removal for print */
+        .fade-in { opacity: 1 !important; transform: none !important; }
+    </style>
+</head>
+<body>
+
+    <!-- Resume Section -->
+    <main class="page">
+        
+      <header class="header" aria-label="简历抬头">
+        <div>
+          <div class="name">高飞</div>
+          <div class="contact" aria-label="联系方式">
+            <p class="contact-line">电话：<a href="tel:16620151167">16620151167</a> ｜ 邮箱：<a href="mailto:2978227503@qq.com">2978227503@qq.com</a> ｜ 微信：13206540280</p>
+          </div>
+        </div>
+      </header>
+
+
+
+      <section class="section" aria-label="个人总结">
+        <h2 class="section-title">个人总结</h2>
+        <div class="section-hr" aria-hidden="true"></div>
+
+        <div class="block" aria-label="从业经验">
+          <h3 class="block-title">从业经验</h3>
+          <p class="para">6 年 互联网大厂设计经验（京东 3 年 / BIGO 2 年 / 网易近 1 年）。</p>
+          <p class="para">专注“用户洞察 + 增长导向”的全链路设计（创意策划→视觉/系统→落地与资产沉淀）。具备 AIGC 工作流搭建 与创新应用能力。</p>
+        </div>
+
+        <div class="block" aria-label="专业技能">
+          <h3 class="block-title">专业技能</h3>
+          <p class="para">工具：Sketch / Figma（UI）、C4D（3D）、After Effects（动效）、ComfyUI（AIGC）、n8n（自动化）。</p>
+
+        </div>
+
+        <div class="block" aria-label="个人荣誉">
+          <h3 class="block-title">个人荣誉</h3>
+          <p class="para">应邀新浪 AIGC 培训讲座讲师（2023）、京东集团产品创新奖（2022）、京东年度优秀设计师（2021）、京东年度新锐设计师（2020）。</p>
+        </div>
+      </section>
+
+      <section class="section" aria-label="工作经历">
+        <h2 class="section-title">工作经历</h2>
+        <div class="section-hr" aria-hidden="true"></div>
+
+        <article class="work-item" aria-label="网易游戏">
+          <div class="work-head">
+            <div>
+              <div class="company">网易游戏</div>
+              <div class="role">视觉组长｜大神产品视觉设计体系建设与团队管理</div>
+            </div>
+            <div class="work-meta">
+              <div>2025.11 — 至今</div>
+            </div>
+          </div>
+          <div class="work-block">
+            <p class="work-block-title">【AIGC 模型美学与应用探索】</p>
+            <p class="para">总领大神设计部AIGC（视觉/UX/动画）规划与落地，搭建统一美学标准、生产规范与评审体系，推动设计能力标准化与规模化交付，实现提质降本。构建手绘/视觉/动效AI生产管线与自动化工作流（Prompt/LoRA/ComfyUI/n8n），覆盖资源位、活动页、互动玩法等核心场景，显著提升风格一致性、响应速度与产能稳定性。</p>
+          </div>
+          <div class="work-block">
+            <p class="work-block-title">【团队管理与梯队建设】</p>
+            <p class="para">负责大神视觉组日常管理（任务分配/排期协调/质量把控/成员辅导），保障重点项目按期高质量交付。为团队赋能（体系搭建-评估机制-资产沉淀），搭建新人到进阶的培养体系：完善入职指引/导师制与设计规范模版；建立绩效与能力评估并定期盘点；沉淀通用方法与案例文档，提升交付稳定性与协作效率。</p>
+          </div>
+          <div class="work-block">
+            <p class="work-block-title">【大神APP品牌升级】</p>
+            <p class="para">主导大神 APP 品牌视觉升级，围绕“游戏热爱者社区”定位重构视觉语言体系，统一品牌基因并沉淀社区/漫剧/赛事/会员四大板块差异化识别。搭建核心场景的应用设计与多游戏 IP 适配规范，提升视觉一致性、落地效率与用户体验。</p>
+          </div>
+        </article>
+
+        <article class="work-item" aria-label="BIGO LIVE">
+          <div class="work-head">
+            <div>
+              <div class="company">BIGO LIVE</div>
+              <div class="role">资深视觉设计师｜全球市场创意分析与投放增长视觉设计</div>
+            </div>
+            <div class="work-meta">
+              <div>2023.07 — 2025.11</div>
+            </div>
+          </div>
+
+          <div class="work-block">
+            <p class="work-block-title">【广告投放素材优化】</p>
+            <p class="para">ASO素材优化体系搭建（数据驱动迭代），围绕核心业务目标输出全年持续迭代的 10版策略，素材策略正向率80%，结合 25次A/B测试 优化商店素材投放策略，推动中东、美国等多国商店素材转化率持续提升，牵头搭建UG团队本地化资料共享库，主导美国/沙特/韩国/越南/印尼等 6国本地化调研 与合规设计指南制定。</p>
+          </div>
+
+          <div class="work-block">
+            <p class="work-block-title">【社媒创意素材设计】</p>
+            <p class="para">推动AIGC能力融入生产链路，提高创意产出效率与质量稳定性，打造爆款「DINO巨物与地标系列」：YouTube Shorts 单条曝光 26w+；FB/INS 自然观看 1100w+；FB互动率提升 7.9倍，显著提升品牌曝光与互动。</p>
+          </div>
+        </article>
+
+        <article class="work-item" aria-label="京东">
+          <div class="work-head">
+            <div>
+              <div class="company">京东</div>
+              <div class="role">高级视觉设计师｜游戏化营销创意策划与大促视觉设计</div>
+            </div>
+            <div class="work-meta">
+              <div>2020.07 — 2023.07</div>
+            </div>
+          </div>
+
+          <div class="work-block">
+            <p class="work-block-title">【游戏化营销设计】</p>
+            <p class="para">游戏化营销（创意策划-统筹-视觉落地），根据活动定位与业务诉求制定游戏化营销方案并推动上线，通过设计与玩法提升互动与转化。主导/参与落地近 10款互动游戏，覆盖营销IP「好玩节」、日常IP「汽车赛事」、全渠道「超级体验店」等。此外，主导京东 IP JOY LoRA 1.0 版本模型训练，探索 AIGC 在品牌角色一致性生成中的应用。</p>
+          </div>
+          <div class="work-block">
+            <p class="work-block-title">【运营活动与日常营销】</p>
+            <p class="para">负责多个大促与日常运营设计（S级/A级项目），双11大势新品/超级新品日/年货节万券齐发等会场视觉；618首页氛围改造；女神节APP启动屏视频等。主导日常营销IP「我爱周末」策略输出与视觉体系建设：IP心智固化策略、VI/主视觉、3D资产沉淀、长期规范沉淀，获业务高度评价并助力数据增长。</p>
+          </div>
+          <div class="work-block">
+            <p class="work-block-title">【京东微信域 UI 设计】</p>
+            <p class="para">负责京东购物小程序 UI 日常设计与创新，包括京东全渠道首页改版、京东微信域动态设计语言、年货节购物车分享等。</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="section" aria-label="教育经历">
+        <h2 class="section-title">教育经历</h2>
+        <div class="section-hr" aria-hidden="true"></div>
+
+        <article class="work-item" aria-label="哈尔滨师范大学">
+          <div class="work-head" style="grid-template-columns: auto 1fr auto; align-items: baseline; gap: 16px;">
+            <div class="company">哈尔滨师范大学</div>
+            <div class="role" style="margin-top: 0;">美术学院｜服装与服饰设计｜本科</div>
+            <div class="work-meta" style="display: flex; gap: 12px; align-items: baseline;">
+              <div>2016.09 - 2020.07</div>
+              <div class="muted">哈尔滨</div>
+            </div>
+          </div>
+        </article>
+
+
+      </section>
+
+
+    
+    </main>
+
+    <!-- Projects Section -->
+
+    <div class="project-page">
+        <header class="project-header fade-in" style="margin-top: 8vh;">
+        <div style="margin-bottom: 2vh;">
+            <a href="index.html#work" style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut); display: inline-flex; align-items: center; gap: 0.5vw;">
+                
+            </a>
+        </div>
+        <h1 class="page-title scramble-target" data-original="影响力">影响力</h1>
+        <div style="margin-top: 2vh; font-size: 1.5vw; color: var(--fg-mut);">方法论沉淀 / 技术研究 / 内外影响</div>
+    </header>
+<section class="project-meta-grid fade-in">
+        <div class="meta-item">
+            <span class="meta-label">CLIENT</span>
+            <div class="meta-value">Internal & External</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">ROLE</span>
+            <div class="meta-value">方法论 / 培训 / 分享</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">YEAR</span>
+            <div class="meta-value">ALL</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">OUTPUT</span>
+            <div class="meta-value">文章 / 讲座 / 奖项</div>
+        </div>
+    </section>
+<section class="project-content fade-in">
+        <div class="content-sidebar">
+            <span class="sidebar-title">01 — PROJECT OVERVIEW</span>
+        </div>
+        <div class="content-body">
+            <h3>设计价值与行业影响</h3>
+            <p>致力于构建「技术研究-方法沉淀-知识分享」的良性循环。将前沿的设计探索转化为可落地的实战方法论，通过体系化的输出推动设计价值的显性化。</p>
+            <p>对内通过专业课程与技能培训赋能团队，提升整体设计效能；对外积极投身行业交流与企业培训，分享AIGC应用与商业设计心得，持续拓展专业影响力的边界。</p>
+            
+            <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 4vh; margin-bottom: 2vh;">对外行业影响力</h4>
+            <p>受新浪广东邀请，作为特邀讲师为新浪设计团队分享 Stable Diffusion 的应用实践。深入探讨了 AIGC 技术在商业项目中的落地流程、风格模型训练以及创意工作流的优化，促进了行业内的技术交流与经验互通。</p>
+            <div style="margin-top: 3vh;">
+                <img src="images/project-influence/sina-combined.png" alt="Sina Training Combined" style="width: 100%; border: 1px solid var(--border-light);">
+            </div>
+
+            <div style="margin-top: 6vh; margin-bottom: 4vh;">
+            </div>
+
+            <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 6vh; margin-bottom: 3vh;">对内团队赋能</h4>
+
+            <div style="margin-bottom: 4vh;">
+                <div style="display: flex; align-items: baseline; gap: 1vw; margin-bottom: 1vh;">
+                    <span style="font-family: var(--font-mono); font-size: 1.5vw; color: var(--fg); font-weight: 500;">2次</span>
+                    <span style="font-size: 1vw; color: var(--fg); font-weight: 500;">京东设计通道培训课程</span>
+                </div>
+                <div style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.6;">
+                    《OC渲染器教学》<br>
+                    《不加班指南动效篇》
+                </div>
+                <div style="margin-top: 2vh;">
+                    <img src="images/project-influence/channel-course.png" alt="Channel Course Sharing" style="width: 100%; border: 1px solid var(--border-light);">
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+<section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">02 — PERFORMANCE REVIEW</span>
+        </div>
+        <div class="content-body">
+            <h3>述职评价</h3>
+            <p>在不同阶段的工作中均获得团队的信任与肯定。</p>
+            
+            <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 4vh; margin-bottom: 2vh;">网易游戏 (2025 - 至今)</h4>
+            <div style="display: flex; gap: 2vw;">
+                <div style="flex: 0.4;">
+                    <img src="images/project-influence/netease-review.png" alt="Netease Performance Review" style="width: 100%; border: 1px solid var(--border-light); margin-bottom: 4vh;">
+                </div>
+                <div style="flex: 0.6;"></div> <!-- Spacer to proportionally shrink the image -->
+            </div>
+
+            <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 4vh; margin-bottom: 2vh;">京东 (2020 - 2023)</h4>
+            <img src="images/project-influence/20.JPG" alt="JD Performance Review 1" style="width: 100%; border: 1px solid var(--border-light); margin-bottom: 2vh;">
+            <img src="images/project-influence/21.jpg" alt="JD Performance Review 2" style="width: 100%; border: 1px solid var(--border-light);">
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1vw; margin-top: 4vh;">
+                <img src="images/project-influence/jd-award-1.png" alt="JD Award 1" style="width: 100%; border: 1px solid var(--border-light);">
+                <img src="images/project-influence/jd-award-2.png" alt="JD Award 2" style="width: 100%; border: 1px solid var(--border-light);">
+                <img src="images/project-influence/jd-award-4.png" alt="JD Award 4" style="width: 100%; border: 1px solid var(--border-light);">
+                <img src="images/project-influence/jd-award-3.png" alt="JD Award 3" style="width: 100%; border: 1px solid var(--border-light);">
+            </div>
+        </div>
+    </section>
+    </div>
+    
+    <div class="project-page">
+        <header class="project-header fade-in" style="margin-top: 8vh;">
+        <div style="margin-bottom: 2vh;">
+            <a href="index.html#work" style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut); display: inline-flex; align-items: center; gap: 0.5vw;">
+                
+            </a>
+        </div>
+        <h1 class="page-title scramble-target" data-original="人才培养">人才培养</h1>
+        <div style="margin-top: 2vh; font-size: 1.5vw; color: var(--fg-mut);">体系搭建 / 效能提升</div>
+    </header>
+<section class="project-meta-grid fade-in">
+        <div class="meta-item">
+            <span class="meta-label">CLIENT</span>
+            <div class="meta-value">Internal Design Team</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">ROLE</span>
+            <div class="meta-value">Design Lead / Manager</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">YEAR</span>
+            <div class="meta-value">2025</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">OUTPUT</span>
+            <div class="meta-value">课程体系 / 团队成长</div>
+        </div>
+    </section>
+<section class="project-content fade-in">
+        <div class="content-sidebar">
+            <span class="sidebar-title">01 — TEAM MANAGEMENT</span>
+        </div>
+        <div class="content-body">
+            <h3>团队成长与能力赋能</h3>
+            <p>构建从「新人落地」到「进阶成长」的全链路培养体系。通过标准化的入职指引、多维度的绩效量化标准以及实战型的通用能力文档库，全方位赋能团队成员，打造高自驱、高产出的设计团队。</p>
+
+            <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 4vh; margin-bottom: 2vh;">新人落地指南</h4>
+            <p>建立完整的入职指引与导师制度，确保新成员加入后可以快速上手。</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2vw; margin-top: 3vh; margin-bottom: 4vh;">
+                <div style="border: 1px solid var(--border-light); padding: 2vw;">
+                    <h5 style="font-size: 1vw; font-weight: 600; margin-bottom: 1vh; color: var(--fg);">入职准备</h5>
+                    <p style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.6; margin-bottom: 0;">个人介绍、背景破冰，快速建立团队认知</p>
+                </div>
+                <div style="border: 1px solid var(--border-light); padding: 2vw;">
+                    <h5 style="font-size: 1vw; font-weight: 600; margin-bottom: 1vh; color: var(--fg);">工具权限</h5>
+                    <p style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.6; margin-bottom: 0;">环境配置/OA/网盘/协作平台权限开通</p>
+                </div>
+                <div style="border: 1px solid var(--border-light); padding: 2vw;">
+                    <h5 style="font-size: 1vw; font-weight: 600; margin-bottom: 1vh; color: var(--fg);">团队融入</h5>
+                    <p style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.6; margin-bottom: 0;">知悉组织架构与关键对接人，明确业务范围与考核标准</p>
+                </div>
+                <div style="border: 1px solid var(--border-light); padding: 2vw;">
+                    <h5 style="font-size: 1vw; font-weight: 600; margin-bottom: 1vh; color: var(--fg);">系统规范</h5>
+                    <p style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.6; margin-bottom: 0;">设计规范/渠道规范/设计模版/重点项目路径</p>
+                </div>
+            </div>
+
+            <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 6vh; margin-bottom: 3vh;">人员成长路径</h4>
+            <p>建立定期的绩效盘点与能力评估，量化成员的成长与制定针对性的提升计划。</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2vw; margin-top: 3vh;">
+                <div style="border: 1px solid var(--border-light); padding: 2vw;">
+                    <h5 style="font-size: 1vw; font-weight: 600; margin-bottom: 1vh; color: var(--fg);">产出效率</h5>
+                    <p style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.6; margin-bottom: 0;">评估任务完成的及时性与吞吐量</p>
+                </div>
+                <div style="border: 1px solid var(--border-light); padding: 2vw;">
+                    <h5 style="font-size: 1vw; font-weight: 600; margin-bottom: 1vh; color: var(--fg);">产出质量与视觉创新</h5>
+                    <p style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.6; margin-bottom: 0;">评估任务复杂度、呈现效果及对业务的转化贡献</p>
+                </div>
+                <div style="border: 1px solid var(--border-light); padding: 2vw;">
+                    <h5 style="font-size: 1vw; font-weight: 600; margin-bottom: 1vh; color: var(--fg);">规范性</h5>
+                    <p style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.6; margin-bottom: 0;">评估设计文件的管理规范与协作效率</p>
+                </div>
+                <div style="border: 1px solid var(--border-light); padding: 2vw;">
+                    <h5 style="font-size: 1vw; font-weight: 600; margin-bottom: 1vh; color: var(--fg);">分享/复盘/资产沉淀</h5>
+                    <p style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.6; margin-bottom: 0;">评估对团队效能、知识沉淀与协作的正向价值</p>
+                </div>
+                <div style="border: 1px solid var(--border-light); padding: 2vw; grid-column: span 2;">
+                    <h5 style="font-size: 1vw; font-weight: 600; margin-bottom: 1vh; color: var(--fg);">AI应用</h5>
+                    <p style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.6; margin-bottom: 0;">评估AI工具在设计工作中的应用深度、提效成果与创新落地</p>
+                </div>
+            </div>
+
+            <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 6vh; margin-bottom: 3vh;">通用能力提升文档库</h4>
+            <p>针对设计师的通用能力短板，沉淀了一系列实战型文档，涵盖思维模型、沟通协作、数据分析等核心维度，帮助成员构建更全面的职业竞争力。</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2vw; margin-top: 3vh;">
+                <div style="border: 1px solid var(--border-light); padding: 2vw;">
+                    <h5 style="font-size: 1vw; font-weight: 600; margin-bottom: 1vh; color: var(--fg);">方法论 x 思维模型</h5>
+                    <p style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.6; margin-bottom: 0;">目标管理 / 问题分析</p>
+                </div>
+                <div style="border: 1px solid var(--border-light); padding: 2vw;">
+                    <h5 style="font-size: 1vw; font-weight: 600; margin-bottom: 1vh; color: var(--fg);">项目讲解能力</h5>
+                    <p style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.6; margin-bottom: 0;">项目汇报逻辑模板</p>
+                </div>
+                <div style="border: 1px solid var(--border-light); padding: 2vw;">
+                    <h5 style="font-size: 1vw; font-weight: 600; margin-bottom: 1vh; color: var(--fg);">方案输出能力</h5>
+                    <p style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.6; margin-bottom: 0;">如何输出设计方案</p>
+                </div>
+                <div style="border: 1px solid var(--border-light); padding: 2vw;">
+                    <h5 style="font-size: 1vw; font-weight: 600; margin-bottom: 1vh; color: var(--fg);">沟通协作能力</h5>
+                    <p style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.6; margin-bottom: 0;">跨部门沟通话术</p>
+                </div>
+                <div style="border: 1px solid var(--border-light); padding: 2vw;">
+                    <h5 style="font-size: 1vw; font-weight: 600; margin-bottom: 1vh; color: var(--fg);">数据思维能力</h5>
+                    <p style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.6; margin-bottom: 0;">如何拆解运营数据 / 如何看懂数据名词</p>
+                </div>
+                <div style="border: 1px solid var(--border-light); padding: 2vw;">
+                    <h5 style="font-size: 1vw; font-weight: 600; margin-bottom: 1vh; color: var(--fg);">价值证明能力</h5>
+                    <p style="font-size: 0.9vw; color: var(--fg-mut); line-height: 1.6; margin-bottom: 0;">如何证明设计价值</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+    
+    <div class="project-page">
+        <header class="project-header fade-in">
+        <div style="margin-bottom: 2vh;">
+            <a href="work.html" style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut); display: inline-flex; align-items: center; gap: 0.5vw;">
+                
+            </a>
+        </div>
+        <h1 class="page-title scramble-target" data-original="系统 X Netease">系统 X Netease</h1>
+        <div style="margin-top: 2vh; font-size: 1.5vw; color: var(--fg-mut);">提升设计质量 / 提升设计效率 / 提升设计转化</div>
+    </header>
+<section class="project-meta-grid fade-in">
+        <div class="meta-item">
+            <span class="meta-label">CLIENT</span>
+            <div class="meta-value">网易 (Netease)</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">ROLE</span>
+            <div class="meta-value">系统设计 / AI应用</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">YEAR</span>
+            <div class="meta-value">2025</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">OUTPUT</span>
+            <div class="meta-value">设计系统 / 效率工具</div>
+        </div>
+    </section>
+<section class="project-content fade-in">
+        <div class="content-sidebar">
+            <span class="sidebar-title">01 — DESIGN QUALITY</span>
+        </div>
+        <div class="content-body">
+            <h3>AI提升设计质量：设计标准化生产</h3>
+            <p>通过引入 AI 工作流，在保障高品质视觉输出的同时，降低对特定画师或动画师的依赖，实现设计质量的标准化、可复制与规模化交付。</p>
+            
+            <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 4vh; margin-bottom: 2vh;">1. 手绘类需求的 AI 生产管线</h4>
+            <p>针对过往耗时高、风格一致性难保障的手绘插画需求，搭建专属 AI 绘画模型与工作流。通过精细化 Prompt 调校与垫图（参考图）约束，稳定控制色彩、光影、透视与角色特征，使插画输出在不同批次间保持高度一致，将手绘质量从“依赖个人发挥”升级为“系统化保障”。</p>
+            <p>该管线可模拟团队多位设计师的画风，并结合 n8n 自动化编排，实现从需求触发、生成到交付的无设计师流程化生产，有效支撑《逆水寒》《炉石传说》等游戏 IP 与“用户合影二创”等互动玩法的规模化落地。</p>
+            <div style="display: flex; gap: 2vw; margin-top: 3vh; width: 100%;">
+                <!-- Image 1: natural width, fixed height container logic -->
+                <div style="flex: 0 0 auto;">
+                    <img src="images/project-system-netease/hand-drawn-ai-pipeline-1.png" alt="Hand-drawn AI Pipeline 1" style="height: 25vh; width: auto; max-width: 100%; display: block; border: 1px solid var(--border-light);">
+                </div>
+                <!-- Image 2: scaled to same height -->
+                <div style="flex: 0 0 auto; overflow-x: auto;">
+                    <img src="images/project-system-netease/hand-drawn-ai-pipeline-2.png" alt="Hand-drawn AI Pipeline 2" style="height: 25vh; width: auto; max-width: none; display: block; border: 1px solid var(--border-light);">
+                </div>
+            </div>
+
+            <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 4vh; margin-bottom: 2vh;">2. 动画类需求的 AI 生产管线</h4>
+            <p>在传统资源位设计中，受人力与成本限制，难以在所有点位都实现高精度的动效呈现。通过引入 AI 生成基础动效素材的工作流，可快速补齐动效能力覆盖面，在不显著增加制作成本的前提下，整体提升设计质感与一致性。</p>
+            <p>以小程序下拉彩蛋资源位为例，将原本的静态 KV 升级为轻量“微呼吸”动效，不仅显著增强视觉表现与沉浸感，也通过模板化参数与流程约束，避免因不同制作人员水平差异导致的动效质量不一致问题。</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2vw; margin-top: 3vh;">
+                <video src="images/project-system-netease/motion-video-1.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
+                <video src="images/project-system-netease/motion-video-2.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
+            </div>
+            <img src="images/project-system-netease/motion-ai-pipeline.png" alt="Motion AI Pipeline Output" style="width: 100%; margin-top: 2vh; border: 1px solid var(--border-light);">
+
+            <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 4vh; margin-bottom: 2vh;">3. 视觉设计类需求的 AI 生产管线</h4>
+            <p>在常规运营活动设计中，基于对游戏视觉风格的深度洞察，沉淀并建立了严格的美学规范与专用资产库。通过提示词逆向工程与参数调优，能够快速生成符合游戏调性的背景、道具与合成素材，确保风格统一、产出稳定。</p>
+            <p>在专业审美把控的前提下，结合 ComfyUI 管线进行可控的分层生成与精准合成，既保障了高品质的视觉呈现，也显著缩短了从创意构思到视觉执行的整体周期。</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2vw; margin-top: 3vh;">
+                <div style="height: 25vh; border: 1px solid var(--border-light);">
+                    <img src="images/project-system-netease/visual-ai-parameters.png" alt="Visual AI Parameters" style="width: 100%; height: 100%; object-fit: contain; object-position: center; background: #000;">
+                </div>
+                <div style="height: 25vh; border: 1px solid var(--border-light); overflow: hidden;">
+                    <img src="images/project-system-netease/visual-ai-sketch.png" alt="Visual AI Sketch" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                </div>
+            </div>
+            <img src="images/project-system-netease/visual-ai-pipeline.png" alt="Visual Design AI Pipeline Output" style="width: 100%; margin-top: 2vw; border: 1px solid var(--border-light);">
+        </div>
+    </section>
+<section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">02 — DESIGN EFFICIENCY</span>
+        </div>
+        <div class="content-body">
+            <h3>AI 提升设计效率：外包工单清零</h3>
+            <p>面对团队每月 500+ 的外包工单需求，通过深度拆解需求类型并分类搭建 AI 自动化生产管线，实现外包工单全面清零，显著降低部门成本，同时提升交付响应速度与产能稳定性。</p>
+
+            <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 4vh; margin-bottom: 2vh;">1. 资源位类需求的AI生产管线</h4>
+            <p>针对重复度高、规范清晰的资源位物料（如 Banner、弹窗等），搭建“参数化生成 + 批量自动化”的生产工作流。设计师或运营只需配置核心视觉元素与文案信息，系统即可自动完成多尺寸适配与规范校验，产出一致且合规的设计，实现“一次设计，全量生成”。</p>
+            <img src="images/project-system-netease/resource-pipeline.gif" alt="Resource Type AI Pipeline" style="width: 100%; margin-top: 3vh; border: 1px solid var(--border-light);">
+            <img src="images/project-system-netease/workflow-group-9.png" alt="Workflow Overview" style="width: 100%; margin-top: 2vh; border: 1px solid var(--border-light);">
+            <img src="images/project-system-netease/workflow-3.png" style="width: 100%; margin-top: 2vh; border: 1px solid var(--border-light);">
+
+
+            <h4 style="font-size: 1.2vw; font-weight: 600; margin-top: 4vh; margin-bottom: 2vh;">2. 运营活动类需求的AI生产管线</h4>
+            <p>针对结构相对固定的运营活动页需求，搭建“风格化模块生成”的 n8n 自动化管线：将页面拆解为可复用组件与版式模块，基于主题由 AI 批量生成匹配风格的边框、背景与装饰元素，并按组件规则自动填充文案、图标及活动信息。整体将原本以天计的设计周期压缩至小时级，同时确保风格统一与产出稳定。</p>
+            <div style="display: flex; gap: 1vw; margin-top: 3vh; overflow: hidden;">
+                <div style="flex: 1; height: 30vh; overflow: hidden; border: 1px solid var(--border-light);">
+                    <img src="images/project-system-netease/campaign-template-1.png" alt="Campaign Template 1" style="width: 100%; height: auto; object-fit: cover; object-position: top;">
+                </div>
+                <div style="flex: 1; height: 30vh; overflow: hidden; border: 1px solid var(--border-light);">
+                    <img src="images/project-system-netease/campaign-template-2.png" alt="Campaign Template 2" style="width: 100%; height: auto; object-fit: cover; object-position: top;">
+                </div>
+                <div style="flex: 1; height: 30vh; overflow: hidden; border: 1px solid var(--border-light);">
+                    <img src="images/project-system-netease/campaign-template-3.png" alt="Campaign Template 3" style="width: 100%; height: auto; object-fit: cover; object-position: top;">
+                </div>
+                <div style="flex: 1; height: 30vh; overflow: hidden; border: 1px solid var(--border-light);">
+                    <img src="images/project-system-netease/campaign-template-4.jpg" alt="Campaign Template 4" style="width: 100%; height: auto; object-fit: cover; object-position: top;">
+                </div>
+                <div style="flex: 1; height: 30vh; overflow: hidden; border: 1px solid var(--border-light);">
+                    <img src="images/project-system-netease/campaign-template-5.png" alt="Campaign Template 5" style="width: 100%; height: auto; object-fit: cover; object-position: top;">
+                </div>
+            </div>
+            <img src="images/project-system-netease/campaign-pipeline.png" alt="Campaign Design Pipeline" style="width: 100%; margin-top: 2vh; border: 1px solid var(--border-light);">
+        </div>
+    </section>
+<section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">03 — DESIGN CONVERSION</span>
+        </div>
+        <div class="content-body">
+            <h3>AI提升设计转化：投放素材自进化系统</h3>
+            <p>在获客成本日益高昂的背景下，为商业化部门打造了一套“投放素材自进化系统”。通过打通设计与投放数据的闭环，让 AI 能够基于数据反馈，自动分析高转化素材的特征，并进行裂变迭代。</p>
+            <p>从“人工经验决策”向“数据驱动决策”的转型，提升了素材的跑量能力，让设计产出能够直接助力业务增长。</p>
+            <img src="images/project-system-netease/conversion-pipeline.png" alt="Design Conversion AI Pipeline" style="width: 100%; margin-top: 3vh; border: 1px solid var(--border-light);">
+        </div>
+    </section>
+    </div>
+    
+    <div class="project-page">
+        <header class="project-header fade-in">
+        <div style="margin-bottom: 2vh;">
+            <a href="work.html" style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut); display: inline-flex; align-items: center; gap: 0.5vw;">
+                
+            </a>
+        </div>
+        <h1 class="page-title scramble-target" data-original="品牌 X BIGO">品牌 X BIGO</h1>
+        <div style="margin-top: 2vh; font-size: 1.5vw; color: var(--fg-mut);">IP动画 / IP延展</div>
+    </header>
+<section class="project-meta-grid fade-in">
+        <div class="meta-item">
+            <span class="meta-label">CLIENT</span>
+            <div class="meta-value">BIGO LIVE</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">ROLE</span>
+            <div class="meta-value">IP动画 / 品牌设计</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">YEAR</span>
+            <div class="meta-value">2025</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">OUTPUT</span>
+            <div class="meta-value">动画视频 / 品牌周边</div>
+        </div>
+    </section>
+<section class="project-content fade-in">
+        <div class="content-sidebar">
+            <span class="sidebar-title">01 — PROJECT OVERVIEW</span>
+        </div>
+        <div class="content-body">
+            <h3>品牌 IP 动画与延展</h3>
+            <p>基于 BIGO LIVE 的品牌 IP 形象，打造一系列高质量的动画视频与周边延展设计，提升品牌在全球市场的认知度与影响力。</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2vw; margin-top: 3vh;">
+                <video src="images/project-branding-bigo/quality-series-2.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
+                <video src="images/project-branding-bigo/quality-series-1.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
+            </div>
+        </div>
+    </section>
+<section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">02 — SOCIAL MEDIA</span>
+        </div>
+        <div class="content-body">
+            <h3>社媒 IP 动画</h3>
+            <p>结合全球热点与节日节点，创作了一系列生动有趣的 IP 短视频，在 Facebook、Instagram 等社交媒体平台广泛传播，有效提升了品牌的活跃度与用户粘性。</p>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1vw; margin-top: 3vh;">
+                <video src="images/project-branding-bigo/social-japan.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
+                <video src="images/project-branding-bigo/social-usa.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
+                <video src="images/project-branding-bigo/social-france.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
+                <video src="images/project-branding-bigo/social-australia.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
+                <video src="images/project-branding-bigo/social-egypt.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
+                <video src="images/project-branding-bigo/social-italy.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
+                <video src="images/project-branding-bigo/social-uk.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
+                <video src="images/project-branding-bigo/social-singapore.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
+            </div>
+        </div>
+    </section>
+<section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">03 — MERCHANDISE</span>
+        </div>
+        <div class="content-body">
+            <h3>创意周边系列设计</h3>
+            <p>基于 IP 形象开发的系列周边产品，通过精细的 3D 渲染与实拍视频展示，赋予品牌更强的实体感知与商业价值。</p>
+            <div style="display: flex; gap: 2vw; margin-top: 3vh;">
+                <div style="flex: 1;">
+                    <video src="images/project-branding-bigo/creative-dream.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
+                </div>
+                <!-- Spacer to constrain width and height -->
+                <div style="flex: 1;"></div>
+            </div>
+        </div>
+    </section>
+<section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">04 — GLOBAL TRAVEL</span>
+        </div>
+        <div class="content-body">
+            <h3>环球旅行系列设计</h3>
+            <p>结合不同国家的地标与文化特色，打造 BIGO DINO 环球旅行系列视觉，展现品牌的全球化视野与多元文化包容性。</p>
+            <div style="display: flex; gap: 2vw; margin-top: 3vh;">
+                <div style="flex: 1;">
+                    <video src="images/project-branding-bigo/travel-osaka.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
+                </div>
+                <div style="flex: 1;">
+                    <video src="images/project-branding-bigo/travel-hongkong.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light);"></video>
+                </div>
+                <!-- Spacer to constrain width and height -->
+                <div style="flex: 0.5;"></div>
+            </div>
+        </div>
+    </section>
+    </div>
+    
+    <div class="project-page">
+        <header class="project-header fade-in" style="margin-top: 8vh;">
+        <div style="margin-bottom: 2vh;">
+            <a href="index.html#work" style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut); display: inline-flex; align-items: center; gap: 0.5vw;">
+                
+            </a>
+        </div>
+        <h1 class="page-title scramble-target" data-original="Deepkeep">Deepkeep</h1>
+        <div style="margin-top: 2vh; font-size: 1.5vw; color: var(--fg-mut);">健康类目</div>
+    </header>
+<section class="project-meta-grid fade-in">
+        <div class="meta-item">
+            <span class="meta-label">CLIENT</span>
+            <div class="meta-value">个人项目</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">ROLE</span>
+            <div class="meta-value">产品 / 前端 / UI</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">YEAR</span>
+            <div class="meta-value">2025</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">OUTPUT</span>
+            <div class="meta-value">iOS APP / 已上架</div>
+        </div>
+    </section>
+<section class="project-content fade-in">
+        <div class="content-sidebar">
+            <span class="sidebar-title">01 — PROJECT OVERVIEW</span>
+        </div>
+        <div class="content-body">
+            <h3>产品概述</h3>
+            <p>一款整合饮食管理、运动课程与训练日志的 AI 健康管理 App，通过 AI 生成并动态调整个性化健身计划，形成“训练-饮食-数据追踪”闭环。</p>
+            <p><strong>目标用户：</strong> 健身人群、想健身但缺计划的人、需要健康管理的中老年用户。</p>
+        </div>
+    </section>
+<section class="project-content fade-in">
+        <div class="content-sidebar">
+            <span class="sidebar-title">02 — CORE FUNCTIONS</span>
+        </div>
+        <div class="content-body">
+            <h3>核心功能</h3>
+            
+            <h4 style="font-size: 1.2vw; font-weight: 500; margin-top: 4vh; margin-bottom: 2vh;">AI 动态训练计划</h4>
+            <ul style="list-style: none; padding: 0;">
+                <li>支持录入基础信息与目标（增肌/减脂/塑形），并同步 Apple Watch 等可穿戴数据（心率/体脂等）。</li>
+                <li>基于 DeepSeek / GPT模型生成训练内容（有氧类型、器械、组数/次数等）。</li>
+                <li>按完成情况与身体数据变化动态调强度、休息节奏，并联动调整食谱。</li>
+            </ul>
+
+            <h4 style="font-size: 1.2vw; font-weight: 500; margin-top: 4vh; margin-bottom: 2vh;">日历集成管理</h4>
+            <ul style="list-style: none; padding: 0;">
+                <li>确认计划后一键生成并同步 Apple Calendar（训练时间 + 动作详情）。</li>
+                <li>计划变化后通过 iOS Shortcuts 自动更新日历事件并通知提醒。</li>
+            </ul>
+        </div>
+    </section>
+<section class="project-content fade-in">
+        <div class="content-sidebar">
+            <span class="sidebar-title">03 — MODULES</span>
+        </div>
+        <div class="content-body">
+            <h3>功能模块拆解</h3>
+            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 1vw; margin-top: 3vh;">
+                <img src="images/project-personal-app/preview-1.png" alt="App Preview 1" style="width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border-light);">
+                <img src="images/project-personal-app/preview-2.png" alt="App Preview 2" style="width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border-light);">
+                <img src="images/project-personal-app/preview-3.png" alt="App Preview 3" style="width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border-light);">
+                <img src="images/project-personal-app/preview-4.png" alt="App Preview 4" style="width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border-light);">
+                <img src="images/project-personal-app/preview-5.png" alt="App Preview 5" style="width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border-light);">
+            </div>
+        </div>
+    </section>
+<section class="project-content fade-in">
+        <div class="content-sidebar">
+            <span class="sidebar-title">04 — TECH STACK</span>
+        </div>
+        <div class="content-body">
+            <h3>技术实现方案</h3>
+            <ul>
+                <li><strong>后端与数据流：</strong> n8n 搭建自动化工作流，处理数据接收、DeepSeek 模型调用与计划返回。</li>
+                <li><strong>前端与 UI：</strong> Cursor 编写 iOS 前端代码及 UI 设计。</li>
+            </ul>
+        </div>
+    </section>
+<section class="project-content fade-in">
+        <div class="content-sidebar">
+            <span class="sidebar-title">05 — METRICS</span>
+        </div>
+        <div class="content-body">
+            <h3>项目复盘与后续</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2vw; margin-top: 3vh;">
+                <div style="padding: 2vw; border: 1px solid var(--border-light); background: var(--bg); border-radius: 4px;">
+                    <div style="font-family: var(--font-mono); font-size: 0.75vw; color: var(--fg-dim); margin-bottom: 1vh; text-transform: uppercase; letter-spacing: 0.05em;">Application Level</div>
+                    <strong style="display: block; font-size: 1.1vw; margin-bottom: 1.5vh; color: var(--fg);">应用验证</strong>
+                    <p style="font-size: 0.95vw; margin: 0; color: var(--fg-mut); line-height: 1.6;">
+                        深度测试了 Vibe Coding 的能力边界，成功验证并跑通了独立应用从 0 到 1 开发直至 App Store 上架的全流程闭环。
+                    </p>
+                </div>
+                <div style="padding: 2vw; border: 1px solid var(--border-light); background: var(--bg); border-radius: 4px;">
+                    <div style="font-family: var(--font-mono); font-size: 0.75vw; color: var(--fg-dim); margin-bottom: 1vh; text-transform: uppercase; letter-spacing: 0.05em;">Product Level</div>
+                    <strong style="display: block; font-size: 1.1vw; margin-bottom: 1.5vh; color: var(--fg);">产品规划</strong>
+                    <p style="font-size: 0.95vw; margin: 0; color: var(--fg-mut); line-height: 1.6;">
+                        产品理念与功能规划展现出显著的前瞻性，市场上同类竞品（如阿里阿福 App）在8个月后才推出类似功能。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+    
+    <div class="project-page">
+        <header class="project-header fade-in">
+        <div style="margin-bottom: 2vh;">
+            <a href="work.html" style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut); display: inline-flex; align-items: center; gap: 0.5vw;">
+                
+            </a>
+        </div>
+        <h1 class="page-title scramble-target" data-original="大神APP品牌升级">大神APP品牌升级</h1>
+        <div style="margin-top: 2vh; font-size: 1.5vw; color: var(--fg-mut);">全站视觉语言重塑与品牌资产沉淀</div>
+    </header>
+<section class="project-meta-grid fade-in">
+        <div class="meta-item">
+            <span class="meta-label">CLIENT</span>
+            <div class="meta-value">网易大神</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">ROLE</span>
+            <div class="meta-value">视觉负责人 / 品牌设计</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">YEAR</span>
+            <div class="meta-value">2025</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">OUTPUT</span>
+            <div class="meta-value">品牌识别 / UI规范 / 运营物料</div>
+        </div>
+    </section>
+<section class="gallery-item fade-in">
+        <video src="images/project-branding/video.mp4" autoplay loop muted playsinline style="width: 100%; height: auto; display: block;"></video>
+    </section>
+<section class="project-content fade-in">
+        <div class="content-sidebar">
+            <span class="sidebar-title">01 — BACKGROUND</span>
+        </div>
+        <div class="content-body">
+            <h3>重塑游戏社区的视觉语言</h3>
+            <p>随着大神APP用户群体的扩张和功能的迭代，原有的视觉体系已无法满足多元化的业务需求。品牌形象老化、视觉一致性缺失，导致用户认知模糊。</p>
+            <p>本次品牌升级旨在通过构建全新的视觉语言系统，强化“游戏热爱者社区”的品牌定位，提升用户的归属感和产品的易用性。</p>
+            <div style="margin-top: 4vh;">
+                <img src="images/project-branding/branding-overview-1.png" alt="Brand Overview 1" style="width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border-light);">
+            </div>
+        </div>
+    </section>
+<section class="project-content fade-in">
+        <div class="content-sidebar">
+            <span class="sidebar-title">02 — CORE CONCEPT</span>
+        </div>
+        <div class="content-body">
+            <h3>核心理念：多元共生与价值感知</h3>
+            <p>基于“多元共生”的品牌核心，重新定义了视觉关键词。通过对社区、漫剧、赛事及会员四大业务板块的深度拆解，提炼出差异化的视觉特征。</p>
+            <p>从社区的“活人感”到漫剧的“沉浸感”，再到赛事的“专业感”与会员的“荣耀感”，每一板块都拥有独特的视觉识别基因，共同构建起大神 APP 丰富而统一的品牌生态。</p>
+            <div style="margin-top: 4vh;">
+                <img src="images/project-branding/visual-keywords.png" alt="Visual Keywords Definition" style="width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border-light);">
+            </div>
+        </div>
+    </section>
+<section class="project-content fade-in">
+        <div class="content-sidebar">
+            <span class="sidebar-title">03 — DESIGN SYSTEM</span>
+        </div>
+        <div class="content-body">
+            <h3>评分榜视觉体系重构</h3>
+            <p>针对大神 APP 核心的“评分榜”业务，建立了一套高度模块化且具备情感连接的视觉体系。通过“活人感”的核心概念，将真实的玩家声音与评分数据相结合。</p>
+            <p>从基础的品牌基因提取到多维度的评分卡片设计，再到针对《梦幻西游》《蛋仔派对》《燕云十六声》《永劫无间》等不同游戏 IP 的定制化榜单适配，实现了视觉风格的统一性与业务场景的灵活性。</p>
+            <div style="margin-top: 4vh; display: flex; flex-direction: column; gap: 2vh;">
+                <img src="images/project-branding/design-system-1.png" alt="Rating System Core Visual" style="width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border-light);">
+                <img src="images/project-branding/design-system-4.png" alt="Brand DNA Fusion" style="width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border-light);">
+                <img src="images/project-branding/design-system-2.png" alt="Content Dopamine Cards" style="width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border-light);">
+                <img src="images/project-branding/design-system-3.png" alt="Game IP Adaptation" style="width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border-light);">
+            </div>
+        </div>
+    </section>
+<section class="project-content fade-in">
+        <div class="content-sidebar">
+            <span class="sidebar-title">04 — MANJU THEATER</span>
+        </div>
+        <div class="content-body">
+            <h3>大神漫剧：沉浸式内容剧场</h3>
+            <p>从“内容流”向“专属剧场”的体验升级。通过数字光影艺术与焦点化设计，打造漫剧专属的“沉浸式剧场”氛围。</p>
+            <p>结合品牌基因塑造“上映感”焦点图，强化漫剧心智与瞬时流量的吸引力，让用户在浏览过程中获得身临其境的观看体验。</p>
+            <div style="margin-top: 4vh; display: flex; flex-direction: column; gap: 2vh;">
+                <img src="images/project-branding/manju-1.png" alt="Manju Theater Concept" style="width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border-light);">
+                <img src="images/project-branding/manju-2.png" alt="Immersive Experience" style="width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border-light);">
+                <img src="images/project-branding/manju-3.png" alt="Focus Design" style="width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border-light);">
+                <img src="images/project-branding/manju-4.png" alt="UI Implementation" style="width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border-light);">
+            </div>
+        </div>
+    </section>
+<section class="project-content fade-in">
+        <div class="content-sidebar">
+            <span class="sidebar-title">05 — ESPORTS LIVE</span>
+        </div>
+        <div class="content-body">
+            <h3>赛事直播：专业竞技体验</h3>
+            <p>通过将品牌符号进行“竞技化”转译，结合暗黑质感与动态光效，打造大神核心赛事的专业化感知。</p>
+            <p>针对 NBPL、IVL、高校联赛等不同赛事 IP，定制专属的直播间、数据榜单及选手评分界面，强化电竞氛围，让用户沉浸于巅峰竞技的激情与荣耀之中。</p>
+            <div style="margin-top: 4vh; display: flex; flex-direction: column; gap: 2vh;">
+                <img src="images/project-branding/esports-1.png" alt="Esports Live Concept" style="width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border-light);">
+                <img src="images/project-branding/esports-2.png" alt="Professional Experience" style="width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border-light);">
+                <img src="images/project-branding/esports-3.png" alt="Tournament Homepage" style="width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border-light);">
+                <img src="images/project-branding/esports-4.png" alt="Player Rating" style="width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border-light);">
+            </div>
+        </div>
+    </section>
+<section class="project-content fade-in">
+        <div class="content-sidebar">
+            <span class="sidebar-title">06 — SUPER VIP</span>
+        </div>
+        <div class="content-body">
+            <h3>超级会员：荣耀身份进阶</h3>
+            <p>基于 Liquid 设计语言，重构 VIP 品牌符号与视觉识别体系。通过金属质感与流光动效的结合，塑造尊贵而独特的身份印记。</p>
+            <p>从 V5 到 V7，构建了差异化的权益感知体系。专属的会员徽章、礼包界面及特权中心，让用户在每一次交互中都能感受到“身份进化”带来的荣耀感与归属感。</p>
+            <div style="margin-top: 4vh; display: flex; flex-direction: column; gap: 2vh;">
+                <img src="images/project-branding/vip-1.png" alt="VIP Brand Identity" style="width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border-light);">
+                <img src="images/project-branding/vip-2.png" alt="VIP Symbol Redesign" style="width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border-light);">
+                <img src="images/project-branding/vip-3.png" alt="VIP Benefits Interface" style="width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border-light);">
+                <img src="images/project-branding/vip-4.png" alt="Exclusive Perception V5-V7" style="width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border-light);">
+            </div>
+        </div>
+    </section>
+    </div>
+    
+    <div class="project-page">
+        <header class="project-header fade-in">
+        <div style="margin-bottom: 2vh;">
+            <a href="work.html" style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut); display: inline-flex; align-items: center; gap: 0.5vw;">
+                
+            </a>
+        </div>
+        <h1 class="page-title scramble-target" data-original="京东小程序动效语言">京东小程序动效语言</h1>
+        <div style="margin-top: 2vh; font-size: 1.5vw; color: var(--fg-mut);">微信域动效规范体系搭建与用户体验提升</div>
+    </header>
+<section class="project-meta-grid fade-in">
+        <div class="meta-item">
+            <span class="meta-label">CLIENT</span>
+            <div class="meta-value">京东 (JD.com)</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">ROLE</span>
+            <div class="meta-value">动效设计</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">YEAR</span>
+            <div class="meta-value">2022</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">OUTPUT</span>
+            <div class="meta-value">动效规范</div>
+        </div>
+    </section>
+<section class="project-content fade-in">
+        <div class="content-sidebar">
+            <span class="sidebar-title">01 — BRAND & EMOTION</span>
+        </div>
+        <div class="content-body">
+            <h3>背景与调性</h3>
+            <p><strong>01. 京购核心调性：省钱与省心</strong></p>
+            <p>我们将“省钱与省心”的产品理念转化为具体的设计语言：</p>
+            <ul>
+                <li><strong>实惠</strong>：价格更友好、优惠更清晰、利益点更直给。</li>
+                <li><strong>放心</strong>：流程更可靠、信息更透明、关键节点更有确认感。</li>
+            </ul>
+
+            <p style="margin-top: 3vh;"><strong>02. 情感感知：传递购物的喜悦</strong></p>
+            <p>京购的情感核心源于“购物体验”本身。我们致力于打造一条从“平台省心”到“低价惊喜”的情绪路径，让用户在买到划算的同时，获得“被照顾到”的愉悦体验，在关键节点感受超出预期的惊喜。</p>
+        </div>
+    </section>
+<section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">02 — EXPERIENCE GOALS</span>
+        </div>
+        <div class="content-body">
+            <h3>体验目标</h3>
+            <p>针对京购用户“看得懂、点得快、买得稳”的特征，确立了三大核心体验感知维度：</p>
+            <ul>
+                <li><strong>简单直接</strong>：信息表达直给，减少解释成本，所见即所得。</li>
+                <li><strong>快速响应</strong>：操作即反馈，状态可感知，降低等待焦虑。</li>
+                <li><strong>有序</strong>：层级清晰、路径明确、节奏统一，减少迷失感。</li>
+            </ul>
+        </div>
+    </section>
+<section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">03 — MOTION DNA</span>
+        </div>
+        <div class="content-body">
+            <h3>动效基因与策略</h3>
+            <p>为匹配“效率与秩序”的体验目标，我们提炼了三条核心运动趋势，使动效更快、更稳、更不打扰：</p>
+            <ul>
+                <li><strong>提升加速度</strong>：启动更利落，减少“拖沓感”，提升效率体感。</li>
+                <li><strong>增强速率对比</strong>：主次更分明，重要信息更突出，视线引导更强。</li>
+                <li><strong>减少衰减过程</strong>：收尾更干净，避免冗长尾巴，降低干扰与等待。</li>
+            </ul>
+
+            <p style="margin-top: 4vh;"><strong>品牌化曲线 (Easing Signature)</strong></p>
+            <p>通过定制 Cubic-bezier 曲线库，赋予产品独特的动态性格。在核心交互中适度引入弹性（Spring）与过冲（Overshoot），打破机械感，传递出更具灵动与活力的品牌气质。</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2vw; margin-top: 4vh;">
+                <div class="principle-item">
+                    <video src="images/project-jd-motion/spring-curve.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light); margin-bottom: 1vh; display: block;"></video>
+                    <span style="font-family: var(--font-mono); font-size: 0.7vw; color: var(--fg-dim);">弹性曲线 (Spring)</span>
+                </div>
+                <div class="principle-item">
+                    <video src="images/project-jd-motion/easing-curve.mp4" autoplay loop muted playsinline style="width: 100%; border: 1px solid var(--border-light); margin-bottom: 1vh; display: block;"></video>
+                    <span style="font-family: var(--font-mono); font-size: 0.7vw; color: var(--fg-dim);">京购缓动 (Standard Easing)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+<section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">04 — IMPLEMENTATION</span>
+        </div>
+        <div class="content-body">
+            <h3>动效落地</h3>
+            <p>基于时长、尺寸与复杂度三要素的平衡，制定了场景化的落地策略：</p>
+            <ul>
+                <li><strong>高保真还原 (Lottie)</strong>：适用于 UI Icon、微交互。矢量高清，体积可控，适配全端。</li>
+                <li><strong>通用兼容 (GIF/序列帧)</strong>：适用于强运营、引导页。兼容性强，确保跨平台视觉一致。</li>
+            </ul>
+            <p>同时，沉淀技术文档，赋能团队提升交付质量。</p>
+            
+            <div style="margin-top: 4vh;">
+                <!-- First Line: Export Process -->
+                <img src="images/project-jd-motion/impl-export.png" alt="Animation Export Process" style="width: 100%; border: 1px solid var(--border-light); margin-bottom: 2vh; display: block;">
+                
+                <!-- Thumbnails Grid -->
+                 <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 1vw;">
+                      <div class="principle-item">
+                          <img src="images/project-jd-motion/impl-overview.png" alt="Implementation Overview" style="width: 100%; border: 1px solid var(--border-light);">
+                      </div>
+                     <div class="principle-item">
+                         <img src="images/project-jd-motion/impl-mp4.png" alt="MP4 Format" style="width: 100%; border: 1px solid var(--border-light);">
+                     </div>
+                     <div class="principle-item">
+                         <img src="images/project-jd-motion/impl-apng.png" alt="APNG Format" style="width: 100%; border: 1px solid var(--border-light);">
+                     </div>
+                     <div class="principle-item">
+                         <img src="images/project-jd-motion/impl-seq.png" alt="Sequence Format" style="width: 100%; border: 1px solid var(--border-light);">
+                     </div>
+                     <div class="principle-item">
+                         <img src="images/project-jd-motion/impl-lottie.png" alt="Lottie Format" style="width: 100%; border: 1px solid var(--border-light);">
+                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">05 — ANIMATION PRINCIPLES</span>
+        </div>
+        <div class="content-body">
+            <h3>细节拉开差距：迪士尼十二动画法则</h3>
+            <p>将经典的动画法则映射到 UI 交互中，让界面动效不仅流畅，更具生命力。</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr; gap: 2vw; margin-top: 4vh;">
+                <!-- Row 1: Full Width -->
+                <div class="principle-item">
+                    <img src="images/project-jd-motion/squash-stretch.gif" alt="Combination Application" style="width: 100%; border: 1px solid var(--border-light); margin-bottom: 1vh;">
+                    <span style="font-family: var(--font-mono); font-size: 0.7vw; color: var(--fg-dim);">组合应用 (Combination)</span>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2vw; margin-top: 2vw;">
+                <!-- Row 2: Three Columns -->
+                <div class="principle-item">
+                    <img src="images/project-jd-motion/follow-overlap.gif" alt="Follow Through & Overlapping Action" style="width: 100%; border: 1px solid var(--border-light); margin-bottom: 1vh;">
+                    <span style="font-family: var(--font-mono); font-size: 0.7vw; color: var(--fg-dim);">次级动作</span>
+                </div>
+                <div class="principle-item">
+                    <img src="images/project-jd-motion/anticipation.gif" alt="Anticipation" style="width: 100%; border: 1px solid var(--border-light); margin-bottom: 1vh;">
+                    <span style="font-family: var(--font-mono); font-size: 0.7vw; color: var(--fg-dim);">挤压与拉伸</span>
+                </div>
+                <div class="principle-item">
+                    <img src="images/project-jd-motion/secondary-action.gif" alt="Secondary Action" style="width: 100%; border: 1px solid var(--border-light); margin-bottom: 1vh;">
+                    <span style="font-family: var(--font-mono); font-size: 0.7vw; color: var(--fg-dim);">预期动作</span>
+                </div>
+            </div>
+        </div>
+    </section>
+<section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">06 — APPLICATION</span>
+        </div>
+        <div class="content-body">
+            <h3>实际需求中的应用</h3>
+            <p>在实际业务场景中，将动效语言灵活应用于各种营销活动和功能模块，提升了用户的互动意愿和转化率。</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2vw; margin-top: 4vh;">
+                <div class="principle-item">
+                    <img src="images/project-jd-motion/template-4.gif" alt="Red Packet Interaction" style="width: 100%; border: 1px solid var(--border-light); margin-bottom: 1vh;">
+                    <span style="font-family: var(--font-mono); font-size: 0.7vw; color: var(--fg-dim);">红包互动 (Red Packet)</span>
+                </div>
+                <div class="principle-item">
+                    <img src="images/project-jd-motion/flip-template-3.gif" alt="Card Flip Interaction" style="width: 100%; border: 1px solid var(--border-light); margin-bottom: 1vh;">
+                    <span style="font-family: var(--font-mono); font-size: 0.7vw; color: var(--fg-dim);">卡片翻转 (Card Flip)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+    
+    <div class="project-page">
+        <header class="project-header fade-in">
+        <div style="margin-bottom: 2vh;">
+            <a href="work.html" style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut); display: inline-flex; align-items: center; gap: 0.5vw;">
+                
+            </a>
+        </div>
+        <h1 class="page-title scramble-target" data-original="汽车赛事视觉升级">汽车赛事视觉升级</h1>
+        <div style="margin-top: 2vh; font-size: 1.5vw; color: var(--fg-mut);">游戏化营销互动</div>
+    </header>
+<section class="project-meta-grid fade-in">
+        <div class="meta-item">
+            <span class="meta-label">CLIENT</span>
+            <div class="meta-value">京东 (JD.com)</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">ROLE</span>
+            <div class="meta-value">互动视觉设计</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">YEAR</span>
+            <div class="meta-value">2021</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">OUTPUT</span>
+            <div class="meta-value">活动主视觉 / 互动界面</div>
+        </div>
+    </section>
+<section class="project-content fade-in">
+        <div class="content-sidebar">
+            <span class="sidebar-title">01 — PROJECT BACKGROUND</span>
+        </div>
+        <div class="content-body">
+            <h3>项目背景：视觉换肤与氛围营造</h3>
+            <p>京东汽车赛事视觉升级，是在原京东汽车频道互动游戏玩法不变的基础上，进行的全面换肤设计。</p>
+            <p><strong>核心目标：</strong>通过视觉包装升级，营造“速度、激情、酷炫、对抗”的视觉氛围。利用强烈的视觉语言渗透活跃用户，感染玩家，从而强化沉浸感并增加用户停留时长。</p>
+            <ul style="margin-top: 2vh; list-style: none; padding: 0;">
+                <li style="margin-bottom: 1vh;"><strong style="color: var(--fg);">目标用户：</strong> 以 Z 世代为主的年轻用户群体</li>
+                <li style="margin-bottom: 1vh;"><strong style="color: var(--fg);">产品气质：</strong> 速度与激情 / 赛博朋克 / 豪车</li>
+            </ul>
+            <img src="images/project-ecommerce-interactive/visual-moodboard.png" alt="Visual Moodboard" style="width: 100%; margin-top: 3vh; border: 1px solid var(--border-light);">
+            <img src="images/project-ecommerce-interactive/background-2.png" alt="Project Comparison" style="width: 100%; margin-top: 2vh; border: 1px solid var(--border-light);">
+        </div>
+    </section>
+<section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">02 — SCENE PRODUCTION</span>
+        </div>
+        <div class="content-body">
+            <h3>场景制作：动线规划</h3>
+            <p>作为互动场景，“够酷”不是唯一标准。我们系统规划了车辆前进的动线：</p>
+            <ul>
+                <li><strong>视觉引导</strong>：通过赛道延伸方向引导视线。</li>
+                <li><strong>节奏分段</strong>：合理设置直线冲刺与弯道减速区。</li>
+                <li><strong>交互配合</strong>：关键节点聚焦注意力，确保用户“看得懂、玩得顺”。</li>
+            </ul>
+            <img src="images/project-ecommerce-interactive/scene-production.png" alt="Scene Production Workflow" style="width: 100%; margin-top: 3vh; border: 1px solid var(--border-light);">
+        </div>
+    </section>
+<section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">03 — VISUAL SYSTEM</span>
+        </div>
+        <div class="content-body">
+            <h3>视觉体系：品牌与赛博都市的融合</h3>
+            <p>除了确立核心的“科幻机械”调性，我们将合作品牌（如米其林、特斯拉、ABT Sportsline）以霓虹广告牌的形式自然植入赛道场景中。</p>
+            <p>通过“夜景 HDR + 局部自发光”的渲染技术，配合复杂的机械结构与城市地标重构，打造了一个既具沉浸感又兼具商业价值的虚拟赛车都市。</p>
+            <img src="images/project-ecommerce-interactive/visual-system-1.png" alt="Visual System Exploration" style="width: 100%; margin-top: 3vh; border: 1px solid var(--border-light);">
+        </div>
+    </section>
+<section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">04 — ICON SYSTEM</span>
+        </div>
+        <div class="content-body">
+            <h3>元素补全：3D 化的互动隐喻</h3>
+            <p>将抽象的功能入口具象化为高精度的赛车元素，增强用户的代入感与成长的即时反馈：</p>
+            <ul>
+                <li><strong>个人中心 (ICON—赛车头盔)：</strong> 以定制化的京东赛车头盔作为用户身份的象征。</li>
+                <li><strong>奖励机制 (ICON—燃料电池)：</strong> 将积分获取包装为“收集燃料”，通过“燃料等级”等细节强化游戏化体验。</li>
+            </ul>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2vw; margin-top: 3vh;">
+                <img src="images/project-ecommerce-interactive/icon-helmet.png" alt="Icon System - Helmet" style="width: 100%; border: 1px solid var(--border-light);">
+                <img src="images/project-ecommerce-interactive/icon-fuel.png" alt="Icon System - Fuel Cell" style="width: 100%; border: 1px solid var(--border-light);">
+            </div>
+        </div>
+    </section>
+<section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">05 — IMPACT</span>
+        </div>
+        <div class="content-body">
+            <h3>上线效果：显著的数据增长</h3>
+            <p>改版上线后（环比 2020/4-5 — 2021/4-5），核心业务指标均有大幅提升，验证了沉浸式视觉体验在吸引用户注意力和延长停留时间上的正向价值：</p>
+            <div class="impact-stats" style="font-family: var(--font-mono); font-size: 0.85vw; margin-top: 3vh; margin-bottom: 4vh; display: grid; grid-template-columns: 1fr 1fr; gap: 4vw;">
+                <!-- Stat 1 -->
+                <div>
+                    <div style="margin-bottom: 1.5vh; display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5vh;">
+                        <span style="color: var(--fg-mut); font-size: 0.75vw; letter-spacing: 0.05em;">浏览量 (PV)</span>
+                        <span style="color: var(--fg); font-weight: 600;">+57.8% <span style="font-weight: 400; color: var(--fg-dim);">>>></span></span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 3em 1fr; gap: 1em; align-items: center; margin-bottom: 0.5vh; color: var(--fg-dim);">
+                        <span>2020</span>
+                        <div style="height: 4px; background: var(--border-light); width: 60%;"></div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 3em 1fr; gap: 1em; align-items: center; color: var(--fg);">
+                        <span>2021</span>
+                        <div style="height: 4px; background: var(--fg); width: 100%;"></div>
+                    </div>
+                </div>
+
+                <!-- Stat 2 -->
+                <div>
+                    <div style="margin-bottom: 1.5vh; display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5vh;">
+                        <span style="color: var(--fg-mut); font-size: 0.75vw; letter-spacing: 0.05em;">平均访问深度</span>
+                        <span style="color: var(--fg); font-weight: 600;">+30.0% <span style="font-weight: 400; color: var(--fg-dim);">>></span></span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 3em 1fr; gap: 1em; align-items: center; margin-bottom: 0.5vh; color: var(--fg-dim);">
+                        <span>2020</span>
+                        <div style="height: 4px; background: var(--border-light); width: 70%;"></div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 3em 1fr; gap: 1em; align-items: center; color: var(--fg);">
+                        <span>2021</span>
+                        <div style="height: 4px; background: var(--fg); width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+            <img src="images/project-ecommerce-interactive/impact-data.png" alt="Impact Data Analysis" style="width: 100%; margin-top: 3vh; border: 1px solid var(--border-light);">
+        </div>
+    </section>
+    </div>
+    
+    <div class="project-page">
+        <header class="project-header fade-in" style="margin-top: 8vh;">
+        <div style="margin-bottom: 2vh;">
+            <a href="index.html#work" style="font-family: var(--font-mono); font-size: 0.8vw; color: var(--fg-mut); display: inline-flex; align-items: center; gap: 0.5vw;">
+                
+            </a>
+        </div>
+        <h1 class="page-title scramble-target" data-original="ASO投放策略">ASO投放策略</h1>
+        <div style="margin-top: 2vh; font-size: 1.5vw; color: var(--fg-mut);">全球应用商店素材优化与转化率提升</div>
+    </header>
+<section class="project-meta-grid fade-in">
+        <div class="meta-item">
+            <span class="meta-label">CLIENT</span>
+            <div class="meta-value">BIGO LIVE</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">ROLE</span>
+            <div class="meta-value">增长设计 / 数据分析</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">YEAR</span>
+            <div class="meta-value">2024</div>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">OUTPUT</span>
+            <div class="meta-value">App Store Assets / Google Play Experiments</div>
+        </div>
+    </section>
+<section class="project-content fade-in">
+        <div class="content-sidebar">
+            <span class="sidebar-title">01 — PROJECT OVERVIEW</span>
+        </div>
+        <div class="content-body">
+            <h3>ASO 助力增长：2024 年度复盘</h3>
+            <p>2024 年，通过精细化的 ASO 素材优化策略，在全球范围内取得了显著的增长成效。是在北美地区，实现了全正向应用的突破。</p>
+            
+            <div style="background: var(--bg); border: 1px solid var(--border-light); padding: 2vw; border-radius: 4px; margin-top: 3vh;">
+                <h4 style="font-size: 1.1vw; margin-top: 0; margin-bottom: 2vh;">核心数据亮点</h4>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2vw;">
+                    <div>
+                        <div style="font-family: var(--font-mono); font-size: 2vw; color: var(--fg);">25</div>
+                        <div style="font-size: 0.8vw; color: var(--fg-mut); margin-top: 0.5vh;">全年 A/B 测试总数</div>
+                    </div>
+                    <div>
+                        <div style="font-family: var(--font-mono); font-size: 2vw; color: var(--fg);">17</div>
+                        <div style="font-size: 0.8vw; color: var(--fg-mut); margin-top: 0.5vh;">正向应用次数</div>
+                    </div>
+                    <div>
+                        <div style="font-family: var(--font-mono); font-size: 2vw; color: var(--fg);">68%</div>
+                        <div style="font-size: 0.8vw; color: var(--fg-mut); margin-top: 0.5vh;">正向率</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr; gap: 1vw; margin-top: 3vh;">
+                <img src="images/project-aso/aso-preview-2.png" alt="Full Year ASO Stats" style="width: 100%; border: 1px solid var(--border-light); border-radius: 4px;">
+            </div>
+        </div>
+    </section>
+<section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">02 — DESIGN STRATEGY</span>
+        </div>
+        <div class="content-body">
+            <h3>设计如何驱动数据增长？</h3>
+            <p>面对复杂的全球市场，我们建立了一套完整的设计驱动增长框架。从业务目标（提升商店能见度与吸引力）出发，拆解为三大设计策略：<strong>有“章”可循</strong>（本地化架构）、<strong>有“材”可用</strong>（AIGC 资产库）、<strong>有“据”可查</strong>（数据验证）。</p>
+            <img src="images/project-aso/aso-preview-3.png" alt="Design Strategy Framework" style="width: 100%; border: 1px solid var(--border-light); border-radius: 4px; margin-top: 2vh;">
+        </div>
+    </section>
+<section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">03 — STRATEGY I: GUIDELINES</span>
+        </div>
+        <div class="content-body">
+            <h3>有“章”可循：构建可靠的本地化架构</h3>
+            <p>基于用研模型与调研，针对不同区域（美、沙、韩、越、印尼等）的本地化设计规范。全年共生成 10 版素材测试页面，数据达历史最优。</p>
+            <ul style="margin-top: 2vh;">
+                <li><strong>深度调研：</strong> 覆盖 8 大核心市场，深入洞察当地文化、审美偏好与竞品策略。</li>
+                <li><strong>特殊人群/东南亚策略：</strong> 围绕节庆活动（如 Pride Month、斋月活动），定制动态视频与静态素材，显著提升下载转化率（如 USA 骄傲月活动转化提升 15%）。</li>
+            </ul>
+            <div style="display: grid; grid-template-columns: 1fr; gap: 1vw; margin-top: 3vh;">
+                <img src="images/project-aso/aso-preview-4.png" alt="Localization Architecture" style="width: 100%; border: 1px solid var(--border-light); border-radius: 4px;">
+            </div>
+        </div>
+    </section>
+<section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">04 — STRATEGY II: ASSETS</span>
+        </div>
+        <div class="content-body">
+            <h3>有“材”可用：建设 AIGC 人物资产库</h3>
+            <p>针对广告素材“丑、少、权”的痛点，利用 ComfyUI + FLUX 搭建了 AIGC 工作流。紧扣业务需求，生成符合本地偏好（真实感、清凉感等）的高质量人物素材。</p>
+            <ul style="margin-top: 2vh;">
+                <li><strong>资产沉淀：</strong> 已完成各国 AIGC 人物资产 30,000+ 张，覆盖男女老幼、明星、生活等多维度。</li>
+            </ul>
+            <img src="images/project-aso/aso-preview-6.png" alt="AIGC Asset Library" style="width: 100%; border: 1px solid var(--border-light); border-radius: 4px; margin-top: 2vh;">
+        </div>
+    </section>
+<section class="project-content fade-in" style="border-top: 1px solid var(--border-light);">
+        <div class="content-sidebar">
+            <span class="sidebar-title">05 — STRATEGY III: DATA</span>
+        </div>
+        <div class="content-body">
+            <h3>有“据”可查：数据验证与持续迭代</h3>
+            <p>通过严格的 A/B 测试与对照实验，不断验证并优化各地区的“最优解”，并将成功的方法论复用到其他区域。</p>
+            
+            <div style="margin-top: 4vh;">
+                <h4 style="font-size: 1.2vw; font-weight: 500; margin-bottom: 2vh;">数据验证与复用：以中东/美国区域为例</h4>
+                <p style="font-size: 1vw;">基于调研洞察，确立了“黑紫/黑金配色 + 真实狮子元素 + 世俗化与传统服饰结合”的优化方向，中东区域的持续正向应用。同时在美国区域，通过社会调研（如 LGBTQ、肤色包容性）实现了全正向应用。</p>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1vw; margin-top: 2vh;">
+                    <img src="images/project-aso/aso-preview-7.png" alt="Middle East Strategy" style="width: 100%; border: 1px solid var(--border-light); border-radius: 4px;">
+                    <img src="images/project-aso/aso-preview-8.png" alt="AB Testing Verification" style="width: 100%; border: 1px solid var(--border-light); border-radius: 4px;">
+                    <img src="images/project-aso/aso-preview-9.png" alt="USA Market Success" style="width: 100%; border: 1px solid var(--border-light); border-radius: 4px;">
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+    
+</body>
+</html>
