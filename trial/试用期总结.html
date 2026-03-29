@@ -1,0 +1,1908 @@
+<!DOCTYPE html>
+<!-- saved from url=(0067)file:///Users/miki/Documents/NETEASE/trae/shuzhi/trial-summary.html -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>试用期总结</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="./试用期总结_files/css2" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #1C1C1A;
+            --ink-primary: #FFFFFF;
+            --ink-secondary: #A0A09F;
+            --ink-tertiary: #3A3A38;
+            --accent: #E24A3F;
+            --font-sans: 'Inter', 'Noto Sans SC', sans-serif;
+            --slide-w: 1100px;
+            --slide-h: 680px;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: #0A0A0A;
+            font-family: var(--font-sans);
+            color: var(--ink-primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+            -webkit-font-smoothing: antialiased;
+        }
+        .slide-container {
+            position: relative;
+            width: var(--slide-w);
+            max-width: 100%;
+        }
+        .slide {
+            display: none;
+            background: var(--bg-color);
+            width: 100%;
+            aspect-ratio: 16/10;
+            border-radius: 4px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+            padding: 64px 72px;
+            position: relative;
+            overflow: hidden;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .slide.active { display: flex; }
+
+        /* 页码与元信息 */
+        .slide-meta {
+            position: absolute;
+            top: 32px; left: 72px; right: 72px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 9px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--ink-secondary);
+        }
+        .slide-footer {
+            position: absolute;
+            bottom: 32px; left: 72px; right: 72px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 9px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            color: var(--ink-tertiary);
+        }
+        .progress-bar {
+            flex-grow: 1;
+            height: 1px;
+            background: var(--ink-tertiary);
+            margin: 0 24px;
+            position: relative;
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--ink-primary);
+            transition: width 0.4s ease;
+        }
+
+        /* 标题页 - Kinetic 风格 */
+        .slide-title-page {
+            padding: 0;
+            justify-content: space-between;
+        }
+        .km-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            font-size: 10px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--ink-secondary);
+            border-bottom: 1px solid var(--ink-tertiary);
+            padding: 48px 72px 16px 72px;
+        }
+        .km-group { display: flex; flex-direction: column; gap: 4px; }
+        .km-label { color: var(--ink-tertiary); font-size: 9px; letter-spacing: 0.15em; }
+        .km-value { color: var(--ink-primary); }
+        .km-right { text-align: right; }
+        .km-stage {
+            width: 100%; flex: 1; position: relative;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden; cursor: pointer;
+        }
+        .km-svg { width: 100%; height: 100%; display: block; }
+        .km-bar {
+            fill: var(--ink-primary);
+            transform-box: fill-box;
+            transform-origin: center;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .slide-title-page.is-playing .km-bar {
+            animation: kmWave var(--anim-duration, 2s) cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+            animation-delay: var(--anim-delay, 0s);
+        }
+        .slide-title-page.is-paused .km-bar { transform: scaleY(0.1); }
+        @keyframes kmWave {
+            0% { transform: scaleY(var(--scale-min, 0.2)); }
+            100% { transform: scaleY(var(--scale-max, 1)); }
+        }
+        .km-footer {
+            display: flex; align-items: center; gap: 24px;
+            font-size: 11px; font-weight: 500; color: var(--ink-primary);
+            padding: 0 72px 40px 72px;
+        }
+        .km-toggle {
+            background: none; border: none; cursor: pointer;
+            font-family: var(--font-sans); font-size: 11px; font-weight: 500;
+            color: var(--ink-primary); text-transform: uppercase;
+            letter-spacing: 0.05em; padding: 0;
+            display: flex; align-items: center; gap: 8px;
+            transition: color 0.2s ease;
+        }
+        .km-toggle:hover { color: var(--ink-secondary); }
+        .km-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background-color: var(--ink-secondary);
+            transition: background-color 0.3s ease;
+        }
+        .slide-title-page.is-playing .km-dot {
+            background-color: var(--accent);
+            animation: kmPulse 2s infinite;
+        }
+        @keyframes kmPulse {
+            0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; }
+        }
+        .km-timeline {
+            flex-grow: 1; height: 1px;
+            background-color: var(--ink-tertiary); position: relative;
+        }
+        .km-timeline-fill {
+            position: absolute; top: 0; left: 0; height: 100%; width: 0%;
+            background-color: var(--ink-primary); transition: width 0.1s linear;
+        }
+        .km-time {
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 0.05em;
+        }
+
+        /* 内容页通用 */
+        .slide h2 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 40px;
+        }
+        .slide h2 .num {
+            color: var(--ink-tertiary);
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px 48px;
+        }
+        .content-item {
+            border-top: 1px solid var(--ink-tertiary);
+            padding-top: 16px;
+        }
+        .content-item h3 {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 8px;
+        }
+        .content-item p {
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--ink-secondary);
+        }
+
+        /* 数据卡片 */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .stat-card {
+            border-top: 2px solid var(--ink-primary);
+            padding-top: 20px;
+        }
+        .stat-card .value {
+            font-size: 42px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        .stat-card .value .unit {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--ink-secondary);
+        }
+        .stat-card .label {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--ink-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* 时间线 */
+        .timeline-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 160px 1fr;
+            gap: 32px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--ink-tertiary);
+        }
+        .timeline-item:first-child { border-top: 1px solid var(--ink-tertiary); }
+        .timeline-date {
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            font-variant-numeric: tabular-nums;
+            color: var(--ink-primary);
+            padding-top: 2px;
+            line-height: 1.5;
+        }
+        .timeline-desc {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--ink-secondary);
+        }
+        .timeline-desc strong {
+            color: var(--ink-primary);
+            font-weight: 600;
+        }
+
+        /* 列表样式 */
+        .bullet-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .bullet-list li {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--ink-secondary);
+            padding-left: 20px;
+            position: relative;
+        }
+        .bullet-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--ink-tertiary);
+        }
+        .bullet-accent li::before {
+            background: var(--accent);
+        }
+
+        /* 两列布局 */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+        }
+        .col h3 {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--ink-primary);
+        }
+
+        /* 结束页 */
+        .end-page { justify-content: center; align-items: center; text-align: center; }
+        .end-page h2 {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+        .end-page p {
+            font-size: 14px;
+            color: var(--ink-secondary);
+            letter-spacing: 0.05em;
+        }
+
+        /* 导航按钮 */
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .nav-btn {
+            background: none;
+            border: 1px solid var(--ink-tertiary);
+            color: var(--ink-primary);
+            font-family: var(--font-sans);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 10px 24px;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: all 0.2s;
+        }
+        .nav-btn:hover { border-color: var(--ink-primary); }
+        .nav-btn:disabled { opacity: 0.3; cursor: default; }
+        .page-info {
+            font-size: 11px;
+            color: var(--ink-secondary);
+            letter-spacing: 0.1em;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* 动效 */
+        .slide.active .fade-in {
+            animation: fadeUp 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            opacity: 0;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .delay-1 { animation-delay: 0.1s !important; }
+        .delay-2 { animation-delay: 0.2s !important; }
+        .delay-3 { animation-delay: 0.3s !important; }
+        .delay-4 { animation-delay: 0.4s !important; }
+        .delay-5 { animation-delay: 0.5s !important; }
+
+        /* ========== Element Controller Panel ========== */
+        /* >>> 控制器代码开始 - 删除此区块不影响主体页面 <<< */
+        .ec-toggle-btn {
+            position: fixed; left: 12px; top: 12px;
+            width: 36px; height: 36px;
+            background: rgba(30,30,30,0.95); border: none; border-radius: 8px;
+            color: #fff; font-size: 18px; cursor: pointer; z-index: 99999;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.3); transition: transform 0.2s;
+        }
+        .ec-toggle-btn:hover { transform: scale(1.1); }
+        .ec-panel {
+            position: fixed; left: 12px; top: 12px; width: 280px;
+            max-height: calc(100vh - 24px);
+            background: rgba(30,30,30,0.95); backdrop-filter: blur(20px);
+            border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            z-index: 99999; font-family: -apple-system,"SF Pro Text","Helvetica Neue",sans-serif;
+            overflow: hidden; display: none; flex-direction: column;
+        }
+        .ec-panel.ec-visible { display: flex; }
+        .ec-header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 8px 12px; cursor: move; user-select: none;
+            border-bottom: 1px solid rgba(255,255,255,0.08); flex-shrink: 0;
+        }
+        .ec-header-title { font-size: 12px; font-weight: 600; color: #fff; letter-spacing: 0.5px; }
+        .ec-header-actions { display: flex; gap: 6px; }
+        .ec-header-btn {
+            width: 20px; height: 20px; border: none;
+            background: rgba(255,255,255,0.1); border-radius: 4px;
+            color: #888; font-size: 12px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .ec-header-btn:hover { background: rgba(255,255,255,0.2); color: #fff; }
+        .ec-body { overflow-y: auto; padding: 8px 0; flex: 1; }
+        .ec-body::-webkit-scrollbar { width: 4px; }
+        .ec-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+        .ec-element-group { margin-bottom: 2px; }
+        .ec-element-header {
+            display: flex; align-items: center; padding: 6px 12px;
+            cursor: pointer; user-select: none; transition: background 0.15s;
+        }
+        .ec-element-header:hover { background: rgba(255,255,255,0.05); }
+        .ec-element-arrow { font-size: 8px; color: #666; margin-right: 6px; transition: transform 0.2s; }
+        .ec-element-header.ec-open .ec-element-arrow { transform: rotate(90deg); }
+        .ec-element-name { font-size: 12px; color: #ccc; font-weight: 500; }
+        .ec-element-selector { font-size: 10px; color: #666; margin-left: 6px; font-family: "SF Mono","Menlo",monospace; }
+        .ec-element-content { display: none; padding: 0 12px 8px 12px; }
+        .ec-element-header.ec-open + .ec-element-content { display: block; }
+        .ec-ctrl-group { margin-bottom: 8px; }
+        .ec-ctrl-group-title {
+            font-size: 10px; color: #666; text-transform: uppercase;
+            letter-spacing: 1px; padding: 4px 0; margin-bottom: 4px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .ec-ctrl-row { display: flex; align-items: center; margin-bottom: 6px; gap: 8px; }
+        .ec-ctrl-label { font-size: 11px; color: #888; width: 48px; flex-shrink: 0; text-align: right; }
+        .ec-ctrl-slider {
+            flex: 1; -webkit-appearance: none; appearance: none;
+            height: 4px; background: #444; border-radius: 2px; outline: none; cursor: pointer;
+        }
+        .ec-ctrl-slider::-webkit-slider-thumb {
+            -webkit-appearance: none; appearance: none;
+            width: 14px; height: 14px; background: #fff; border-radius: 50%;
+            cursor: grab; box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+        }
+        .ec-ctrl-slider::-webkit-slider-thumb:active { cursor: grabbing; }
+        .ec-ctrl-value {
+            font-size: 11px; color: #aaa; font-family: "SF Mono","Menlo",monospace;
+            width: 52px; text-align: right; flex-shrink: 0;
+        }
+        .ec-ctrl-color {
+            width: 24px; height: 24px; border: 2px solid #555; border-radius: 4px;
+            cursor: pointer; padding: 0; -webkit-appearance: none; appearance: none;
+        }
+        .ec-ctrl-color::-webkit-color-swatch-wrapper { padding: 0; }
+        .ec-ctrl-color::-webkit-color-swatch { border: none; border-radius: 2px; }
+        /* >>> 控制器代码结束 <<< */
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+
+        <!-- ========== SLIDE 1: 封面 (Kinetic 效果) ========== -->
+        <div class="slide slide-title-page is-playing active" data-slide="1" id="kmPlayer">
+            <header class="km-header">
+                <div class="km-group">
+                    <span class="km-label">PROBATION REVIEW</span>
+                    <span class="km-value">试用期工作总结</span>
+                </div>
+                <div class="km-group km-right">
+                    <span class="km-label">PERIOD</span>
+                    <span class="km-value">高飞 · 大神设计部 · 2026</span>
+                </div>
+            </header>
+            <div class="km-stage" id="kmStage"><svg class="km-svg" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMid meet"><defs><clipPath id="kmMask"><text x="50%" y="65%" text-anchor="middle" font-family="'Noto Sans SC',Inter,sans-serif" font-weight="900" font-size="160px" letter-spacing="-0.02em">GOOFY'S WORK</text></clipPath></defs><g clip-path="url(#kmMask)"><rect class="km-bar" x="0" y="0" width="8.5" height="100%" style="--anim-delay:0s;--anim-duration:1.8538973032681247s;--scale-min:0.1;--scale-max:0.4;"></rect><rect class="km-bar" x="10" y="0" width="8.5" height="100%" style="--anim-delay:-0.020833333333333332s;--anim-duration:2.0454593345212437s;--scale-min:0.1156434465040231;--scale-max:0.45222127550522373;"></rect><rect class="km-bar" x="20" y="0" width="8.5" height="100%" style="--anim-delay:-0.041666666666666664s;--anim-duration:1.885481036422373s;--scale-min:0.13090169943749475;--scale-max:0.5036147841820509;"></rect><rect class="km-bar" x="30" y="0" width="8.5" height="100%" style="--anim-delay:-0.0625s;--anim-duration:1.9615303839937495s;--scale-min:0.1453990499739547;--scale-max:0.5533718859640018;"></rect><rect class="km-bar" x="40" y="0" width="8.5" height="100%" style="--anim-delay:-0.08333333333333333s;--anim-duration:2.0399882496946486s;--scale-min:0.15877852522924732;--scale-max:0.6007217267855984;"></rect><rect class="km-bar" x="50" y="0" width="8.5" height="100%" style="--anim-delay:-0.10416666666666666s;--anim-duration:2.1966006592986975s;--scale-min:0.17071067811865476;--scale-max:0.6449489742783178;"></rect><rect class="km-bar" x="60" y="0" width="8.5" height="100%" style="--anim-delay:-0.125s;--anim-duration:1.9746079415922237s;--scale-min:0.18090169943749476;--scale-max:0.6854101966249685;"></rect><rect class="km-bar" x="70" y="0" width="8.5" height="100%" style="--anim-delay:-0.14583333333333334s;--anim-duration:1.8083930275481674s;--scale-min:0.18910065241883678;--scale-max:0.7215484846557936;"></rect><rect class="km-bar" x="80" y="0" width="8.5" height="100%" style="--anim-delay:-0.16666666666666666s;--anim-duration:2.1799565130291314s;--scale-min:0.19510565162951538;--scale-max:0.7529059604893509;"></rect><rect class="km-bar" x="90" y="0" width="8.5" height="100%" style="--anim-delay:-0.1875s;--anim-duration:1.856384600378176s;--scale-min:0.1987688340595138;--scale-max:0.7791338680148463;"></rect><rect class="km-bar" x="100" y="0" width="8.5" height="100%" style="--anim-delay:-0.20833333333333331s;--anim-duration:1.8185227433124296s;--scale-min:0.2;--scale-max:0.8;"></rect><rect class="km-bar" x="110" y="0" width="8.5" height="100%" style="--anim-delay:-0.22916666666666666s;--anim-duration:1.9553967722070142s;--scale-min:0.1987688340595138;--scale-max:0.8153932821250384;"></rect><rect class="km-bar" x="120" y="0" width="8.5" height="100%" style="--anim-delay:-0.25s;--anim-duration:1.9409426082484065s;--scale-min:0.19510565162951538;--scale-max:0.8253254041760201;"></rect><rect class="km-bar" x="130" y="0" width="8.5" height="100%" style="--anim-delay:-0.27083333333333337s;--anim-duration:2.0691592861932198s;--scale-min:0.1891006524188368;--scale-max:0.8299294612576086;"></rect><rect class="km-bar" x="140" y="0" width="8.5" height="100%" style="--anim-delay:-0.2916666666666667s;--anim-duration:1.964887812832296s;--scale-min:0.18090169943749476;--scale-max:0.8294556414185328;"></rect><rect class="km-bar" x="150" y="0" width="8.5" height="100%" style="--anim-delay:-0.3125s;--anim-duration:1.8184914794385068s;--scale-min:0.17071067811865476;--scale-max:0.8242640687119285;"></rect><rect class="km-bar" x="160" y="0" width="8.5" height="100%" style="--anim-delay:-0.3333333333333333s;--anim-duration:2.027528622874756s;--scale-min:0.15877852522924735;--scale-max:0.8148149806494523;"></rect><rect class="km-bar" x="170" y="0" width="8.5" height="100%" style="--anim-delay:-0.35416666666666663s;--anim-duration:1.9137140633528857s;--scale-min:0.1453990499739547;--scale-max:0.8016564845306977;"></rect><rect class="km-bar" x="180" y="0" width="8.5" height="100%" style="--anim-delay:-0.375s;--anim-duration:2.1885726805605477s;--scale-min:0.13090169943749475;--scale-max:0.7854101966249685;"></rect><rect class="km-bar" x="190" y="0" width="8.5" height="100%" style="--anim-delay:-0.3958333333333333s;--anim-duration:1.9084422755066508s;--scale-min:0.11564344650402311;--scale-max:0.7667551201862157;"></rect><rect class="km-bar" x="200" y="0" width="8.5" height="100%" style="--anim-delay:-0.41666666666666663s;--anim-duration:2.1041894670524455s;--scale-min:0.10000000000000002;--scale-max:0.7464101615137755;"></rect><rect class="km-bar" x="210" y="0" width="8.5" height="100%" style="--anim-delay:-0.4375s;--anim-duration:1.9759560921558554s;--scale-min:0.11564344650402308;--scale-max:0.725115716667301;"></rect><rect class="km-bar" x="220" y="0" width="8.5" height="100%" style="--anim-delay:-0.4583333333333333s;--anim-duration:2.0429837194653446s;--scale-min:0.1309016994374947;--scale-max:0.703614784182051;"></rect><rect class="km-bar" x="230" y="0" width="8.5" height="100%" style="--anim-delay:-0.4791666666666667s;--anim-duration:1.9321018171192323s;--scale-min:0.14539904997395472;--scale-max:0.6826340706509713;"></rect><rect class="km-bar" x="240" y="0" width="8.5" height="100%" style="--anim-delay:-0.5s;--anim-duration:2.100486324658987s;--scale-min:0.15877852522924732;--scale-max:0.6628655560595669;"></rect><rect class="km-bar" x="250" y="0" width="8.5" height="100%" style="--anim-delay:-0.5208333333333334s;--anim-duration:1.9706263537408868s;--scale-min:0.17071067811865476;--scale-max:0.6449489742783179;"></rect><rect class="km-bar" x="260" y="0" width="8.5" height="100%" style="--anim-delay:-0.5416666666666667s;--anim-duration:1.972458136381505s;--scale-min:0.18090169943749473;--scale-max:0.6294556414185328;"></rect><rect class="km-bar" x="270" y="0" width="8.5" height="100%" style="--anim-delay:-0.5625s;--anim-duration:2.068085823738467s;--scale-min:0.18910065241883678;--scale-max:0.6168740314003816;"></rect><rect class="km-bar" x="280" y="0" width="8.5" height="100%" style="--anim-delay:-0.5833333333333334s;--anim-duration:2.1228140513340996s;--scale-min:0.19510565162951538;--scale-max:0.6075974548882785;"></rect><rect class="km-bar" x="290" y="0" width="8.5" height="100%" style="--anim-delay:-0.6041666666666666s;--anim-duration:2.1513125786909306s;--scale-min:0.1987688340595138;--scale-max:0.6019141457828021;"></rect><rect class="km-bar" x="300" y="0" width="8.5" height="100%" style="--anim-delay:-0.625s;--anim-duration:1.896079698809965s;--scale-min:0.2;--scale-max:0.6;"></rect><rect class="km-bar" x="310" y="0" width="8.5" height="100%" style="--anim-delay:-0.6458333333333334s;--anim-duration:2.0724906536270513s;--scale-min:0.1987688340595138;--scale-max:0.601914145782802;"></rect><rect class="km-bar" x="320" y="0" width="8.5" height="100%" style="--anim-delay:-0.6666666666666666s;--anim-duration:2.1355126487764298s;--scale-min:0.19510565162951538;--scale-max:0.6075974548882787;"></rect><rect class="km-bar" x="330" y="0" width="8.5" height="100%" style="--anim-delay:-0.6875s;--anim-duration:2.181318519225442s;--scale-min:0.18910065241883678;--scale-max:0.6168740314003816;"></rect><rect class="km-bar" x="340" y="0" width="8.5" height="100%" style="--anim-delay:-0.7083333333333333s;--anim-duration:2.10682050158689s;--scale-min:0.18090169943749476;--scale-max:0.6294556414185328;"></rect><rect class="km-bar" x="350" y="0" width="8.5" height="100%" style="--anim-delay:-0.7291666666666667s;--anim-duration:1.8254156470427945s;--scale-min:0.1707106781186547;--scale-max:0.6449489742783179;"></rect><rect class="km-bar" x="360" y="0" width="8.5" height="100%" style="--anim-delay:-0.75s;--anim-duration:2.008600200594391s;--scale-min:0.15877852522924735;--scale-max:0.6628655560595669;"></rect><rect class="km-bar" x="370" y="0" width="8.5" height="100%" style="--anim-delay:-0.7708333333333334s;--anim-duration:1.8654318936843135s;--scale-min:0.1453990499739547;--scale-max:0.6826340706509713;"></rect><rect class="km-bar" x="380" y="0" width="8.5" height="100%" style="--anim-delay:-0.7916666666666666s;--anim-duration:1.8840660127478221s;--scale-min:0.13090169943749477;--scale-max:0.7036147841820508;"></rect><rect class="km-bar" x="390" y="0" width="8.5" height="100%" style="--anim-delay:-0.8125s;--anim-duration:1.9961307557933434s;--scale-min:0.11564344650402311;--scale-max:0.7251157166673009;"></rect><rect class="km-bar" x="400" y="0" width="8.5" height="100%" style="--anim-delay:-0.8333333333333333s;--anim-duration:2.0767283723932146s;--scale-min:0.10000000000000003;--scale-max:0.7464101615137755;"></rect><rect class="km-bar" x="410" y="0" width="8.5" height="100%" style="--anim-delay:-0.8541666666666667s;--anim-duration:1.9290632551516254s;--scale-min:0.11564344650402315;--scale-max:0.7667551201862159;"></rect><rect class="km-bar" x="420" y="0" width="8.5" height="100%" style="--anim-delay:-0.875s;--anim-duration:1.960456168245698s;--scale-min:0.13090169943749472;--scale-max:0.7854101966249685;"></rect><rect class="km-bar" x="430" y="0" width="8.5" height="100%" style="--anim-delay:-0.8958333333333334s;--anim-duration:1.9588841770599215s;--scale-min:0.14539904997395459;--scale-max:0.8016564845306975;"></rect><rect class="km-bar" x="440" y="0" width="8.5" height="100%" style="--anim-delay:-0.9166666666666666s;--anim-duration:2.1620372248182407s;--scale-min:0.15877852522924724;--scale-max:0.8148149806494522;"></rect><rect class="km-bar" x="450" y="0" width="8.5" height="100%" style="--anim-delay:-0.9375s;--anim-duration:2.0693795512641824s;--scale-min:0.17071067811865476;--scale-max:0.8242640687119285;"></rect><rect class="km-bar" x="460" y="0" width="8.5" height="100%" style="--anim-delay:-0.9583333333333334s;--anim-duration:2.18541708253878s;--scale-min:0.1809016994374948;--scale-max:0.8294556414185328;"></rect><rect class="km-bar" x="470" y="0" width="8.5" height="100%" style="--anim-delay:-0.9791666666666666s;--anim-duration:1.9747828762230153s;--scale-min:0.18910065241883683;--scale-max:0.8299294612576086;"></rect><rect class="km-bar" x="480" y="0" width="8.5" height="100%" style="--anim-delay:-1s;--anim-duration:2.013240149759207s;--scale-min:0.19510565162951538;--scale-max:0.8253254041760201;"></rect><rect class="km-bar" x="490" y="0" width="8.5" height="100%" style="--anim-delay:-1.0208333333333333s;--anim-duration:2.168810573908643s;--scale-min:0.19876883405951376;--scale-max:0.8153932821250385;"></rect><rect class="km-bar" x="500" y="0" width="8.5" height="100%" style="--anim-delay:-1.0416666666666667s;--anim-duration:2.021651228832523s;--scale-min:0.2;--scale-max:0.8;"></rect><rect class="km-bar" x="510" y="0" width="8.5" height="100%" style="--anim-delay:-1.0625s;--anim-duration:2.0519736291012087s;--scale-min:0.1987688340595138;--scale-max:0.7791338680148463;"></rect><rect class="km-bar" x="520" y="0" width="8.5" height="100%" style="--anim-delay:-1.0833333333333335s;--anim-duration:2.1517098289320873s;--scale-min:0.19510565162951538;--scale-max:0.7529059604893507;"></rect><rect class="km-bar" x="530" y="0" width="8.5" height="100%" style="--anim-delay:-1.1041666666666665s;--anim-duration:2.177810672291608s;--scale-min:0.18910065241883686;--scale-max:0.7215484846557939;"></rect><rect class="km-bar" x="540" y="0" width="8.5" height="100%" style="--anim-delay:-1.125s;--anim-duration:1.8112068141750826s;--scale-min:0.1809016994374948;--scale-max:0.6854101966249686;"></rect><rect class="km-bar" x="550" y="0" width="8.5" height="100%" style="--anim-delay:-1.1458333333333333s;--anim-duration:2.0572663040432158s;--scale-min:0.17071067811865484;--scale-max:0.6449489742783181;"></rect><rect class="km-bar" x="560" y="0" width="8.5" height="100%" style="--anim-delay:-1.1666666666666667s;--anim-duration:1.9508346198170647s;--scale-min:0.15877852522924735;--scale-max:0.6007217267855984;"></rect><rect class="km-bar" x="570" y="0" width="8.5" height="100%" style="--anim-delay:-1.1875s;--anim-duration:2.181677402483026s;--scale-min:0.14539904997395464;--scale-max:0.5533718859640017;"></rect><rect class="km-bar" x="580" y="0" width="8.5" height="100%" style="--anim-delay:-1.2083333333333333s;--anim-duration:2.1742573133981162s;--scale-min:0.1309016994374948;--scale-max:0.5036147841820511;"></rect><rect class="km-bar" x="590" y="0" width="8.5" height="100%" style="--anim-delay:-1.2291666666666665s;--anim-duration:2.081029094819312s;--scale-min:0.11564344650402322;--scale-max:0.4522212755052241;"></rect><rect class="km-bar" x="600" y="0" width="8.5" height="100%" style="--anim-delay:-1.25s;--anim-duration:2.05109175963626s;--scale-min:0.10000000000000005;--scale-max:0.40000000000000013;"></rect><rect class="km-bar" x="610" y="0" width="8.5" height="100%" style="--anim-delay:-1.2708333333333333s;--anim-duration:2.00841824572137s;--scale-min:0.11564344650402297;--scale-max:0.4522212755052234;"></rect><rect class="km-bar" x="620" y="0" width="8.5" height="100%" style="--anim-delay:-1.2916666666666667s;--anim-duration:1.9796221471371664s;--scale-min:0.13090169943749472;--scale-max:0.5036147841820509;"></rect><rect class="km-bar" x="630" y="0" width="8.5" height="100%" style="--anim-delay:-1.3125s;--anim-duration:1.9817177070941057s;--scale-min:0.14539904997395459;--scale-max:0.5533718859640014;"></rect><rect class="km-bar" x="640" y="0" width="8.5" height="100%" style="--anim-delay:-1.3333333333333333s;--anim-duration:2.1166443081650037s;--scale-min:0.1587785252292473;--scale-max:0.6007217267855982;"></rect><rect class="km-bar" x="650" y="0" width="8.5" height="100%" style="--anim-delay:-1.3541666666666665s;--anim-duration:1.8718689026839652s;--scale-min:0.17071067811865465;--scale-max:0.6449489742783174;"></rect><rect class="km-bar" x="660" y="0" width="8.5" height="100%" style="--anim-delay:-1.375s;--anim-duration:2.1159694710959993s;--scale-min:0.18090169943749485;--scale-max:0.6854101966249688;"></rect><rect class="km-bar" x="670" y="0" width="8.5" height="100%" style="--anim-delay:-1.3958333333333335s;--anim-duration:1.9015420330186215s;--scale-min:0.18910065241883683;--scale-max:0.7215484846557938;"></rect><rect class="km-bar" x="680" y="0" width="8.5" height="100%" style="--anim-delay:-1.4166666666666665s;--anim-duration:1.833166974682618s;--scale-min:0.19510565162951535;--scale-max:0.7529059604893507;"></rect><rect class="km-bar" x="690" y="0" width="8.5" height="100%" style="--anim-delay:-1.4375s;--anim-duration:1.9522567479287334s;--scale-min:0.19876883405951376;--scale-max:0.779133868014846;"></rect><rect class="km-bar" x="700" y="0" width="8.5" height="100%" style="--anim-delay:-1.4583333333333335s;--anim-duration:1.8791998342437422s;--scale-min:0.2;--scale-max:0.8;"></rect><rect class="km-bar" x="710" y="0" width="8.5" height="100%" style="--anim-delay:-1.4791666666666667s;--anim-duration:1.9197011700153002s;--scale-min:0.1987688340595138;--scale-max:0.8153932821250384;"></rect><rect class="km-bar" x="720" y="0" width="8.5" height="100%" style="--anim-delay:-1.5s;--anim-duration:2.098767171330595s;--scale-min:0.19510565162951538;--scale-max:0.8253254041760201;"></rect><rect class="km-bar" x="730" y="0" width="8.5" height="100%" style="--anim-delay:-1.5208333333333333s;--anim-duration:1.8650073425841294s;--scale-min:0.18910065241883686;--scale-max:0.8299294612576086;"></rect><rect class="km-bar" x="740" y="0" width="8.5" height="100%" style="--anim-delay:-1.5416666666666667s;--anim-duration:1.8693215254632423s;--scale-min:0.1809016994374948;--scale-max:0.8294556414185328;"></rect><rect class="km-bar" x="750" y="0" width="8.5" height="100%" style="--anim-delay:-1.5625s;--anim-duration:1.9107287054146933s;--scale-min:0.17071067811865487;--scale-max:0.8242640687119287;"></rect><rect class="km-bar" x="760" y="0" width="8.5" height="100%" style="--anim-delay:-1.5833333333333333s;--anim-duration:1.9453240993449348s;--scale-min:0.15877852522924735;--scale-max:0.8148149806494522;"></rect><rect class="km-bar" x="770" y="0" width="8.5" height="100%" style="--anim-delay:-1.6041666666666667s;--anim-duration:2.0019344044672542s;--scale-min:0.14539904997395464;--scale-max:0.8016564845306977;"></rect><rect class="km-bar" x="780" y="0" width="8.5" height="100%" style="--anim-delay:-1.625s;--anim-duration:1.992941935406643s;--scale-min:0.1309016994374948;--scale-max:0.7854101966249685;"></rect><rect class="km-bar" x="790" y="0" width="8.5" height="100%" style="--anim-delay:-1.6458333333333333s;--anim-duration:1.8716968933734728s;--scale-min:0.11564344650402306;--scale-max:0.7667551201862157;"></rect><rect class="km-bar" x="800" y="0" width="8.5" height="100%" style="--anim-delay:-1.6666666666666665s;--anim-duration:2.025540692697027s;--scale-min:0.10000000000000006;--scale-max:0.7464101615137755;"></rect><rect class="km-bar" x="810" y="0" width="8.5" height="100%" style="--anim-delay:-1.6875s;--anim-duration:2.061272059893864s;--scale-min:0.11564344650402314;--scale-max:0.7251157166673009;"></rect><rect class="km-bar" x="820" y="0" width="8.5" height="100%" style="--anim-delay:-1.7083333333333335s;--anim-duration:1.8187554383789741s;--scale-min:0.13090169943749486;--scale-max:0.7036147841820506;"></rect><rect class="km-bar" x="830" y="0" width="8.5" height="100%" style="--anim-delay:-1.7291666666666665s;--anim-duration:1.8936074362856687s;--scale-min:0.14539904997395456;--scale-max:0.6826340706509716;"></rect><rect class="km-bar" x="840" y="0" width="8.5" height="100%" style="--anim-delay:-1.75s;--anim-duration:1.9533444147935108s;--scale-min:0.1587785252292473;--scale-max:0.6628655560595669;"></rect><rect class="km-bar" x="850" y="0" width="8.5" height="100%" style="--anim-delay:-1.7708333333333335s;--anim-duration:2.141396013592746s;--scale-min:0.17071067811865479;--scale-max:0.6449489742783178;"></rect><rect class="km-bar" x="860" y="0" width="8.5" height="100%" style="--anim-delay:-1.7916666666666667s;--anim-duration:2.1171671130470804s;--scale-min:0.18090169943749462;--scale-max:0.629455641418533;"></rect><rect class="km-bar" x="870" y="0" width="8.5" height="100%" style="--anim-delay:-1.8125s;--anim-duration:1.992430713654508s;--scale-min:0.18910065241883672;--scale-max:0.6168740314003817;"></rect><rect class="km-bar" x="880" y="0" width="8.5" height="100%" style="--anim-delay:-1.8333333333333333s;--anim-duration:2.039213231056617s;--scale-min:0.1951056516295153;--scale-max:0.6075974548882788;"></rect><rect class="km-bar" x="890" y="0" width="8.5" height="100%" style="--anim-delay:-1.8541666666666667s;--anim-duration:1.8330518229338055s;--scale-min:0.1987688340595138;--scale-max:0.6019141457828021;"></rect><rect class="km-bar" x="900" y="0" width="8.5" height="100%" style="--anim-delay:-1.875s;--anim-duration:1.9952097413822345s;--scale-min:0.2;--scale-max:0.6;"></rect><rect class="km-bar" x="910" y="0" width="8.5" height="100%" style="--anim-delay:-1.8958333333333333s;--anim-duration:2.069062172146815s;--scale-min:0.19876883405951382;--scale-max:0.601914145782802;"></rect><rect class="km-bar" x="920" y="0" width="8.5" height="100%" style="--anim-delay:-1.9166666666666667s;--anim-duration:2.027979383747292s;--scale-min:0.19510565162951532;--scale-max:0.6075974548882787;"></rect><rect class="km-bar" x="930" y="0" width="8.5" height="100%" style="--anim-delay:-1.9375s;--anim-duration:1.985967406409343s;--scale-min:0.18910065241883678;--scale-max:0.6168740314003816;"></rect><rect class="km-bar" x="940" y="0" width="8.5" height="100%" style="--anim-delay:-1.9583333333333333s;--anim-duration:1.9902969042614806s;--scale-min:0.18090169943749468;--scale-max:0.6294556414185328;"></rect><rect class="km-bar" x="950" y="0" width="8.5" height="100%" style="--anim-delay:-1.9791666666666665s;--anim-duration:2.09108158154884s;--scale-min:0.17071067811865487;--scale-max:0.6449489742783177;"></rect><rect class="km-bar" x="960" y="0" width="8.5" height="100%" style="--anim-delay:-2s;--anim-duration:2.062247587194698s;--scale-min:0.15877852522924737;--scale-max:0.6628655560595668;"></rect><rect class="km-bar" x="970" y="0" width="8.5" height="100%" style="--anim-delay:-2.0208333333333335s;--anim-duration:2.1218548104720796s;--scale-min:0.14539904997395467;--scale-max:0.6826340706509714;"></rect><rect class="km-bar" x="980" y="0" width="8.5" height="100%" style="--anim-delay:-2.0416666666666665s;--anim-duration:2.1606264947614977s;--scale-min:0.13090169943749497;--scale-max:0.7036147841820506;"></rect><rect class="km-bar" x="990" y="0" width="8.5" height="100%" style="--anim-delay:-2.0625s;--anim-duration:1.9260113348534267s;--scale-min:0.11564344650402324;--scale-max:0.7251157166673008;"></rect><rect class="km-bar" x="1000" y="0" width="8.5" height="100%" style="--anim-delay:-2.0833333333333335s;--anim-duration:2.1320049325271775s;--scale-min:0.10000000000000006;--scale-max:0.7464101615137753;"></rect><rect class="km-bar" x="1010" y="0" width="8.5" height="100%" style="--anim-delay:-2.1041666666666665s;--anim-duration:1.861994520604142s;--scale-min:0.11564344650402295;--scale-max:0.7667551201862156;"></rect><rect class="km-bar" x="1020" y="0" width="8.5" height="100%" style="--anim-delay:-2.125s;--anim-duration:1.8115845226277598s;--scale-min:0.13090169943749452;--scale-max:0.785410196624968;"></rect><rect class="km-bar" x="1030" y="0" width="8.5" height="100%" style="--anim-delay:-2.145833333333333s;--anim-duration:1.84140762486811s;--scale-min:0.14539904997395456;--scale-max:0.8016564845306976;"></rect><rect class="km-bar" x="1040" y="0" width="8.5" height="100%" style="--anim-delay:-2.166666666666667s;--anim-duration:2.10483685433703s;--scale-min:0.15877852522924726;--scale-max:0.814814980649452;"></rect><rect class="km-bar" x="1050" y="0" width="8.5" height="100%" style="--anim-delay:-2.1875s;--anim-duration:1.9397851849224115s;--scale-min:0.17071067811865476;--scale-max:0.8242640687119285;"></rect><rect class="km-bar" x="1060" y="0" width="8.5" height="100%" style="--anim-delay:-2.208333333333333s;--anim-duration:1.9260350500856904s;--scale-min:0.18090169943749462;--scale-max:0.8294556414185328;"></rect><rect class="km-bar" x="1070" y="0" width="8.5" height="100%" style="--anim-delay:-2.229166666666667s;--anim-duration:1.935852318768759s;--scale-min:0.1891006524188369;--scale-max:0.8299294612576087;"></rect><rect class="km-bar" x="1080" y="0" width="8.5" height="100%" style="--anim-delay:-2.25s;--anim-duration:2.064588924298218s;--scale-min:0.19510565162951535;--scale-max:0.8253254041760201;"></rect><rect class="km-bar" x="1090" y="0" width="8.5" height="100%" style="--anim-delay:-2.2708333333333335s;--anim-duration:2.0515886453215075s;--scale-min:0.1987688340595138;--scale-max:0.8153932821250384;"></rect><rect class="km-bar" x="1100" y="0" width="8.5" height="100%" style="--anim-delay:-2.2916666666666665s;--anim-duration:1.9247201606310282s;--scale-min:0.2;--scale-max:0.8000000000000003;"></rect><rect class="km-bar" x="1110" y="0" width="8.5" height="100%" style="--anim-delay:-2.3125s;--anim-duration:2.1077639300736233s;--scale-min:0.19876883405951382;--scale-max:0.7791338680148463;"></rect><rect class="km-bar" x="1120" y="0" width="8.5" height="100%" style="--anim-delay:-2.3333333333333335s;--anim-duration:2.169859244010825s;--scale-min:0.19510565162951538;--scale-max:0.7529059604893509;"></rect><rect class="km-bar" x="1130" y="0" width="8.5" height="100%" style="--anim-delay:-2.3541666666666665s;--anim-duration:1.9423260667557047s;--scale-min:0.18910065241883678;--scale-max:0.7215484846557938;"></rect><rect class="km-bar" x="1140" y="0" width="8.5" height="100%" style="--anim-delay:-2.375s;--anim-duration:2.12803747159282s;--scale-min:0.18090169943749468;--scale-max:0.6854101966249684;"></rect><rect class="km-bar" x="1150" y="0" width="8.5" height="100%" style="--anim-delay:-2.3958333333333335s;--anim-duration:1.8012133289041201s;--scale-min:0.17071067811865462;--scale-max:0.6449489742783175;"></rect><rect class="km-bar" x="1160" y="0" width="8.5" height="100%" style="--anim-delay:-2.4166666666666665s;--anim-duration:2.0393203534582325s;--scale-min:0.15877852522924737;--scale-max:0.6007217267855987;"></rect><rect class="km-bar" x="1170" y="0" width="8.5" height="100%" style="--anim-delay:-2.4375s;--anim-duration:2.125328854880807s;--scale-min:0.14539904997395467;--scale-max:0.5533718859640018;"></rect><rect class="km-bar" x="1180" y="0" width="8.5" height="100%" style="--anim-delay:-2.458333333333333s;--anim-duration:2.182890785112252s;--scale-min:0.130901699437495;--scale-max:0.5036147841820517;"></rect><rect class="km-bar" x="1190" y="0" width="8.5" height="100%" style="--anim-delay:-2.479166666666667s;--anim-duration:2.1055097876929425s;--scale-min:0.1156434465040229;--scale-max:0.45222127550522323;"></rect></g></svg></div>
+            <footer class="km-footer">
+                <button class="km-toggle" id="kmBtn">
+                    <span class="km-dot"></span>
+                    <span id="kmText">PLAYING</span>
+                </button>
+                <div class="km-timeline">
+                    <div class="km-timeline-fill" id="kmProgress" style="width: 55.5%;"></div>
+                </div>
+                <span class="km-time" id="kmTime">02:33</span>
+            </footer>
+        </div>
+
+        <!-- ========== SLIDE 2: 目录 ========== -->
+        <div class="slide" data-slide="2">
+            <div class="slide-meta">
+                <span>目录</span>
+                <span>CONTENTS</span>
+            </div>
+            <h2 class="fade-in" style=""><span class="num">OVERVIEW</span>汇报目录</h2>
+            <div class="content-grid fade-in delay-1" style="grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 64px;">
+                <div class="content-item" style="border-top: 2px solid var(--ink-primary); padding-top: 24px;">
+                    <div style="font-size: 12px; color: var(--accent); margin-bottom: 8px; font-weight: 600; letter-spacing: 0.1em;">PART 01</div>
+                    <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--ink-primary);">个人简介</h3>
+                    <p style="font-size: 14px; color: var(--ink-secondary); line-height: 1.6;">个人经历 / 试用期概览</p>
+                </div>
+                <div class="content-item" style="border-top: 2px solid var(--ink-primary); padding-top: 24px;">
+                    <div style="font-size: 12px; color: var(--accent); margin-bottom: 8px; font-weight: 600; letter-spacing: 0.1em;">PART 02</div>
+                    <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--ink-primary);">工作成果</h3>
+                    <p style="font-size: 14px; color: var(--ink-secondary); line-height: 1.6;">AI / 团队管理</p>
+                </div>
+                <div class="content-item" style="border-top: 2px solid var(--ink-primary); padding-top: 24px;">
+                    <div style="font-size: 12px; color: var(--accent); margin-bottom: 8px; font-weight: 600; letter-spacing: 0.1em;">PART 03</div>
+                    <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--ink-primary);">未来规划</h3>
+                    <p style="font-size: 14px; color: var(--ink-secondary); line-height: 1.6;">工作目标 / 发展方向</p>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>CONTENTS</span>
+                <div class="progress-bar"><div class="progress-fill" style="width: 0%;"></div></div>
+                <span>02 / 19</span>
+            </div>
+        </div>
+
+        <!-- ========== SLIDE 3: 个人简介 ========== -->
+        <div class="slide" data-slide="3">
+            <div class="slide-meta">
+                <span>个人简介</span>
+                <span>PROFILE</span>
+            </div>
+            <h2 class="fade-in" style=""><span class="num">PART 01</span>个人经历</h2>
+            
+            <div class="fade-in delay-1" style="position: relative; margin-top: 80px;">
+                <!-- 顶部时间线主轴（横向） -->
+                <div style="position: absolute; top: -18px; left: 0; right: 0; height: 2px; background: var(--ink-tertiary);"></div>
+                
+                <div class="timeline-list" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding-top: 24px;">
+                    
+                    <!-- 经历四 (时间最早，放最左) -->
+                    <div style="position: relative;">
+                        <div style="position: absolute; top: -42px; left: 0; width: 14px; height: 14px; border-radius: 50%; background: var(--ink-tertiary); border: 3px solid var(--bg-color); transform: translateY(-50%);"></div>
+                        <div style="font-size: 13px; color: var(--ink-secondary); font-weight: 500; letter-spacing: 0.1em; font-variant-numeric: tabular-nums; margin-bottom: 12px;">2016.09 — 2020.07</div>
+                        <h3 style="font-size: 18px; color: var(--ink-primary); font-weight: 600; margin-bottom: 8px;">哈尔滨师范大学</h3>
+                        <p style="font-size: 14px; color: var(--ink-secondary); line-height: 1.5;">本科 · 美术学院</p>
+                    </div>
+
+                    <!-- 经历三 -->
+                    <div style="position: relative;">
+                        <div style="position: absolute; top: -42px; left: 0; width: 14px; height: 14px; border-radius: 50%; background: var(--ink-tertiary); border: 3px solid var(--bg-color); transform: translateY(-50%);"></div>
+                        <div style="font-size: 13px; color: var(--ink-secondary); font-weight: 500; letter-spacing: 0.1em; font-variant-numeric: tabular-nums; margin-bottom: 12px;">2020.07 — 2023.07</div>
+                        <h3 style="font-size: 18px; color: var(--ink-primary); font-weight: 600; margin-bottom: 8px;">京东</h3>
+                        <p style="font-size: 14px; color: var(--ink-secondary); line-height: 1.5;">高级视觉设计师</p>
+                    </div>
+
+                    <!-- 经历二 -->
+                    <div style="position: relative;">
+                        <div style="position: absolute; top: -42px; left: 0; width: 14px; height: 14px; border-radius: 50%; background: var(--ink-tertiary); border: 3px solid var(--bg-color); transform: translateY(-50%);"></div>
+                        <div style="font-size: 13px; color: var(--ink-secondary); font-weight: 500; letter-spacing: 0.1em; font-variant-numeric: tabular-nums; margin-bottom: 12px;">2023.07 — 2025.11</div>
+                        <h3 style="font-size: 18px; color: var(--ink-primary); font-weight: 600; margin-bottom: 8px;">BIGO LIVE</h3>
+                        <p style="font-size: 14px; color: var(--ink-secondary); line-height: 1.5;">资深视觉设计师</p>
+                    </div>
+                    
+                    <!-- 经历一 (时间最新，放最右) -->
+                    <div style="position: relative;">
+                        <div style="position: absolute; top: -42px; left: 0; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); border: 3px solid var(--bg-color); transform: translateY(-50%);"></div>
+                        <div style="font-size: 13px; color: var(--accent); font-weight: 600; letter-spacing: 0.1em; font-variant-numeric: tabular-nums; margin-bottom: 12px;">2025.11 — 至今</div>
+                        <h3 style="font-size: 18px; color: var(--ink-primary); font-weight: 600; margin-bottom: 8px;">网易大神</h3>
+                        <p style="font-size: 14px; color: var(--ink-secondary); line-height: 1.5;">视觉组长</p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>PROFILE</span>
+                <div class="progress-bar"><div class="progress-fill" style="width: 0%;"></div></div>
+                <span>03 / 19</span>
+            </div>
+        </div>
+
+        <!-- ========== SLIDE 3.5: 试用期概览 (杂志风数字页) ========== -->
+        <div class="slide" data-slide="3.5" style="justify-content: center; align-items: center;">
+            <div class="slide-meta">
+                <span>试用期概览</span>
+                <span>OVERVIEW</span>
+            </div>
+            
+            <div class="fade-in delay-1" style="display: flex; flex-direction: column; width: 100%; max-width: 900px;">
+                
+                <!-- 收敛的 Slogan 排版 -->
+                <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 80px; position: relative;">
+                    <div style="font-size: 64px; line-height: 1; font-family: var(--font-sans); color: var(--ink-tertiary); margin-bottom: 16px; font-weight: 700;">“</div>
+                    <div style="font-size: 24px; font-weight: 600; color: var(--ink-primary); letter-spacing: 0.15em; text-align: center;">
+                        业务破局 <span style="color: var(--accent); margin: 0 12px;">/</span> 效能重构
+                    </div>
+                </div>
+                
+                <!-- 干净的数据列排版 -->
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; padding-left: 20px;">
+                    <!-- 数据一：工作日 -->
+                    <div style="display: flex; flex-direction: column; align-items: flex-start; text-align: left;">
+                        <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                            <span style="font-size: 64px; font-weight: 700; color: var(--ink-primary); letter-spacing: -0.02em; line-height: 1;">90</span>
+                            <span style="font-size: 32px; font-weight: 600; color: var(--accent); margin-left: 2px;">+</span>
+                        </div>
+                        <div style="font-size: 14px; font-weight: 500; color: var(--ink-secondary); letter-spacing: 0.1em; padding-left: 4px;">工作日</div>
+                    </div>
+
+                    <!-- 数据二：AI管线 -->
+                    <div style="display: flex; flex-direction: column; align-items: flex-start; text-align: left;">
+                        <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                            <span style="font-size: 64px; font-weight: 700; color: var(--ink-primary); letter-spacing: -0.02em; line-height: 1;">10</span>
+                            <span style="font-size: 32px; font-weight: 600; color: var(--accent); margin-left: 2px;">+</span>
+                        </div>
+                        <div style="font-size: 14px; font-weight: 500; color: var(--ink-secondary); letter-spacing: 0.1em; padding-left: 4px;">AI管线搭建</div>
+                    </div>
+
+                    <!-- 数据三：人效提升 -->
+                    <div style="display: flex; flex-direction: column; align-items: flex-start; text-align: left;">
+                        <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                            <span style="font-size: 64px; font-weight: 700; color: var(--ink-primary); letter-spacing: -0.02em; line-height: 1;">100</span>
+                            <span style="font-size: 32px; font-weight: 600; color: var(--accent); margin-left: 2px;">%</span>
+                        </div>
+                        <div style="display: flex; align-items: baseline; gap: 8px; padding-left: 4px;">
+                            <span style="font-size: 14px; font-weight: 500; color: var(--ink-secondary); letter-spacing: 0.1em;">团队人效提升</span>
+                            <span style="font-size: 11px; color: var(--ink-tertiary); letter-spacing: 0.05em;">(月工单数 50 → 100)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <span>OVERVIEW</span>
+                <div class="progress-bar"><div class="progress-fill" style="width: 0%;"></div></div>
+                <span>04 / 20</span>
+            </div>
+        </div>
+
+        <!-- ========== SLIDE 4: 工作成果 ========== -->
+        <div class="slide" data-slide="4">
+            <div class="slide-meta">
+                <span>工作成果</span>
+                <span>ACHIEVEMENTS</span>
+            </div>
+            <h2 class="fade-in" style=""><span class="num">PART 02</span>核心工作成果</h2>
+            <div class="content-grid fade-in delay-1" style="grid-template-columns: 1fr 1fr; gap: 32px;">
+                <div class="content-item">
+                    <h3>执行力<span style="margin-left: 6px; font-weight: 500; color: var(--ink-secondary);">(AI)</span></h3>
+                    <p>搭建手绘 · 活动 · 资源位 AI 管线</p>
+                </div>
+                <div class="content-item">
+                    <h3>建设力<span style="margin-left: 6px; font-weight: 500; color: var(--ink-secondary);">(团队建设)</span></h3>
+                    <p>管理机制梳理 · 团队资产沉淀</p>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>ACHIEVEMENTS</span>
+                <div class="progress-bar"><div class="progress-fill" style="width: 0%;"></div></div>
+                <span>05 / 19</span>
+            </div>
+        </div>
+
+        <!-- ========== SLIDE 6: 篇章过渡 - 执行力 (AI) ========== -->
+        <div class="slide end-page" data-slide="6">
+            <div class="slide-meta">
+                <span>02 工作成果</span>
+                <span>ACHIEVEMENTS</span>
+            </div>
+            <h2 class="fade-in" style="font-size: 56px; margin-bottom: 24px;"><span style="color: var(--accent); font-size: 20px; font-weight: 500; display: block; margin-bottom: 16px;">PART 02</span>执行力</h2>
+            <p class="fade-in delay-1" style="font-size: 16px; color: var(--ink-secondary);">AI 生产管线搭建与落地，月均节省外包成本数万元</p>
+        </div>
+
+        <!-- ========== SLIDE 7: 业务背景 ========== -->
+        <div class="slide" data-slide="7">
+            <div class="slide-meta">
+                <span>背景与挑战</span>
+                <span>BACKGROUND &amp; CHALLENGES</span>
+            </div>
+            <h2 class="fade-in" style="">业务背景与核心挑战</h2>
+            <div class="two-col fade-in delay-1" style="align-items: stretch; gap: 64px;">
+                <!-- 左列：行业趋势 -->
+                <div class="col" style="border-top: 2px solid var(--ink-primary); padding-top: 24px; display: flex; flex-direction: column;">
+                    <h3 style="font-size: 18px; margin-bottom: 24px; color: var(--ink-primary); border-bottom: none; padding-bottom: 0;">外在趋势：AI 技术的爆发</h3>
+                    <ul class="bullet-list" style="margin-bottom: 0; display: flex; flex-direction: column; gap: 24px;">
+                        <li style="font-size: 14px; color: var(--ink-secondary); line-height: 1.6; display: flex; flex-direction: column; gap: 8px; padding-left: 16px;">
+                            <strong style="color: var(--ink-primary); font-weight: 600;">技术重构生产力</strong>
+                            <span>Midjourney、ComfyUI 等工具已达工业级交付标准，大幅提升视觉质量上限。</span>
+                        </li>
+                        <li style="font-size: 14px; color: var(--ink-secondary); line-height: 1.6; display: flex; flex-direction: column; gap: 8px; padding-left: 16px;">
+                            <strong style="color: var(--ink-primary); font-weight: 600;">行业降本增效</strong>
+                            <span>借助 AI 缩减外包预算、内化提升核心产能已成为行业共识。</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 右列：团队现状 -->
+                <div class="col" style="border-top: 2px solid var(--accent); padding-top: 24px; display: flex; flex-direction: column;">
+                    <h3 style="font-size: 18px; margin-bottom: 24px; color: var(--accent); border-bottom: none; padding-bottom: 0;">内在痛点：传统人力的瓶颈</h3>
+                    <ul class="bullet-list bullet-accent" style="margin-bottom: 0; display: flex; flex-direction: column; gap: 24px;">
+                        <li style="font-size: 14px; color: var(--ink-secondary); line-height: 1.6; display: flex; flex-direction: column; gap: 8px; padding-left: 16px;">
+                            <strong style="color: var(--accent); font-weight: 600;">产能难承载</strong>
+                            <span>传统人工作业模式，难以应对业务强节点爆发的海量需求。</span>
+                        </li>
+                        <li style="font-size: 14px; color: var(--ink-secondary); line-height: 1.6; display: flex; flex-direction: column; gap: 8px; padding-left: 16px;">
+                            <strong style="color: var(--accent); font-weight: 600;">破局核心</strong>
+                            <span>团队急需从“人力密集型”向“技术驱动型”转变，深度应用 <strong style="color: var(--ink-primary);">AIGC 提效</strong>。</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>BACKGROUND</span>
+                <div class="progress-bar"><div class="progress-fill" style="width: 0%;"></div></div>
+                <span>07 / 19</span>
+            </div>
+        </div>
+
+        <!-- ========== SLIDE 8: AIGC 手绘管线 ========== -->
+        <div class="slide" data-slide="8">
+            <div class="slide-meta">
+                <span>AIGC 管线 (1/3)</span>
+                <span>AIGC PIPELINE</span>
+            </div>
+            <div class="two-col fade-in delay-1" style="align-items: flex-start; height: 100%;">
+                <div class="col" style="display: flex; flex-direction: column; justify-content: center; height: 100%; padding-right: 40px;">
+                    <h2 class="fade-in" style="margin-bottom: 24px;">手绘类 AI 生产管线</h2>
+                    <div class="fade-in delay-1" style="display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px;">
+                        <span style="width: 24px; height: 1px; background: var(--ink-primary);"></span>
+                        <span style="font-size: 12px; color: var(--ink-primary); font-weight: 700; letter-spacing: 0.15em;">2025.11</span>
+                    </div>
+                    <p class="fade-in delay-1" style="font-size: 15px; line-height: 1.8; color: var(--ink-secondary); margin-bottom: 16px;">针对耗时高、风格难统一的<strong style="color: var(--ink-primary); font-weight: 600;">手绘插画需求</strong>，搭建专属 AI 绘画模型与工作流。</p>
+                    <p class="fade-in delay-1" style="font-size: 15px; line-height: 1.8; color: var(--ink-secondary); margin-bottom: 32px;">通过提示词工程与垫图约束，实现自动化规模生产，将手绘质量从<strong style="color: var(--ink-primary); font-weight: 600;">“依赖个人发挥”</strong>升级为<strong style="color: var(--ink-primary); font-weight: 600;">“系统化保障”</strong>。</p>
+                    
+                    <div class="fade-in delay-2" style="border-top: 1px solid var(--ink-tertiary); padding-top: 16px; margin-top: 24px;">
+                        <h4 style="font-size: 11px; color: var(--ink-secondary); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 12px; font-weight: 500;">落地业务与收益</h4>
+                        <div style="display: flex; gap: 24px;">
+                            <div style="font-size: 13px; color: var(--ink-secondary); display: flex; align-items: center; gap: 6px;">
+                                <span style="width: 4px; height: 4px; background: var(--ink-tertiary); border-radius: 50%;"></span>
+                                <strong style="color: var(--ink-primary); font-weight: 500;">炉石传说</strong>
+                            </div>
+                            <div style="font-size: 13px; color: var(--ink-secondary); display: flex; align-items: center; gap: 6px;">
+                                <span style="width: 4px; height: 4px; background: var(--ink-tertiary); border-radius: 50%;"></span>
+                                <strong style="color: var(--ink-primary); font-weight: 500;">逆水寒手游</strong> <span style="opacity: 0.85;">（血河小狗用户二创表情）</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col" style="display: flex; flex-direction: column; gap: 20px; height: 100%; justify-content: center;">
+                    <div style="width: 100%; height: 220px; border-radius: 4px; border: 1px solid var(--ink-tertiary); background: #FFFFFF url('画板.png') center/contain no-repeat; display: flex; align-items: center; justify-content: center; color: var(--ink-secondary); font-size: 13px;"></div>
+                    <div style="width: 100%; height: 220px; border-radius: 4px; border: 1px solid var(--ink-tertiary); background: url('画板2.png') center/cover no-repeat; display: flex; align-items: center; justify-content: center; color: var(--ink-secondary); font-size: 13px;"></div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>AIGC</span>
+                <div class="progress-bar"><div class="progress-fill" style="width: 0%;"></div></div>
+                <span>08 / 19</span>
+            </div>
+        </div>
+
+        <!-- ========== SLIDE 9: AIGC 运营活动管线 ========== -->
+        <div class="slide" data-slide="9">
+            <div class="slide-meta">
+                <span>AIGC 管线 (2/3)</span>
+                <span>AIGC PIPELINE</span>
+            </div>
+            <div class="two-col fade-in delay-1" style="align-items: flex-start; height: 100%;">
+                <div class="col" style="display: flex; flex-direction: column; justify-content: center; height: 100%; padding-right: 40px;">
+                    <h2 class="fade-in" style="margin-bottom: 24px;">运营活动类 AI 生产管线</h2>
+                    <div class="fade-in delay-1" style="display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px;">
+                        <span style="width: 24px; height: 1px; background: var(--ink-primary);"></span>
+                        <span style="font-size: 12px; color: var(--ink-primary); font-weight: 700; letter-spacing: 0.15em;">2025.12</span>
+                    </div>
+                    <p class="fade-in delay-1" style="font-size: 15px; line-height: 1.8; color: var(--ink-secondary); margin-bottom: 16px;">针对结构固定的<strong style="color: var(--ink-primary); font-weight: 600;">活动页需求</strong>，搭建“风格化模块生成”的自动化管线。</p>
+                    <p class="fade-in delay-1" style="font-size: 15px; line-height: 1.8; color: var(--ink-secondary); margin-bottom: 32px;">基于主题批量生成元素并按规则自动填充，将设计周期<strong style="color: var(--ink-primary); font-weight: 600;">从以天计压缩至小时级</strong>，同时确保风格统一与产出稳定。</p>
+
+                    <div class="fade-in delay-2" style="border-top: 1px solid var(--ink-tertiary); padding-top: 16px; margin-top: 24px;">
+                        <h4 style="font-size: 11px; color: var(--ink-secondary); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 12px; font-weight: 500;">落地业务与收益</h4>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <div style="font-size: 13px; color: var(--ink-secondary); display: flex; align-items: center; gap: 6px;">
+                                <span style="width: 4px; height: 4px; background: var(--ink-tertiary); border-radius: 50%;"></span>
+                                <strong style="color: var(--ink-primary); font-weight: 500;">高价值活动模版</strong>
+                                <span style="opacity: 0.85;">全量内部消化，月均省外包 <span style="color: var(--accent); font-weight: 600;">1W</span> 元</span>
+                            </div>
+                            <div style="font-size: 13px; color: var(--ink-secondary); display: flex; align-items: center; gap: 6px;">
+                                <span style="width: 4px; height: 4px; background: var(--ink-tertiary); border-radius: 50%;"></span>
+                                <strong style="color: var(--ink-primary); font-weight: 500;">工时对比</strong>
+                                <span style="opacity: 0.85; color: var(--ink-secondary);">原工时 1 人天 → 现工时 <span style="color: var(--accent); font-weight: 600;">0.2</span> 人天</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col" style="display: flex; flex-direction: column; justify-content: center; height: 100%;">
+                    <div style="display: flex; flex-direction: column; gap: 16px; width: 100%;">
+                        <!-- 上半部分：4张并排的移动端长图 -->
+                        <div style="display: flex; gap: 12px; height: 280px;">
+                            <img src="https://goofy-portfolio-1342690925.cos.ap-guangzhou.myqcloud.com/images/project-system-netease/campaign-template-2.webp" alt="Campaign Template 2" style="flex: 1; width: 0; height: 100%; object-fit: cover; object-position: top; border-radius: 6px; border: 1px solid var(--ink-tertiary);">
+                            <img src="https://goofy-portfolio-1342690925.cos.ap-guangzhou.myqcloud.com/images/project-system-netease/campaign-template-3.webp" alt="Campaign Template 3" style="flex: 1; width: 0; height: 100%; object-fit: cover; object-position: top; border-radius: 6px; border: 1px solid var(--ink-tertiary);">
+                            <img src="https://goofy-portfolio-1342690925.cos.ap-guangzhou.myqcloud.com/images/project-system-netease/campaign-template-4.webp" alt="Campaign Template 4" style="flex: 1; width: 0; height: 100%; object-fit: cover; object-position: top; border-radius: 6px; border: 1px solid var(--ink-tertiary);">
+                            <img src="https://goofy-portfolio-1342690925.cos.ap-guangzhou.myqcloud.com/images/project-system-netease/campaign-template-5.webp" alt="Campaign Template 5" style="flex: 1; width: 0; height: 100%; object-fit: cover; object-position: top; border-radius: 6px; border: 1px solid var(--ink-tertiary);">
+                        </div>
+                        <!-- 下半部分：1张横向全宽的流程图 -->
+                        <div style="height: 160px; width: 100%;">
+                            <img src="https://goofy-portfolio-1342690925.cos.ap-guangzhou.myqcloud.com/images/project-system-netease/campaign-pipeline.webp" alt="Campaign Design Pipeline" style="width: 100%; height: 100%; object-fit: cover; object-position: center; border-radius: 6px; border: 1px solid var(--ink-tertiary);">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>AIGC</span>
+                <div class="progress-bar"><div class="progress-fill" style="width: 0%;"></div></div>
+                <span>09 / 19</span>
+            </div>
+        </div>
+
+        <!-- ========== SLIDE 10: AIGC 管线 (资源位类) ========== -->
+        <div class="slide" data-slide="10">
+            <div class="slide-meta">
+                <span>AIGC 管线 (3/3)</span>
+                <span>AIGC PIPELINE</span>
+            </div>
+            <div class="two-col fade-in delay-1" style="align-items: flex-start; height: 100%;">
+                <div class="col" style="display: flex; flex-direction: column; justify-content: center; height: 100%; padding-right: 40px;">
+                    <h2 class="fade-in" style="margin-bottom: 24px;">资源位类 AI 生产管线</h2>
+                    <div class="fade-in delay-1" style="display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px;">
+                        <span style="width: 24px; height: 1px; background: var(--ink-primary);"></span>
+                        <span style="font-size: 12px; color: var(--ink-primary); font-weight: 700; letter-spacing: 0.15em;">2026.03</span>
+                    </div>
+                    <p class="fade-in delay-1" style="font-size: 15px; line-height: 1.8; color: var(--ink-secondary); margin-bottom: 16px;">针对繁杂的<strong style="color: var(--ink-primary); font-weight: 600;">多尺寸资源位延展</strong>，打通自动化排版工具（如 MasterGo 插件）。</p>
+                    <p class="fade-in delay-1" style="font-size: 15px; line-height: 1.8; color: var(--ink-secondary); margin-bottom: 32px;">运营只需配置核心视觉与文案，系统即可自动完成多尺寸适配与规范校验，实现<strong style="color: var(--ink-primary); font-weight: 600;">“一次设计，全量生成”</strong>。</p>
+                    
+                    <div class="fade-in delay-2" style="border-top: 1px solid var(--ink-tertiary); padding-top: 16px; margin-top: 24px;">
+                        <h4 style="font-size: 11px; color: var(--ink-secondary); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 12px; font-weight: 500;">落地业务与收益</h4>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <div style="font-size: 13px; color: var(--ink-secondary); display: flex; align-items: center; gap: 6px;">
+                                <span style="width: 4px; height: 4px; background: var(--ink-tertiary); border-radius: 50%;"></span>
+                                <strong style="color: var(--ink-primary); font-weight: 500;">资源位需求</strong>
+                                <span style="opacity: 0.85;">全量内部消化，月均省外包 <span style="color: var(--accent); font-weight: 600;">2.2W</span> 元</span>
+                            </div>
+                            <div style="font-size: 13px; color: var(--ink-secondary); display: flex; align-items: center; gap: 6px;">
+                                <span style="width: 4px; height: 4px; background: var(--ink-tertiary); border-radius: 50%;"></span>
+                                <strong style="color: var(--ink-primary); font-weight: 500;">工时对比</strong>
+                                <span style="opacity: 0.85; color: var(--ink-secondary);">原工时 0.5 人天 → 现工时 <span style="color: var(--accent); font-weight: 600;">0.05</span> 人天</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col" style="display: flex; flex-direction: column; gap: 16px; height: 100%; justify-content: center;">
+                    <!-- 上半部分：单张动图 -->
+                    <div style="width: 100%; height: 220px; border-radius: 4px; border: 1px solid var(--ink-tertiary); background-color: #212121; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                        <img src="https://goofy-portfolio-1342690925.cos.ap-guangzhou.myqcloud.com/images/project-system-netease/resource-pipeline.gif" alt="Resource Type AI Pipeline" style="width: 100%; height: 100%; object-fit: contain; object-position: center;">
+                    </div>
+                    <!-- 下半部分：分为2行展示的两张图片 -->
+                    <div style="display: flex; flex-direction: column; gap: 16px; height: 220px;">
+                        <img src="https://goofy-portfolio-1342690925.cos.ap-guangzhou.myqcloud.com/images/project-system-netease/workflow-group-9.webp" alt="Workflow Overview" style="flex: 1; width: 100%; height: 0; object-fit: cover; object-position: center; border-radius: 4px; border: 1px solid var(--ink-tertiary);">
+                        <img src="https://goofy-portfolio-1342690925.cos.ap-guangzhou.myqcloud.com/images/project-system-netease/workflow-3.webp" alt="Workflow Details" style="flex: 1; width: 100%; height: 0; object-fit: cover; object-position: center; border-radius: 4px; border: 1px solid var(--ink-tertiary);">
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>AIGC</span>
+                <div class="progress-bar"><div class="progress-fill" style="width: 0%;"></div></div>
+                <span>10 / 22</span>
+            </div>
+        </div>
+
+        <!-- ========== SLIDE 10.5: 新旧流程对比 ========== -->
+        <div class="slide" data-slide="10.5">
+            <div class="slide-meta">
+                <span>AIGC 效能核算</span>
+                <span>EFFICIENCY METRICS</span>
+            </div>
+            <h2 class="fade-in" style="margin-bottom: 24px;">新旧流程对比 <span style="font-size: 16px; color: var(--ink-secondary); font-weight: 400; margin-left: 12px;">(以 Banner 生产为例)</span></h2>
+            
+            <div class="two-col fade-in delay-1" style="align-items: stretch; gap: 64px; margin-top: 0;">
+                <!-- 左列：旧流程 -->
+                <div class="col" style="border-top: 1px solid var(--ink-tertiary); padding-top: 24px; display: flex; flex-direction: column;">
+                    <h3 style="font-size: 14px; margin-bottom: 32px; color: var(--ink-secondary); border-bottom: none; padding-bottom: 0;">旧流程 / 人力密集型</h3>
+                    <div style="display: flex; flex-direction: column; gap: 32px;">
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <span style="font-size: 11px; color: var(--ink-tertiary); letter-spacing: 0.1em;">01 / 生产链路</span>
+                            <span style="font-size: 14px; color: var(--ink-secondary);">提需 → 排期 → 外包/人工AI</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <span style="font-size: 11px; color: var(--ink-tertiary); letter-spacing: 0.1em;">02 / 成本与人效</span>
+                            <span style="font-size: 14px; color: var(--ink-secondary);">2单/人天 · 2.2万元/月外包费</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <span style="font-size: 11px; color: var(--ink-tertiary); letter-spacing: 0.1em;">03 / 设计角色</span>
+                            <span style="font-size: 14px; color: var(--ink-secondary);">AI操作员 + 催外包</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 右列：新流程 -->
+                <div class="col" style="border-top: 2px solid var(--accent); padding-top: 24px; display: flex; flex-direction: column;">
+                    <h3 style="font-size: 14px; margin-bottom: 32px; color: var(--accent); border-bottom: none; padding-bottom: 0;">新流程 / 技术驱动型</h3>
+                    <div style="display: flex; flex-direction: column; gap: 32px;">
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <span style="font-size: 11px; color: var(--ink-secondary); letter-spacing: 0.1em;">01 / 生产链路</span>
+                            <span style="font-size: 14px; color: var(--ink-primary); font-weight: 500;">提需 → AI生成 → 设计审核</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <span style="font-size: 11px; color: var(--ink-secondary); letter-spacing: 0.1em;">02 / 成本与人效</span>
+                            <span style="font-size: 14px; color: var(--ink-primary); font-weight: 500;">5分钟/单 · 0 外包成本</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <span style="font-size: 11px; color: var(--ink-secondary); letter-spacing: 0.1em;">03 / 设计角色</span>
+                            <span style="font-size: 14px; color: var(--ink-primary); font-weight: 500;">定标准 + 制模版 + 审质量</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 底部核心结论总结 -->
+            <div class="fade-in delay-2" style="margin-top: 56px; border-top: 1px solid var(--ink-tertiary); padding-top: 24px;">
+                <p style="font-size: 14px; line-height: 1.6; color: var(--ink-secondary);">
+                    从“提需排期等2天”变为<strong style="color: var(--ink-primary); font-weight: 500;">“即提即得分钟级交付”</strong>，运营可自助试错，设计仅需 <strong style="color: var(--ink-primary); font-weight: 500;">10%</strong> 介入。
+                </p>
+            </div>
+
+            <div class="slide-footer">
+                <span>AIGC METRICS</span>
+                <div class="progress-bar"><div class="progress-fill" style="width: 50%;"></div></div>
+                <span>10.5 / 22</span>
+            </div>
+        </div>
+
+        <!-- ========== SLIDE 11: AIGC 数据总结 ========== -->
+        <div class="slide" data-slide="11">
+            <div class="slide-meta">
+                <span>AIGC 成果量化</span>
+                <span>AIGC METRICS</span>
+            </div>
+            <h2 class="fade-in" style="">管线落地数据与效能核算</h2>
+            <div class="stat-grid fade-in delay-1" style="margin-bottom: 40px; gap: 48px;">
+                <div class="stat-card" style="border-top: none; padding-top: 0;">
+                    <div class="value" style="color: var(--ink-primary);">5000<span class="unit" style="color: var(--ink-primary); opacity: 0.7;">+</span></div>
+                    <div class="label">月均 AI 产出素材量</div>
+                </div>
+                <div class="stat-card" style="border-top: none; padding-top: 0;">
+                    <div class="value" style="color: var(--ink-primary);">300<span class="unit" style="color: var(--ink-primary); opacity: 0.7;">%</span></div>
+                    <div class="label">平均工时缩减率</div>
+                </div>
+                <div class="stat-card" style="border-top: none; padding-top: 0;">
+                    <div class="value" style="color: var(--accent);">100<span class="unit" style="color: var(--accent); opacity: 0.7;">%</span></div>
+                    <div class="label" style="color: var(--accent);">外包全覆盖</div>
+                </div>
+            </div>
+            
+            <div class="content-grid fade-in delay-2" style="grid-template-columns: 1fr; gap: 48px;">
+                <!-- 成本对比 -->
+                <div class="content-item" style="border-top: none; padding-top: 0; display: flex; flex-direction: column;">
+                    <h3 style="font-size: 16px; margin-bottom: 32px; color: var(--ink-primary); border-bottom: none; padding-bottom: 0; display: flex; justify-content: space-between; align-items: baseline; letter-spacing: 0.1em;">
+                        <span>月均外包费用对比</span>
+                        <span style="font-size: 14px; font-weight: 600; color: var(--accent); letter-spacing: 0;">↓ 降低 100%</span>
+                    </h3>
+                    <div style="display: flex; flex-direction: column; gap: 32px;">
+                        <div>
+                            <div style="display: flex; justify-content: space-between; font-size: 13px; color: var(--ink-secondary); margin-bottom: 12px;">
+                                <span>原流程：重度依赖外包</span>
+                                <span>¥ 10W / 月</span>
+                            </div>
+                            <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.05); overflow: hidden; border-radius: 3px;">
+                                <div style="width: 100%; height: 100%; background: var(--ink-tertiary);"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; font-size: 13px; color: var(--ink-primary); margin-bottom: 12px;">
+                                <span style="font-weight: 600;">AI 管线内产模式 (内部全量消化)</span>
+                                <span style="font-weight: 600; color: var(--accent);">¥ 0 / 月</span>
+                            </div>
+                            <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.05); overflow: hidden; border-radius: 3px;">
+                                <div style="width: 6px; height: 100%; background: var(--accent); border-radius: 3px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <span>AIGC METRICS</span>
+                <div class="progress-bar"><div class="progress-fill" style="width: 0%;"></div></div>
+                <span>11 / 19</span>
+            </div>
+        </div>
+
+        <!-- ========== SLIDE 12: 篇章过渡 - 建设力 (团队建设) ========== -->
+        <div class="slide end-page" data-slide="12">
+            <div class="slide-meta">
+                <span>02 工作成果</span>
+                <span>ACHIEVEMENTS</span>
+            </div>
+            <h2 class="fade-in" style="font-size: 56px; margin-bottom: 24px;"><span style="color: var(--accent); font-size: 20px; font-weight: 500; display: block; margin-bottom: 16px;">PART 02</span>建设力</h2>
+            <p class="fade-in delay-1" style="font-size: 16px; color: var(--ink-secondary);">梳理管理机制，沉淀团队通用能力资产</p>
+        </div>
+
+        <!-- ========== SLIDE 13: 团队建设 (核心逻辑) ========== -->
+        <div class="slide" data-slide="13">
+            <div class="slide-meta">
+                <span>团队建设 (1/4)</span>
+                <span>TEAM EMPOWERMENT</span>
+            </div>
+            <h2 class="fade-in" style="">团队管理与制度建设</h2>
+            <p class="fade-in delay-1" style="font-size: 15px; line-height: 1.8; color: var(--ink-secondary); margin-bottom: 40px; max-width: 800px;">试用期内，除了保障团队业务的高质量交付，也着手梳理了组内的管理机制，重点推进了以下三项实际工作：</p>
+            
+            <div class="content-grid fade-in delay-2" style="grid-template-columns: repeat(3, 1fr); gap: 24px;">
+                <!-- 动作一：新人落地 -->
+                <div class="content-item">
+                    <h3 style="font-size: 13px; margin-bottom: 8px; color: var(--ink-primary);">输出《新人落地流程 SOP》</h3>
+                    <p style="font-size: 14px; color: var(--ink-secondary); line-height: 1.6;">梳理新人入职指南</p>
+                </div>
+
+                <!-- 动作二：绩效考核 -->
+                <div class="content-item">
+                    <h3 style="font-size: 13px; margin-bottom: 8px; color: var(--ink-primary);">建立“量化绩效指标模型”</h3>
+                    <p style="font-size: 14px; color: var(--ink-secondary); line-height: 1.6;">制定绩效考核标准</p>
+                </div>
+
+                <!-- 动作三：团队资产 -->
+                <div class="content-item">
+                    <h3 style="font-size: 13px; margin-bottom: 8px; color: var(--ink-primary);">搭建“通用能力资产库”</h3>
+                    <p style="font-size: 14px; color: var(--ink-secondary); line-height: 1.6;">建立团队分享机制</p>
+                </div>
+            </div>
+            
+            <div class="slide-footer">
+                <span>TEAM</span>
+                <div class="progress-bar"><div class="progress-fill" style="width: 60%;"></div></div>
+                <span>13 / 21</span>
+            </div>
+        </div>
+
+        <!-- ========== SLIDE 14: 团队建设 (阶段一：新人落地) ========== -->
+        <div class="slide" data-slide="14">
+            <div class="slide-meta">
+                <span>团队建设 (2/4)</span>
+                <span>TEAM EMPOWERMENT</span>
+            </div>
+            <h2 class="fade-in" style="margin-bottom: 24px;">新人落地：标准化入职指引</h2>
+            <p class="fade-in delay-1" style="font-size: 15px; line-height: 1.8; color: var(--ink-secondary); margin-bottom: 40px; max-width: 800px;">将入职准备、工具配置、团队规范等内容形成标准化文档，降低组内带教的时间成本，帮助新人快速承接业务。</p>
+            <div class="two-col fade-in delay-2" style="align-items: stretch; gap: 40px; margin-top: 0; height: calc(100% - 130px);">
+                
+                <!-- 左侧：文档大纲结构提取 (优化排版：对比、对齐、亲密性、重复) -->
+                <div class="col" style="flex: 0.8; display: flex; flex-direction: column; gap: 16px;">
+                    <div style="background: rgba(255,255,255,0.02); border-radius: 6px; border: 1px solid rgba(255,255,255,0.08); padding: 32px; height: 100%; display: flex; flex-direction: column;">
+                        
+                        <!-- 标题区 (对比、对齐) -->
+                        <div style="margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                            <h3 style="font-size: 18px; color: var(--ink-primary); font-weight: 600; letter-spacing: 0.05em; margin-bottom: 8px;">新人落地流程指引</h3>
+                            <div style="font-size: 13px; color: var(--ink-tertiary); letter-spacing: 0.1em;">ONBOARDING GUIDELINES</div>
+                        </div>
+                        
+                        <!-- 内容区 (亲密性、重复) -->
+                        <div style="display: flex; flex-direction: column; gap: 28px; overflow-y: auto; padding-right: 12px; flex-grow: 1;">
+                            
+                            <!-- 模块一 -->
+                            <div style="display: flex; gap: 16px; align-items: flex-start;">
+                                <div style="font-size: 14px; color: var(--accent); font-weight: 600; font-family: var(--font-sans); margin-top: 2px;">01</div>
+                                <div style="display: flex; flex-direction: column; gap: 8px;">
+                                    <div style="color: var(--ink-primary); font-weight: 500; font-size: 15px; letter-spacing: 0.05em;">入职准备</div>
+                                    <div style="font-size: 13px; color: var(--ink-secondary); line-height: 1.6;">个人介绍准备 (提供破冰模版)</div>
+                                </div>
+                            </div>
+
+                            <!-- 模块二 -->
+                            <div style="display: flex; gap: 16px; align-items: flex-start;">
+                                <div style="font-size: 14px; color: var(--accent); font-weight: 600; font-family: var(--font-sans); margin-top: 2px;">02</div>
+                                <div style="display: flex; flex-direction: column; gap: 8px;">
+                                    <div style="color: var(--ink-primary); font-weight: 500; font-size: 15px; letter-spacing: 0.05em;">工具与权限配置</div>
+                                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                                        <div style="font-size: 13px; color: var(--ink-secondary); line-height: 1.6;">必备软件安装 (含IT报修指引)</div>
+                                        <div style="font-size: 13px; color: var(--ink-secondary); line-height: 1.6;">系统权限申请 (OA / 资源盘 / MasterGo)</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 模块三 -->
+                            <div style="display: flex; gap: 16px; align-items: flex-start;">
+                                <div style="font-size: 14px; color: var(--accent); font-weight: 600; font-family: var(--font-sans); margin-top: 2px;">03</div>
+                                <div style="display: flex; flex-direction: column; gap: 8px;">
+                                    <div style="color: var(--ink-primary); font-weight: 500; font-size: 15px; letter-spacing: 0.05em;">团队融入</div>
+                                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                                        <div style="font-size: 13px; color: var(--ink-secondary); line-height: 1.6;">团队架构与关键联系人</div>
+                                        <div style="font-size: 13px; color: var(--ink-secondary); line-height: 1.6;">业务概览 (需求类型 / 业务范围)</div>
+                                        <div style="font-size: 13px; color: var(--ink-secondary); line-height: 1.6;">团队文化 (考核标准与设计原则)</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 模块四 -->
+                            <div style="display: flex; gap: 16px; align-items: flex-start;">
+                                <div style="font-size: 14px; color: var(--accent); font-weight: 600; font-family: var(--font-sans); margin-top: 2px;">04</div>
+                                <div style="display: flex; flex-direction: column; gap: 8px;">
+                                    <div style="color: var(--ink-primary); font-weight: 500; font-size: 15px; letter-spacing: 0.05em;">系统使用指南</div>
+                                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                                        <div style="font-size: 13px; color: var(--ink-secondary); line-height: 1.6;">设计规范 (视觉规范 / 活动模版)</div>
+                                        <div style="font-size: 13px; color: var(--ink-secondary); line-height: 1.6;">需求与工时管理系统 (易协作规范)</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                        <!-- 提示区 -->
+                        <div style="margin-top: 32px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05); font-size: 12px; color: var(--ink-tertiary); line-height: 1.6; display: flex; gap: 8px; align-items: flex-start;">
+                            <div style="color: var(--accent); margin-top: 2px;">*</div>
+                            <div><strong style="color: var(--ink-secondary); font-weight: 500;">入职提示：</strong>优先完成权限配置与介绍，首周内与导师确定试用期计划。</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 右侧：截图错落排版 -->
+                <div class="col" style="flex: 1.2; position: relative; height: 100%;">
+                    <div style="position: absolute; top: 0; right: 0; width: 85%; height: 60%; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.5); z-index: 1;">
+                        <img src="截屏2026-03-28 16.45.47.png" alt="文档截图1" style="width: 100%; height: 100%; object-fit: cover; object-position: top left; filter: brightness(0.9);">
+                    </div>
+                    <div style="position: absolute; bottom: 20%; left: 0; width: 75%; height: 50%; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.5); z-index: 2;">
+                        <img src="截屏2026-03-28 16.45.26.png" alt="文档大纲" style="width: 100%; height: 100%; object-fit: cover; object-position: top left; filter: brightness(0.9);">
+                    </div>
+                </div>
+
+            </div>
+            <!-- 去掉了底部进度条 -->
+        </div>
+
+        <!-- ========== SLIDE 14: 团队建设 (阶段二：量化产出) ========== -->
+        <div class="slide" data-slide="14">
+            <div class="slide-meta">
+                <span>团队建设 (3/6)</span>
+                <span>TEAM EMPOWERMENT</span>
+            </div>
+            <h2 class="fade-in" style="margin-bottom: 24px;">团队考核：能力评估与绩效盘点</h2>
+            <p class="fade-in delay-1" style="font-size: 15px; line-height: 1.8; color: var(--ink-secondary); margin-bottom: 40px; max-width: 800px;">制定明确的绩效盘点与能力评估标准，量化专业产出，引导团队发展方向。</p>
+            
+            <div class="fade-in delay-2" style="display: flex; flex-direction: column; gap: 16px; height: calc(100% - 130px); width: 100%;">
+                <div style="background: rgba(255,255,255,0.02); border-radius: 6px; border: 1px solid rgba(255,255,255,0.08); padding: 40px; height: 100%; display: flex; flex-direction: column;">
+                    
+                    <!-- 标题区 -->
+                    <div style="margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                        <h3 style="font-size: 18px; color: var(--ink-primary); font-weight: 600; letter-spacing: 0.05em; margin-bottom: 8px;">量化考核指标模型</h3>
+                        <div style="font-size: 13px; color: var(--ink-tertiary); letter-spacing: 0.1em;">PERFORMANCE METRICS</div>
+                    </div>
+                    
+                    <!-- 内容区 (横向网格排版) -->
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px 64px; flex-grow: 1;">
+                        
+                        <div style="display: flex; gap: 16px; align-items: flex-start;">
+                            <div style="font-size: 14px; color: var(--accent); font-weight: 600; font-family: var(--font-sans); margin-top: 2px;">01</div>
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <div style="color: var(--ink-primary); font-weight: 500; font-size: 15px; letter-spacing: 0.05em;">产出效率</div>
+                                <div style="font-size: 13px; color: var(--ink-secondary); line-height: 1.6;">评估任务完成的及时性与吞吐量</div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 16px; align-items: flex-start;">
+                            <div style="font-size: 14px; color: var(--accent); font-weight: 600; font-family: var(--font-sans); margin-top: 2px;">02</div>
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <div style="color: var(--ink-primary); font-weight: 500; font-size: 15px; letter-spacing: 0.05em;">产出质量与视觉创新</div>
+                                <div style="font-size: 13px; color: var(--ink-secondary); line-height: 1.6;">评估任务复杂度、呈现效果及对业务的转化贡献</div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 16px; align-items: flex-start;">
+                            <div style="font-size: 14px; color: var(--accent); font-weight: 600; font-family: var(--font-sans); margin-top: 2px;">03</div>
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <div style="color: var(--ink-primary); font-weight: 500; font-size: 15px; letter-spacing: 0.05em;">分享/复盘/资产沉淀</div>
+                                <div style="font-size: 13px; color: var(--ink-secondary); line-height: 1.6;">评估对团队效能、知识沉淀与协作的正向价值</div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 16px; align-items: flex-start;">
+                            <div style="font-size: 14px; color: var(--accent); font-weight: 600; font-family: var(--font-sans); margin-top: 2px;">04</div>
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <div style="color: var(--ink-primary); font-weight: 500; font-size: 15px; letter-spacing: 0.05em;">AI应用能力</div>
+                                <div style="font-size: 13px; color: var(--ink-secondary); line-height: 1.6; white-space: nowrap;">评估 AI 应用深度、提效与创新落地</div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide-footer">
+                <span>TEAM</span>
+                <div class="progress-bar"><div class="progress-fill" style="width: 71%;"></div></div>
+            </div>
+        </div>
+
+        <!-- ========== SLIDE 15: 团队考核具体指标 (截图页) ========== -->
+        <div class="slide" data-slide="15">
+            <div class="slide-meta">
+                <span>团队建设 (4/6)</span>
+                <span>TEAM EMPOWERMENT</span>
+            </div>
+            <h2 class="fade-in" style="margin-bottom: 32px;">团队考核：具体指标细则</h2>
+            
+            <!-- 全宽展示截图 -->
+            <div class="fade-in delay-1" style="width: 100%; height: 500px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; background: rgb(233, 237, 250);">
+                <img src="截屏2026-03-28 16.52.40.png" alt="绩效考核指标表" style="width: 100%; height: 100%; object-fit: contain; object-position: top; mix-blend-mode: multiply;">
+            </div>
+
+            <div class="slide-footer">
+                <span>TEAM</span>
+                <div class="progress-bar"><div class="progress-fill" style="width: 76%;"></div></div>
+                <span>16 / 22</span>
+            </div>
+        </div>
+
+        <!-- ========== SLIDE 16: 团队建设 (知识资产沉淀) ========== -->
+        <div class="slide" data-slide="16">
+            <div class="slide-meta">
+                <span>团队建设 (5/6)</span>
+                <span>TEAM EMPOWERMENT</span>
+            </div>
+            <h2 class="fade-in" style="margin-bottom: 24px;">团队分享：通用能力与业务资产沉淀</h2>
+            <p class="fade-in delay-1" style="font-size: 15px; line-height: 1.8; color: var(--ink-secondary); margin-bottom: 40px; max-width: 800px;">将日常业务经验转化为可复用的文档资产，补齐组内成员在业务理解、跨部门沟通等软技能方面的短板。</p>
+            
+            <div class="fade-in delay-2" style="display: flex; flex-direction: column; gap: 16px; height: calc(100% - 130px); width: 100%;">
+                <div style="background: rgba(255,255,255,0.02); border-radius: 6px; border: 1px solid rgba(255,255,255,0.08); padding: 40px; height: 100%; display: flex; flex-direction: column;">
+                    
+                    <!-- 标题区 -->
+                    <div style="margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                        <h3 style="font-size: 18px; color: var(--ink-primary); font-weight: 600; letter-spacing: 0.05em; margin-bottom: 8px;">团队通用资产库</h3>
+                        <div style="font-size: 13px; color: var(--ink-tertiary); letter-spacing: 0.1em;">TEAM KNOWLEDGE BASE</div>
+                    </div>
+                    
+                    <!-- 内容区 (横向网格排版，不滑动) -->
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px 64px; flex-grow: 1;">
+                        
+                        <div style="display: flex; gap: 16px; align-items: flex-start;">
+                            <div style="font-size: 14px; color: var(--accent); font-weight: 600; font-family: var(--font-sans); margin-top: 2px;">01</div>
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <div style="color: var(--ink-primary); font-weight: 500; font-size: 15px; letter-spacing: 0.05em;">思维模型</div>
+                                <div style="font-size: 13px; color: var(--ink-secondary); line-height: 1.6;">目标管理 / 问题分析</div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 16px; align-items: flex-start;">
+                            <div style="font-size: 14px; color: var(--accent); font-weight: 600; font-family: var(--font-sans); margin-top: 2px;">02</div>
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <div style="color: var(--ink-primary); font-weight: 500; font-size: 15px; letter-spacing: 0.05em;">方案与汇报</div>
+                                <div style="font-size: 13px; color: var(--ink-secondary); line-height: 1.6;">如何输出设计方案</div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 16px; align-items: flex-start;">
+                            <div style="font-size: 14px; color: var(--accent); font-weight: 600; font-family: var(--font-sans); margin-top: 2px;">03</div>
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <div style="color: var(--ink-primary); font-weight: 500; font-size: 15px; letter-spacing: 0.05em;">沟通协作</div>
+                                <div style="font-size: 13px; color: var(--ink-secondary); line-height: 1.6;">跨部门沟通话术</div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 16px; align-items: flex-start;">
+                            <div style="font-size: 14px; color: var(--accent); font-weight: 600; font-family: var(--font-sans); margin-top: 2px;">04</div>
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <div style="color: var(--ink-primary); font-weight: 500; font-size: 15px; letter-spacing: 0.05em;">数据驱动</div>
+                                <div style="font-size: 13px; color: var(--ink-secondary); line-height: 1.6;">如何拆解运营数据 / 如何看懂数据名词</div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide-footer">
+                <span>TEAM</span>
+                <div class="progress-bar"><div class="progress-fill" style="width: 76%;"></div></div>
+                <span>17 / 23</span>
+            </div>
+        </div>
+
+        <!-- ========== SLIDE 17: 团队分享 (截图占位页) ========== -->
+        <div class="slide" data-slide="17">
+            <div class="slide-meta">
+                <span>团队建设 (6/6)</span>
+                <span>TEAM EMPOWERMENT</span>
+            </div>
+            <h2 class="fade-in" style="margin-bottom: 32px;">团队分享：核心文档沉淀</h2>
+            
+            <!-- 全宽展示截图 -->
+            <div class="fade-in delay-1" style="width: 100%; height: 500px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; background: #FFFFFF;">
+                <img src="sss.png" alt="核心分享文档截图" style="width: 100%; height: 100%; object-fit: cover; object-position: top; filter: brightness(0.95);">
+            </div>
+
+            <div class="slide-footer">
+                <span>TEAM</span>
+                <div class="progress-bar"><div class="progress-fill" style="width: 80%;"></div></div>
+                <span>18 / 23</span>
+            </div>
+        </div>
+
+        <!-- ========== SLIDE 17: 团队建设成果 ========== -->
+        <div class="slide" data-slide="17" style="justify-content: center;">
+            <div class="slide-meta">
+                <span>团队建设成果</span>
+                <span>TEAM METRICS</span>
+            </div>
+            
+            <div class="fade-in delay-1" style="display: flex; flex-direction: column; width: 100%; max-width: 900px; margin: 0 auto;">
+                
+                <!-- 收敛的 Slogan 排版 -->
+                <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 64px; position: relative;">
+                    <div style="font-size: 20px; font-weight: 500; color: var(--ink-primary); letter-spacing: 0.1em; text-align: center;">
+                        赋能团队 <span style="color: var(--accent); margin: 0 12px; font-weight: 400;">/</span> 效能进阶
+                    </div>
+                </div>
+                
+                <!-- 干净的数据列排版 (降级处理) -->
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; padding-left: 20px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 48px;">
+                    <!-- 数据一 -->
+                    <div style="display: flex; flex-direction: column; align-items: flex-start; text-align: left;">
+                        <div style="display: flex; align-items: baseline; margin-bottom: 12px;">
+                            <span style="font-size: 48px; font-weight: 600; color: var(--ink-primary); letter-spacing: -0.02em; line-height: 1;">100</span>
+                            <span style="font-size: 20px; font-weight: 500; color: var(--ink-secondary); margin-left: 2px;">%</span>
+                        </div>
+                        <div style="font-size: 13px; font-weight: 400; color: var(--ink-secondary); letter-spacing: 0.1em;">AI 技能全员覆盖</div>
+                    </div>
+
+                    <!-- 数据二 -->
+                    <div style="display: flex; flex-direction: column; align-items: flex-start; text-align: left;">
+                        <div style="display: flex; align-items: baseline; margin-bottom: 12px;">
+                            <span style="font-size: 48px; font-weight: 600; color: var(--ink-primary); letter-spacing: -0.02em; line-height: 1;">2</span>
+                            <span style="font-size: 20px; font-weight: 500; color: var(--ink-secondary); margin-left: 4px;">名</span>
+                        </div>
+                        <div style="font-size: 13px; font-weight: 400; color: var(--ink-secondary); letter-spacing: 0.1em;">新人带教落地 (实习+正式)</div>
+                    </div>
+
+                    <!-- 数据三 -->
+                    <div style="display: flex; flex-direction: column; align-items: flex-start; text-align: left;">
+                        <div style="display: flex; align-items: center; margin-bottom: 12px; height: 48px;">
+                            <span style="font-size: 32px; font-weight: 500; color: var(--accent); line-height: 1;">显著提升</span>
+                        </div>
+                        <div style="font-size: 13px; font-weight: 400; color: var(--ink-secondary); letter-spacing: 0.1em;">团队整体输出质量</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <span>TEAM METRICS</span>
+                <div class="progress-bar"><div class="progress-fill" style="width: 100%;"></div></div>
+                <span>17 / 24</span>
+            </div>
+        </div>
+
+        <!-- ========== SLIDE 17.1: 团队输出展示 1 ========== -->
+        <div class="slide" data-slide="17.1">
+            <div class="slide-meta">
+                <span>团队产出展示</span>
+                <span>TEAM PORTFOLIO</span>
+            </div>
+            <h2 class="fade-in" style="margin-bottom: 32px;">重大活动需求 <span style="font-size: 16px; color: var(--ink-secondary); font-weight: 400; margin-left: 12px;">光遇年报</span></h2>
+            
+            <div class="fade-in delay-1" style="width: 100%; height: 500px; border-radius: 6px; border: none; overflow: hidden; background: #1C1C1A; display: flex; align-items: center; justify-content: center; gap: 16px; padding: 16px;">
+                <img src="首页@1x.png" alt="首页" style="height: 100%; object-fit: contain; border-radius: 4px;">
+                <img src="引导页-回流玩家@1x.png" alt="引导页" style="height: 100%; object-fit: contain; border-radius: 4px;">
+                <img src="容器 94@1x.png" alt="容器" style="height: 100%; object-fit: contain; border-radius: 4px;">
+                <img src="地图@1x.png" alt="地图" style="height: 100%; object-fit: contain; border-radius: 4px;">
+            </div>
+
+            <div class="slide-footer">
+                <span>PORTFOLIO</span>
+                <div class="progress-bar"><div class="progress-fill" style="width: 100%;"></div></div>
+                <span>18 / 24</span>
+            </div>
+        </div>
+
+        <!-- ========== SLIDE 17.2: 团队输出展示 2 (荒野KV横图) ========== -->
+        <div class="slide" data-slide="17.2">
+            <div class="slide-meta">
+                <span>团队产出展示</span>
+                <span>TEAM PORTFOLIO</span>
+            </div>
+            <h2 class="fade-in" style="margin-bottom: 32px;">赛事KV制作 <span style="font-size: 16px; color: var(--ink-secondary); font-weight: 400; margin-left: 12px;">荒野行动 AI 制作</span></h2>
+            
+            <div class="fade-in delay-1" style="width: 100%; height: 500px; border-radius: 6px; border: none; overflow: hidden; background: #1C1C1A; display: flex; align-items: center; justify-content: center; padding: 0;">
+                <img src="Clipboard - 2026-01-19 16.55.26.png" alt="荒野行动赛事KV横图" style="width: 100%; height: 100%; object-fit: contain; border-radius: 4px;">
+            </div>
+
+            <div class="slide-footer">
+                <span>PORTFOLIO</span>
+                <div class="progress-bar"><div class="progress-fill" style="width: 100%;"></div></div>
+                <span>19 / 25</span>
+            </div>
+        </div>
+
+        <!-- ========== SLIDE 17.3: 团队输出展示 3 (原荒野KV过程图) ========== -->
+        <div class="slide" data-slide="17.3">
+            <div class="slide-meta">
+                <span>团队产出展示</span>
+                <span>TEAM PORTFOLIO</span>
+            </div>
+            <h2 class="fade-in" style="margin-bottom: 32px;">赛事KV制作 <span style="font-size: 16px; color: var(--ink-secondary); font-weight: 400; margin-left: 12px;">荒野行动 AI 制作</span></h2>
+            
+            <div class="fade-in delay-1" style="width: 100%; height: 500px; border-radius: 6px; border: none; overflow: hidden; background: #1C1C1A; display: flex; align-items: center; justify-content: center; padding: 16px;">
+                <img src="https://goofy-portfolio-1342690925.cos.ap-guangzhou.myqcloud.com/images/project-system-netease/visual-ai-pipeline.webp" alt="Visual Design AI Pipeline Output" style="width: 100%; height: 100%; object-fit: contain; border-radius: 4px;">
+            </div>
+
+            <div class="slide-footer">
+                <span>PORTFOLIO</span>
+                <div class="progress-bar"><div class="progress-fill" style="width: 100%;"></div></div>
+                <span>20 / 25</span>
+            </div>
+        </div>
+
+        <!-- ========== SLIDE 17.4: 团队输出展示 4 ========== -->
+        <div class="slide" data-slide="17.4">
+            <div class="slide-meta">
+                <span>团队产出展示</span>
+                <span>TEAM PORTFOLIO</span>
+            </div>
+            <h2 class="fade-in" style="margin-bottom: 32px;">资源位动画</h2>
+            
+            <div class="fade-in delay-1" style="width: 100%; height: 500px; border-radius: 6px; border: none; overflow: hidden; background: #1C1C1A; display: flex; align-items: center; justify-content: center; gap: 40px; padding: 16px;">
+                <video src="https://goofy-portfolio-1342690925.cos.ap-guangzhou.myqcloud.com/images/project-system-netease/motion-video-1.mp4" autoplay loop muted playsinline style="height: 100%; border-radius: 4px; object-fit: contain;"></video>
+                <video src="https://goofy-portfolio-1342690925.cos.ap-guangzhou.myqcloud.com/images/project-system-netease/motion-video-2.mp4" autoplay loop muted playsinline style="height: 100%; border-radius: 4px; object-fit: contain;"></video>
+            </div>
+
+            <div class="slide-footer">
+                <span>PORTFOLIO</span>
+                <div class="progress-bar"><div class="progress-fill" style="width: 100%;"></div></div>
+                <span>21 / 25</span>
+            </div>
+        </div>
+
+        <!-- ========== SLIDE 18: 篇章过渡 - 协作力 (品牌) - 已删除 ========== -->
+
+        <!-- ========== SLIDE 19: 未来规划 ========== -->
+        <div class="slide" data-slide="19">
+            <div class="slide-meta">
+                <span>未来规划</span>
+                <span>FUTURE PLAN</span>
+            </div>
+            <h2 class="fade-in" style="margin-bottom: 48px;"><span class="num">PART 03</span>未来规划</h2>
+            
+            <div class="two-col fade-in delay-1" style="align-items: stretch; gap: 64px;">
+                <!-- 左列：于个人 -->
+                <div class="col" style="border-top: 2px solid var(--ink-primary); padding-top: 24px; display: flex; flex-direction: column;">
+                    <h3 style="font-size: 16px; margin-bottom: 24px; color: var(--ink-primary); border-bottom: none; padding-bottom: 0;">于个人 / 拓宽边界</h3>
+                    <div style="display: flex; flex-direction: column; gap: 32px;">
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <strong style="font-size: 15px; color: var(--ink-primary); font-weight: 500; letter-spacing: 0.05em;">提升技术纵深 (AI + 编程)</strong>
+                            <span style="font-size: 13px; color: var(--ink-secondary); line-height: 1.6;">探索前端与脚本开发 / 推动设计方案的工程化落地</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <strong style="font-size: 15px; color: var(--ink-primary); font-weight: 500; letter-spacing: 0.05em;">升维业务判断力 (用户思维)</strong>
+                            <span style="font-size: 13px; color: var(--ink-secondary); line-height: 1.6;">建立数据驱动意识 / 以业务目标与用户体验为导向</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 右列：于团队 -->
+                <div class="col" style="border-top: 2px solid var(--accent); padding-top: 24px; display: flex; flex-direction: column;">
+                    <h3 style="font-size: 16px; margin-bottom: 24px; color: var(--accent); border-bottom: none; padding-bottom: 0;">于团队 / 组织进化</h3>
+                    <div style="display: flex; flex-direction: column; gap: 32px;">
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <strong style="font-size: 15px; color: var(--accent); font-weight: 500; letter-spacing: 0.05em;">沉淀工业化标准</strong>
+                            <span style="font-size: 13px; color: var(--ink-secondary); line-height: 1.6;">沉淀AI工具与标准工作流 / 降低团队复用提效门槛</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <strong style="font-size: 15px; color: var(--accent); font-weight: 500; letter-spacing: 0.05em;">打造学习型团队</strong>
+                            <span style="font-size: 13px; color: var(--ink-secondary); line-height: 1.6;">完善新人带教机制 / 推动内部分享与协同增效</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide-footer">
+                <span>PLAN</span>
+                <div class="progress-bar"><div class="progress-fill" style="width: 100%;"></div></div>
+                <span>22 / 25</span>
+            </div>
+        </div>
+
+        <!-- ========== SLIDE 20: 感谢页 ========== -->
+        <div class="slide end-page" data-slide="20">
+            <div class="slide-meta">
+                <span>结语</span>
+                <span>THE END</span>
+            </div>
+            <h2 class="fade-in" style="margin-bottom: 8px;">THANKS</h2>
+            <p class="fade-in delay-2" style="font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-tertiary); margin-top: 24px;">[高飞] · [2026.03]</p>
+            <div class="slide-footer">
+                <span>END</span>
+                <div class="progress-bar"><div class="progress-fill" style="width: 100%;"></div></div>
+                <span>23 / 25</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 导航控件 -->
+    <div class="nav-controls" id="navControls">
+        <button class="nav-btn" id="prevBtn" disabled="">← PREV</button>
+        <span class="page-info" id="pageInfo">01 / 23</span>
+        <button class="nav-btn" id="nextBtn">NEXT →</button>
+    </div>
+
+    <!-- >>> 控制器面板开始 - 删除此区块不影响主体页面 <<< -->
+    <button class="ec-toggle-btn" id="ecToggleBtn" title="打开控制面板">☰</button>
+    <div class="ec-panel" id="ecPanel">
+        <div class="ec-header" id="ecHeader" style="cursor: move;">
+            <span class="ec-header-title">☰ 控制面板</span>
+            <div class="ec-header-actions">
+                <button class="ec-header-btn" id="ecMinBtn" title="收起">−</button>
+            </div>
+        </div>
+        <div class="ec-body">
+
+            <!-- 🎬 Kinetic 封面动画 -->
+            <div class="ec-element-group">
+                <div class="ec-element-header ec-open" onclick="this.classList.toggle('ec-open')">
+                    <span class="ec-element-arrow">▶</span>
+                    <span class="ec-element-name">封面动画</span>
+                    <span class="ec-element-selector">.km-bar</span>
+                </div>
+                <div class="ec-element-content">
+                    <div class="ec-ctrl-group">
+                        <div class="ec-ctrl-group-title">🎬 动画</div>
+                        <div class="ec-ctrl-row">
+                            <span class="ec-ctrl-label">条纹数</span>
+                            <input type="range" class="ec-ctrl-slider" min="40" max="200" value="120" step="10" id="ecBarCount">
+                            <span class="ec-ctrl-value">120</span>
+                        </div>
+                        <div class="ec-ctrl-row">
+                            <span class="ec-ctrl-label">字号</span>
+                            <input type="range" class="ec-ctrl-slider" min="80" max="300" value="200" step="10" id="ecFontSize">
+                            <span class="ec-ctrl-value">200px</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 🔷 幻灯片 -->
+            <div class="ec-element-group">
+                <div class="ec-element-header" onclick="this.classList.toggle('ec-open')">
+                    <span class="ec-element-arrow">▶</span>
+                    <span class="ec-element-name">幻灯片</span>
+                    <span class="ec-element-selector">.slide</span>
+                </div>
+                <div class="ec-element-content">
+                    <div class="ec-ctrl-group">
+                        <div class="ec-ctrl-group-title">🔷 形状</div>
+                        <div class="ec-ctrl-row">
+                            <span class="ec-ctrl-label">圆角</span>
+                            <input type="range" class="ec-ctrl-slider" min="0" max="24" value="4" data-target=".slide" data-prop="borderRadius" data-unit="px">
+                            <span class="ec-ctrl-value">4px</span>
+                        </div>
+                        <div class="ec-ctrl-row">
+                            <span class="ec-ctrl-label">背景</span>
+                            <input type="color" class="ec-ctrl-color" value="#1C1C1A" data-target=".slide" data-prop="backgroundColor">
+                            <span class="ec-ctrl-value">#1C1C1A</span>
+                        </div>
+                    </div>
+                    <div class="ec-ctrl-group">
+                        <div class="ec-ctrl-group-title">🌑 阴影</div>
+                        <div class="ec-ctrl-row">
+                            <span class="ec-ctrl-label">模糊</span>
+                            <input type="range" class="ec-ctrl-slider" min="0" max="80" value="40" id="ecSlideShadowBlur">
+                            <span class="ec-ctrl-value">40px</span>
+                        </div>
+                        <div class="ec-ctrl-row">
+                            <span class="ec-ctrl-label">透明度</span>
+                            <input type="range" class="ec-ctrl-slider" min="0" max="80" value="40" step="1" id="ecSlideShadowAlpha">
+                            <span class="ec-ctrl-value">0.40</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 🔤 标题文字 -->
+            <div class="ec-element-group">
+                <div class="ec-element-header" onclick="this.classList.toggle('ec-open')">
+                    <span class="ec-element-arrow">▶</span>
+                    <span class="ec-element-name">标题文字</span>
+                    <span class="ec-element-selector">h2</span>
+                </div>
+                <div class="ec-element-content">
+                    <div class="ec-ctrl-group">
+                        <div class="ec-ctrl-group-title">🔤 文字</div>
+                        <div class="ec-ctrl-row">
+                            <span class="ec-ctrl-label">字号</span>
+                            <input type="range" class="ec-ctrl-slider" min="18" max="56" value="28" data-target=".slide h2" data-prop="fontSize" data-unit="px">
+                            <span class="ec-ctrl-value">28px</span>
+                        </div>
+                        <div class="ec-ctrl-row">
+                            <span class="ec-ctrl-label">字重</span>
+                            <input type="range" class="ec-ctrl-slider" min="300" max="900" value="700" step="100" data-target=".slide h2" data-prop="fontWeight" data-unit="">
+                            <span class="ec-ctrl-value">700</span>
+                        </div>
+                        <div class="ec-ctrl-row">
+                            <span class="ec-ctrl-label">字距</span>
+                            <input type="range" class="ec-ctrl-slider" min="-5" max="10" value="-0.5" step="0.1" data-target=".slide h2" data-prop="letterSpacing" data-unit="px">
+                            <span class="ec-ctrl-value">-0.5px</span>
+                        </div>
+                        <div class="ec-ctrl-row">
+                            <span class="ec-ctrl-label">颜色</span>
+                            <input type="color" class="ec-ctrl-color" value="#FFFFFF" data-target=".slide h2" data-prop="color">
+                            <span class="ec-ctrl-value">#FFFFFF</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 📊 数据卡片 -->
+            <div class="ec-element-group">
+                <div class="ec-element-header" onclick="this.classList.toggle('ec-open')">
+                    <span class="ec-element-arrow">▶</span>
+                    <span class="ec-element-name">数据卡片</span>
+                    <span class="ec-element-selector">.stat-card</span>
+                </div>
+                <div class="ec-element-content">
+                    <div class="ec-ctrl-group">
+                        <div class="ec-ctrl-group-title">🔤 文字</div>
+                        <div class="ec-ctrl-row">
+                            <span class="ec-ctrl-label">数字号</span>
+                            <input type="range" class="ec-ctrl-slider" min="24" max="72" value="42" data-target=".stat-card .value" data-prop="fontSize" data-unit="px">
+                            <span class="ec-ctrl-value">42px</span>
+                        </div>
+                        <div class="ec-ctrl-row">
+                            <span class="ec-ctrl-label">标签号</span>
+                            <input type="range" class="ec-ctrl-slider" min="8" max="16" value="11" data-target=".stat-card .label" data-prop="fontSize" data-unit="px">
+                            <span class="ec-ctrl-value">11px</span>
+                        </div>
+                    </div>
+                    <div class="ec-ctrl-group">
+                        <div class="ec-ctrl-group-title">🔷 形状</div>
+                        <div class="ec-ctrl-row">
+                            <span class="ec-ctrl-label">线粗</span>
+                            <input type="range" class="ec-ctrl-slider" min="0" max="6" value="2" data-target=".stat-card" data-prop="borderTopWidth" data-unit="px">
+                            <span class="ec-ctrl-value">2px</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 🎨 全局配色 -->
+            <div class="ec-element-group">
+                <div class="ec-element-header" onclick="this.classList.toggle('ec-open')">
+                    <span class="ec-element-arrow">▶</span>
+                    <span class="ec-element-name">全局配色</span>
+                    <span class="ec-element-selector">:root</span>
+                </div>
+                <div class="ec-element-content">
+                    <div class="ec-ctrl-group">
+                        <div class="ec-ctrl-group-title">🎨 主题</div>
+                        <div class="ec-ctrl-row">
+                            <span class="ec-ctrl-label">背景</span>
+                            <input type="color" class="ec-ctrl-color" value="#0A0A0A" id="ecBgColor">
+                            <span class="ec-ctrl-value">#0A0A0A</span>
+                        </div>
+                        <div class="ec-ctrl-row">
+                            <span class="ec-ctrl-label">主色</span>
+                            <input type="color" class="ec-ctrl-color" value="#FFFFFF" id="ecInkPrimary">
+                            <span class="ec-ctrl-value">#FFFFFF</span>
+                        </div>
+                        <div class="ec-ctrl-row">
+                            <span class="ec-ctrl-label">次色</span>
+                            <input type="color" class="ec-ctrl-color" value="#A0A09F" id="ecInkSecondary">
+                            <span class="ec-ctrl-value">#A0A09F</span>
+                        </div>
+                        <div class="ec-ctrl-row">
+                            <span class="ec-ctrl-label">强调色</span>
+                            <input type="color" class="ec-ctrl-color" value="#E24A3F" id="ecAccent">
+                            <span class="ec-ctrl-value">#E24A3F</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- >>> 控制器面板结束 <<< -->
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let currentSlide = 0;
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const pageInfo = document.getElementById('pageInfo');
+
+        // ===== Kinetic 封面效果 =====
+        (function() {
+            const player = document.getElementById('kmPlayer');
+            const stage = document.getElementById('kmStage');
+            const btn = document.getElementById('kmBtn');
+            const txt = document.getElementById('kmText');
+            const prog = document.getElementById('kmProgress');
+            const tdisp = document.getElementById('kmTime');
+            let playing = true, elapsed = 0, timer;
+
+            function buildBars() {
+                const N = 120, VW = 1200, VH = 300, bw = VW / N, gap = 1.5;
+                let rects = '';
+                for (let i = 0; i < N; i++) {
+                    const x = i * bw, nx = i / N;
+                    const sw = Math.sin(nx * Math.PI * 2);
+                    const fw = Math.sin(nx * Math.PI * 6) * 0.5;
+                    const cw = (sw + fw) / 1.5;
+                    const delay = nx * -2.5;
+                    const dur = 1.8 + Math.random() * 0.4;
+                    const sMin = 0.1 + Math.abs(fw) * 0.2;
+                    const sMax = 0.4 + Math.abs(cw) * 0.6;
+                    rects += `<rect class="km-bar" x="${x}" y="0" width="${bw - gap}" height="100%" style="--anim-delay:${delay}s;--anim-duration:${dur}s;--scale-min:${sMin};--scale-max:${sMax};"/>`;
+                }
+                stage.innerHTML = `<svg class="km-svg" viewBox="0 0 ${VW} ${VH}" preserveAspectRatio="xMidYMid meet"><defs><clipPath id="kmMask"><text x="50%" y="65%" text-anchor="middle" font-family="'Noto Sans SC',Inter,sans-serif" font-weight="700" font-size="200px" letter-spacing="-0.02em">试用期总结</text></clipPath></defs><g clip-path="url(#kmMask)">${rects}</g></svg>`;
+            }
+
+            function fmt(s) {
+                return `${String(Math.floor(s/60)).padStart(2,'0')}:${String(Math.floor(s%60)).padStart(2,'0')}`;
+            }
+            function tick() {
+                if (!playing) return;
+                elapsed += 0.1;
+                tdisp.textContent = fmt(elapsed);
+                prog.style.width = `${(elapsed % 60) / 60 * 100}%`;
+            }
+            function toggle(e) {
+                if (e) e.stopPropagation();
+                playing = !playing;
+                player.classList.toggle('is-playing', playing);
+                player.classList.toggle('is-paused', !playing);
+                txt.textContent = playing ? 'PLAYING' : 'PAUSED';
+                if (playing) timer = setInterval(tick, 100);
+                else clearInterval(timer);
+            }
+
+            buildBars();
+            btn.addEventListener('click', toggle);
+            stage.addEventListener('click', toggle);
+            timer = setInterval(tick, 100);
+        })();
+
+        // 生成结束页装饰
+        function generateEndDecoration() {
+            const el = document.getElementById('endDeco');
+            if (!el) return;
+            const numBars = 80;
+            let rects = '';
+            for (let i = 0; i < numBars; i++) {
+                const x = (i / numBars) * 100;
+                const w = 100 / numBars * 0.6;
+                const h = 20 + Math.random() * 80;
+                const y = (100 - h) / 2;
+                rects += `<rect x="${x}%" y="${y}%" width="${w}%" height="${h}%" fill="var(--ink-primary)"/>`;
+            }
+            el.innerHTML = `<svg viewBox="0 0 100 100" preserveAspectRatio="none" style="width:100%;height:100%">${rects}</svg>`;
+        }
+
+        function showSlide(index) {
+            slides.forEach((s, i) => {
+                s.classList.remove('active');
+                // 重置动画
+                s.querySelectorAll('.fade-in').forEach(el => {
+                    el.style.animation = 'none';
+                    el.offsetHeight; // 触发 reflow
+                    el.style.animation = '';
+                });
+            });
+            slides[index].classList.add('active');
+            
+            // 更新进度条
+            const progressPercent = ((index) / (totalSlides - 1)) * 100;
+            document.querySelectorAll('.progress-fill').forEach(bar => {
+                bar.style.width = progressPercent + '%';
+            });
+
+            // 更新导航
+            const num = String(index + 1).padStart(2, '0');
+            const total = String(totalSlides).padStart(2, '0');
+            pageInfo.textContent = `${num} / ${total}`;
+            prevBtn.disabled = index === 0;
+            nextBtn.disabled = index === totalSlides - 1;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentSlide > 0) { currentSlide--; showSlide(currentSlide); }
+        });
+        nextBtn.addEventListener('click', () => {
+            if (currentSlide < totalSlides - 1) { currentSlide++; showSlide(currentSlide); }
+        });
+
+        // 键盘导航
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+                e.preventDefault();
+                if (currentSlide < totalSlides - 1) { currentSlide++; showSlide(currentSlide); }
+            }
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (currentSlide > 0) { currentSlide--; showSlide(currentSlide); }
+            }
+        });
+
+        // 初始化
+        generateEndDecoration();
+        showSlide(0);
+    });
+    </script>
+
+    <!-- >>> 控制器脚本开始 - 删除此区块不影响主体页面 <<< -->
+    <script>
+    (function() {
+        'use strict';
+        const panel = document.getElementById('ecPanel');
+        const toggleBtn = document.getElementById('ecToggleBtn');
+        const minBtn = document.getElementById('ecMinBtn');
+        const header = document.getElementById('ecHeader');
+
+        // 面板显示/隐藏
+        toggleBtn.addEventListener('click', () => { panel.classList.add('ec-visible'); toggleBtn.style.display = 'none'; });
+        minBtn.addEventListener('click', () => { panel.classList.remove('ec-visible'); toggleBtn.style.display = 'flex'; });
+
+        // 面板拖拽
+        let isDragging = false, dx = 0, dy = 0;
+        header.addEventListener('mousedown', (e) => {
+            if (e.target.closest('.ec-header-btn')) return;
+            isDragging = true;
+            const r = panel.getBoundingClientRect();
+            dx = e.clientX - r.left; dy = e.clientY - r.top;
+            header.style.cursor = 'grabbing'; e.preventDefault();
+        });
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const x = Math.max(0, Math.min(window.innerWidth - panel.offsetWidth, e.clientX - dx));
+            const y = Math.max(0, Math.min(window.innerHeight - 50, e.clientY - dy));
+            panel.style.left = x + 'px'; panel.style.top = y + 'px';
+            toggleBtn.style.left = x + 'px'; toggleBtn.style.top = y + 'px';
+        });
+        document.addEventListener('mouseup', () => { isDragging = false; header.style.cursor = 'move'; });
+
+        // 通用滑块更新
+        document.querySelectorAll('.ec-ctrl-slider[data-target]').forEach(slider => {
+            slider.addEventListener('input', () => {
+                const t = slider.dataset.target, p = slider.dataset.prop, u = slider.dataset.unit || '';
+                const v = slider.value, vd = slider.closest('.ec-ctrl-row').querySelector('.ec-ctrl-value');
+                vd.textContent = v + u;
+                document.querySelectorAll(t).forEach(el => { el.style[p] = v + u; });
+            });
+        });
+
+        // 通用颜色更新
+        document.querySelectorAll('.ec-ctrl-color[data-target]').forEach(ci => {
+            ci.addEventListener('input', () => {
+                const t = ci.dataset.target, p = ci.dataset.prop;
+                ci.closest('.ec-ctrl-row').querySelector('.ec-ctrl-value').textContent = ci.value;
+                document.querySelectorAll(t).forEach(el => { el.style[p] = ci.value; });
+            });
+        });
+
+        // === 封面动画：条纹数 & 字号 ===
+        const ecBarCount = document.getElementById('ecBarCount');
+        const ecFontSize = document.getElementById('ecFontSize');
+        function rebuildKinetic() {
+            const N = parseInt(ecBarCount.value);
+            const fs = parseInt(ecFontSize.value);
+            const stage = document.getElementById('kmStage');
+            const VW = 1200, VH = 300, bw = VW / N, gap = 1.5;
+            let rects = '';
+            for (let i = 0; i < N; i++) {
+                const x = i * bw, nx = i / N;
+                const sw = Math.sin(nx * Math.PI * 2);
+                const fw = Math.sin(nx * Math.PI * 6) * 0.5;
+                const cw = (sw + fw) / 1.5;
+                const delay = nx * -2.5;
+                const dur = 1.8 + Math.random() * 0.4;
+                const sMin = 0.1 + Math.abs(fw) * 0.2;
+                const sMax = 0.4 + Math.abs(cw) * 0.6;
+                rects += `<rect class="km-bar" x="${x}" y="0" width="${bw - gap}" height="100%" style="--anim-delay:${delay}s;--anim-duration:${dur}s;--scale-min:${sMin};--scale-max:${sMax};"/>`;
+            }
+            stage.innerHTML = `<svg class="km-svg" viewBox="0 0 ${VW} ${VH}" preserveAspectRatio="xMidYMid meet"><defs><clipPath id="kmMask"><text x="50%" y="65%" text-anchor="middle" font-family="'Noto Sans SC',Inter,sans-serif" font-weight="700" font-size="${fs}px" letter-spacing="-0.02em">试用期总结</text></clipPath></defs><g clip-path="url(#kmMask)">${rects}</g></svg>`;
+        }
+        ecBarCount.addEventListener('input', () => {
+            ecBarCount.closest('.ec-ctrl-row').querySelector('.ec-ctrl-value').textContent = ecBarCount.value;
+            rebuildKinetic();
+        });
+        ecFontSize.addEventListener('input', () => {
+            ecFontSize.closest('.ec-ctrl-row').querySelector('.ec-ctrl-value').textContent = ecFontSize.value + 'px';
+            rebuildKinetic();
+        });
+
+        // === 幻灯片阴影 ===
+        const shadowBlur = document.getElementById('ecSlideShadowBlur');
+        const shadowAlpha = document.getElementById('ecSlideShadowAlpha');
+        function updateSlideShadow() {
+            const b = shadowBlur.value, a = (shadowAlpha.value / 100).toFixed(2);
+            shadowBlur.closest('.ec-ctrl-row').querySelector('.ec-ctrl-value').textContent = b + 'px';
+            shadowAlpha.closest('.ec-ctrl-row').querySelector('.ec-ctrl-value').textContent = a;
+            document.querySelectorAll('.slide').forEach(el => {
+                el.style.boxShadow = `0 8px ${b}px rgba(0,0,0,${a})`;
+            });
+        }
+        shadowBlur.addEventListener('input', updateSlideShadow);
+        shadowAlpha.addEventListener('input', updateSlideShadow);
+
+        // === 全局配色 ===
+        const root = document.documentElement;
+        document.getElementById('ecBgColor').addEventListener('input', function() {
+            document.body.style.background = this.value;
+            this.closest('.ec-ctrl-row').querySelector('.ec-ctrl-value').textContent = this.value;
+        });
+        document.getElementById('ecInkPrimary').addEventListener('input', function() {
+            root.style.setProperty('--ink-primary', this.value);
+            this.closest('.ec-ctrl-row').querySelector('.ec-ctrl-value').textContent = this.value;
+        });
+        document.getElementById('ecInkSecondary').addEventListener('input', function() {
+            root.style.setProperty('--ink-secondary', this.value);
+            this.closest('.ec-ctrl-row').querySelector('.ec-ctrl-value').textContent = this.value;
+        });
+        document.getElementById('ecAccent').addEventListener('input', function() {
+            root.style.setProperty('--accent', this.value);
+            this.closest('.ec-ctrl-row').querySelector('.ec-ctrl-value').textContent = this.value;
+        });
+
+        console.log('[Element Controller] ✅ 控制面板已加载');
+    })();
+    </script>
+    <!-- >>> 控制器脚本结束 <<< -->
+
+
+</body></html>
